@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm 15mm;
+            background-color: #ffffff;
+        }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #2c3e50;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            font-size: 10.5pt;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        .header {
+            position: relative;
+            text-align: left;
+            padding-left: 140px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #34495e;
+            margin-bottom: 20px;
+            min-height: 125px;
+        }
+        .profile-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .header h1 {
+            font-size: 26pt;
+            color: #2c3e50;
+            margin: 0 0 5px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .header p {
+            margin: 0;
+            font-size: 10.5pt;
+            color: #34495e;
+        }
+        .contact-info {
+            font-size: 9.5pt;
+            color: #7f8c8d;
+            margin-top: 4px;
+        }
+
+        h2 {
+            font-size: 13pt;
+            color: #2980b9;
+            text-transform: uppercase;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 4px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+            letter-spacing: 0.5px;
+        }
+
+        .entry {
+            margin-bottom: 15px;
+        }
+        .entry-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 2px;
+        }
+        .entry-title {
+            display: table-cell;
+            font-weight: bold;
+            font-size: 11pt;
+            color: #2c3e50;
+        }
+        .entry-date {
+            display: table-cell;
+            text-align: right;
+            font-size: 10pt;
+            color: #7f8c8d;
+            white-space: nowrap;
+            width: 30%;
+        }
+        .entry-subtitle {
+            font-size: 10.5pt;
+            font-style: italic;
+            color: #34495e;
+            margin-bottom: 4px;
+        }
+
+        ul {
+            margin: 4px 0 0 0;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 4px;
+            text-align: justify;
+        }
+
+        a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+
+        table.skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            page-break-inside: avoid;
+        }
+        table.skills-table th, table.skills-table td {
+            border: 1px solid #ecf0f1;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        table.skills-table th {
+            background-color: #f8f9fa;
+            width: 30%;
+            font-weight: bold;
+            color: #34495e;
+        }
+        table.skills-table td {
+            color: #2c3e50;
+        }
+
+        .dense-list li {
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="profile.jpg" alt="Ferenc Pálos" class="profile-photo">
+        <h1>Ferenc Pálos</h1>
+        <p>Budapest, Hungary &nbsp;|&nbsp; Computer Engineering Student &amp; IT Intern</p>
+        <div class="contact-info">
+            <a href="mailto:ferencpalos.image003@simplelogin.com">ferencpalos.image003@simplelogin.com</a> &nbsp;|&nbsp; <a href="https://www.linkedin.com/in/ferencpalos" target="_blank" rel="noopener noreferrer">linkedin.com/in/ferencpalos</a> &nbsp;|&nbsp; <a href="https://github.com/palosferi" target="_blank" rel="noopener noreferrer">github.com/palosferi</a>
+        </div>
+    </div>
+
+    <h2>Professional Experience</h2>
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">IT Intern</div>
+            <div class="entry-date">January 2025 – Present</div>
+        </div>
+        <div class="entry-subtitle">Movasol Energy Zrt. | Budapest</div>
+        <ul>
+            <li><strong>Infrastructure and server maintenance:</strong> Administration of cloud services, maintenance of corporate servers and delivery of technical infrastructure improvements.</li>
+            <li><strong>Domain operations:</strong> Management of DNS configurations, domain routing and general web infrastructure.</li>
+            <li><strong>Web development:</strong> Building and maintaining internal web tools that support the scaling of operations.</li>
+            <li><strong>Technical coordination:</strong> Working together with technical management during system rollouts.</li>
+        </ul>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">Member and Mentor, Dormitory Computer Science Club</div>
+            <div class="entry-date">February 2025 – Present</div>
+        </div>
+        <div class="entry-subtitle">Budapest University of Technology and Economics (BME)</div>
+        <ul>
+            <li><strong>Community leadership:</strong> Mentoring junior students in IT and software development topics.</li>
+            <li><strong>Infrastructure management:</strong> Administration and maintenance of shared digital version control systems.</li>
+        </ul>
+    </div>
+
+    <h2>Education</h2>
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">BSc in Computer Engineering</div>
+            <div class="entry-date">September 2023 – Present</div>
+        </div>
+        <div class="entry-subtitle">Budapest University of Technology and Economics (BME)</div>
+    </div>
+
+    <h2>Projects and Practical Experience</h2>
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">Tor Security Research and Website Fingerprinting</div>
+            <div class="entry-date">February 2026 – June 2026</div>
+        </div>
+        <div class="entry-subtitle">Link: <a href="https://github.com/palosferi/onlab" target="_blank" rel="noopener noreferrer">github.com/palosferi/onlab</a></div>
+        <ul>
+            <li><strong>Vulnerability analysis:</strong> Conducted university laboratory research applying machine learning and traffic analysis methodologies to identify security weaknesses within the Tor network.</li>
+            <li><strong>Data publication:</strong> Generated analytical charts and published the final metrics dataset in an open GitHub repository.</li>
+        </ul>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">Self-hosted Server Operation and System Administration</div>
+            <div class="entry-date">Personal project</div>
+        </div>
+        <ul>
+            <li><strong>Architecture:</strong> Operating a headless Linux Mint environment on a home server, integrated with rclone backup pipelines.</li>
+            <li><strong>Containerisation:</strong> Deployment and maintenance of Docker-based media and automation services.</li>
+        </ul>
+    </div>
+
+    <h2 style="page-break-before: always;">Skills</h2>
+    <table class="skills-table">
+        <tr>
+            <th>Programming</th>
+            <td>C++, C#, C, Python, Java</td>
+        </tr>
+        <tr>
+            <th>Web</th>
+            <td>HTML, CSS, JavaScript</td>
+        </tr>
+        <tr>
+            <th>Infrastructure & Cloud</th>
+            <td>AWS, Linux (Fedora, Mint), Docker, Kubernetes, Cisco</td>
+        </tr>
+        <tr>
+            <th>Security & Networking</th>
+            <td>Cybersecurity, Wireshark, Network security risk management, DNS</td>
+        </tr>
+        <tr>
+            <th>Tools & Methodologies</th>
+            <td>Git, Machine Learning, Deep Learning</td>
+        </tr>
+    </table>
+
+    <h2>Awards and Recognition</h2>
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">Special Prize – OTP IT Hackathon</div>
+            <div class="entry-date">January 2026</div>
+        </div>
+        <ul>
+            <li><strong>Project development:</strong> As part of a three-person team, designed "ReSec", a cybersecurity-focused solution for secure hardware recycling.</li>
+            <li><strong>Professional presentation:</strong> Delivered a 10-minute presentation and led the Q&A session in front of a jury of IT professionals, standing out among 15 finalist teams.</li>
+        </ul>
+    </div>
+
+    <div style="display: table; width: 100%; margin-top: 15px;">
+        <div style="display: table-cell; width: 50%; padding-right: 10px;">
+            <h2>Certifications</h2>
+            <ul class="dense-list" style="padding-left: 15px;">
+                <li><strong>CCNA: Introduction to Networks</strong><br><span style="color: #7f8c8d; font-size: 9pt;">Cisco Networking Academy | May 2026</span></li>
+                <li><strong>AWS Academy Cloud Developing</strong><br><span style="color: #7f8c8d; font-size: 9pt;">Amazon Web Services | March 2026</span></li>
+                <li><strong>AWS Academy Cloud Foundations</strong><br><span style="color: #7f8c8d; font-size: 9pt;">Amazon Web Services | October 2025</span></li>
+            </ul>
+        </div>
+
+        <div style="display: table-cell; width: 50%; padding-left: 10px;">
+            <h2>Languages</h2>
+            <ul class="dense-list" style="padding-left: 15px;">
+                <li><strong>Hungarian:</strong> Native</li>
+                <li><strong>English:</strong> C1 level (Euroexam, 2022)</li>
+                <li><strong>French:</strong> B2 level (in progress)</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>Hobbies and Interests</h2>
+    <ul class="dense-list" style="color: #7f8c8d; font-size: 10pt;">
+        <li><strong>Endurance sports:</strong> Ultra-distance hiking and trail running (Kinizsi 100, Mátrabérc 55).</li>
+        <li><strong>Basketball:</strong> Competitive basketball in a county-level adult league.</li>
+        <li><strong>Scuba diving:</strong> Certified scuba diver.</li>
+    </ul>
+
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm 15mm;
+            background-color: #ffffff;
+        }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #2c3e50;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            font-size: 10.5pt;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        .header {
+            position: relative;
+            text-align: left;
+            padding-left: 140px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #34495e;
+            margin-bottom: 20px;
+            min-height: 125px;
+        }
+        .profile-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .header h1 {
+            font-size: 26pt;
+            color: #2c3e50;
+            margin: 0 0 5px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .header p {
+            margin: 0;
+            font-size: 10.5pt;
+            color: #34495e;
+        }
+        .contact-info {
+            font-size: 9.5pt;
+            color: #7f8c8d;
+            margin-top: 4px;
+        }
+
+        h2 {
+            font-size: 13pt;
+            color: #2980b9;
+            text-transform: uppercase;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 4px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+            letter-spacing: 0.5px;
+        }
+
+        .entry {
+            margin-bottom: 15px;
+        }
+        .entry-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 2px;
+        }
+        .entry-title {
+            display: table-cell;
+            font-weight: bold;
+            font-size: 11pt;
+            color: #2c3e50;
+        }
+        .entry-date {
+            display: table-cell;
+            text-align: right;
+            font-size: 10pt;
+            color: #7f8c8d;
+            white-space: nowrap;
+            width: 30%;
+        }
+        .entry-subtitle {
+            font-size: 10.5pt;
+            font-style: italic;
+            color: #34495e;
+            margin-bottom: 4px;
+        }
+        
+        ul {
+            margin: 4px 0 0 0;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 4px;
+            text-align: justify;
+        }
+        
+        a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+
+        table.skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            page-break-inside: avoid;
+        }
+        table.skills-table th, table.skills-table td {
+            border: 1px solid #ecf0f1;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        table.skills-table th {
+            background-color: #f8f9fa;
+            width: 30%;
+            font-weight: bold;
+            color: #34495e;
+        }
+        table.skills-table td {
+            color: #2c3e50;
+        }
+
+        .dense-list li {
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="profile.jpg" alt="Pálos Ferenc" class="profile-photo">
+        <h1>Pálos Ferenc</h1>
+        <p>Budapest, Magyarország &nbsp;|&nbsp; Mérnökinformatikus &amp; IT Gyakornok</p>
+        <div class="contact-info">
+            <a href="mailto:ferencpalos.image003@simplelogin.com">ferencpalos.image003@simplelogin.com</a> &nbsp;|&nbsp; <a href="https://www.linkedin.com/in/ferencpalos" target="_blank" rel="noopener noreferrer">linkedin.com/in/ferencpalos</a> &nbsp;|&nbsp; <a href="https://github.com/palosferi" target="_blank" rel="noopener noreferrer">github.com/palosferi</a>
+        </div>
+    </div>
+    <h2>Szakmai Tapasztalat</h2>
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">IT Gyakornok</div>
+            <div class="entry-date">2025. január – Folyamatban</div>
+        </div>
+        <div class="entry-subtitle">Movasol Energy Zrt. | Budapest</div>
+        <ul>
+            <li><strong>Infrastruktúra és szerverkarbantartás:</strong> Felhőszolgáltatások adminisztrációja, vállalati szerverek karbantartása és műszaki infrastruktúra-fejlesztések végrehajtása.</li>
+            <li><strong>Domain műveletek:</strong> DNS konfigurációk, domain útválasztás és általános webes infrastruktúra kezelése.</li>
+            <li><strong>Webfejlesztés:</strong> Vállalati webes eszközök építése és karbantartása a működési skálázás támogatása érdekében.</li>
+            <li><strong>Műszaki koordináció:</strong> Együttműködés a műszaki vezetőséggel a rendszerbevezetések során.</li>
+        </ul>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">Kollégiumi Számítástechnikai Kör Tag és Mentor</div>
+            <div class="entry-date">2025. február – Folyamatban</div>
+        </div>
+        <div class="entry-subtitle">Budapesti Műszaki és Gazdaságtudományi Egyetem (BME)</div>
+        <ul>
+            <li><strong>Közösségi vezetés:</strong> Junior hallgatók mentorálása informatikai és szoftverfejlesztési területeken.</li>
+            <li><strong>Infrastruktúra kezelés:</strong> Közös digitális verziókövető rendszerek adminisztrációja és karbantartása.</li>
+        </ul>
+    </div>
+
+    <h2>Tanulmányok</h2>
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">Mérnökinformatikus BSc</div>
+            <div class="entry-date">2023. szeptember – Folyamatban</div>
+        </div>
+        <div class="entry-subtitle">Budapesti Műszaki és Gazdaságtudományi Egyetem (BME)</div>
+    </div>
+
+    <h2>Projektek és Gyakorlati Tapasztalat</h2>
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">Tor Biztonsági Kutatás és Website Fingerprinting</div>
+            <div class="entry-date">2026. február – 2026. június</div>
+        </div>
+        <div class="entry-subtitle">Link: <a href="https://github.com/palosferi/onlab" target="_blank" rel="noopener noreferrer">github.com/palosferi/onlab</a></div>
+        <ul>
+            <li><strong>Sérülékenységvizsgálat:</strong> Egyetemi laboratóriumi kutatás lefolytatása gépi tanulási és forgalomelemzési módszertanok alkalmazásával a Tor hálózaton belüli biztonsági rések azonosítására.</li>
+            <li><strong>Adatpublikáció:</strong> Analitikai diagramok generálása és a végső metrika adatkészlet publikálása nyílt GitHub tárolóban.</li>
+        </ul>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">Saját Szerver Üzemeltetés és Rendszeradminisztráció</div>
+            <div class="entry-date">Saját projekt</div>
+        </div>
+        <ul>
+            <li><strong>Architektúra:</strong> Headless Linux Mint környezet üzemeltetése otthoni szerveren, rclone biztonsági mentési folyamatokkal integrálva.</li>
+            <li><strong>Konténerizáció:</strong> Docker-alapú média szolgáltatások és automatizációs szolgáltatások telepítése és karbantartása.</li>
+        </ul>
+    </div>
+
+    <h2 style="page-break-before: always;">Szakmai Ismeretek</h2>
+    <table class="skills-table">
+        <tr>
+            <th>Programozás</th>
+            <td>C++, C#, C, Python, Java</td>
+        </tr>
+        <tr>
+            <th>Web</th>
+            <td>HTML, CSS, JavaScript</td>
+        </tr>
+        <tr>
+            <th>Infrastruktúra & Felhő</th>
+            <td>AWS, Linux (Fedora, Mint), Docker, Kubernetes, Cisco</td>
+        </tr>
+        <tr>
+            <th>Biztonság & Hálózat</th>
+            <td>Kiberbiztonság, Wireshark, Hálózatbiztonsági kockázatkezelés, DNS</td>
+        </tr>
+        <tr>
+            <th>Eszközök & Módszertanok</th>
+            <td>Git, Machine Learning, Deep Learning</td>
+        </tr>
+    </table>
+
+    <h2>Kitüntetések és Elismerések</h2>
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-title">Különdíjas – OTP IT Hackathon</div>
+            <div class="entry-date">2026. január</div>
+        </div>
+        <ul>
+            <li><strong>Projektfejlesztés:</strong> Egy háromfős csapat tagjaként a "ReSec" kiberbiztonsági fókuszú, biztonságos hardver-újrahasznosítási megoldás megtervezése.</li>
+            <li><strong>Szakmai prezentáció tartása:</strong> 10 perces előadás megtartása és a Q&A szekció irányítása az IT szakértőkből álló zsűri előtt, 15 döntős csapat közül kiemelkedve.</li>
+        </ul>
+    </div>
+
+    <div style="display: table; width: 100%; margin-top: 15px;">
+        <div style="display: table-cell; width: 50%; padding-right: 10px;">
+            <h2>Tanúsítványok</h2>
+            <ul class="dense-list" style="padding-left: 15px;">
+                <li><strong>CCNA: Bevezetés a hálózatokba</strong><br><span style="color: #7f8c8d; font-size: 9pt;">Cisco Networking Academy | 2026. május</span></li>
+                <li><strong>AWS Academy Cloud Developing</strong><br><span style="color: #7f8c8d; font-size: 9pt;">Amazon Web Services | 2026. március</span></li>
+                <li><strong>AWS Academy Cloud Foundations</strong><br><span style="color: #7f8c8d; font-size: 9pt;">Amazon Web Services | 2025. október</span></li>
+            </ul>
+        </div>
+        
+        <div style="display: table-cell; width: 50%; padding-left: 10px;">
+            <h2>Nyelvtudás</h2>
+            <ul class="dense-list" style="padding-left: 15px;">
+                <li><strong>Magyar:</strong> Anyanyelv</li>
+                <li><strong>Angol:</strong> C1 szint (Euroexam, 2022)</li>
+                <li><strong>Francia:</strong> B2 szint (folyamatban)</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>Hobbik és Érdeklődési Területek</h2>
+    <ul class="dense-list" style="color: #7f8c8d; font-size: 10pt;">
+        <li><strong>Állóképességi sportok:</strong> Ultratávú túrázás és terepfutás (Kinizsi 100, Mátrabérc 55).</li>
+        <li><strong>Kosárlabda:</strong> Versenyszerű kosárlabda megyei felnőtt bajnokságban.</li>
+        <li><strong>Könnyűbúvárkodás:</strong> Minősített scuba diver.</li>
+    </ul>
+
+</body>
+</html>
