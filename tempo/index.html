@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#14181d">
+<title>Tempo</title>
+<style>
+  :root{
+    --ink:#14181d;
+    --down:#17506b;
+    --hold:#a8791b;
+    --up:#2f7148;
+    --paper:#ece5d5;
+    --muted:#7d8896;
+    --line:rgba(236,229,213,.22);
+    --display: "Avenir Next Condensed","HelveticaNeue-CondensedBold","Arial Narrow",system-ui,sans-serif;
+    --body: ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    background:var(--ink); color:var(--paper); font-family:var(--body);
+    overflow:hidden; touch-action:manipulation;
+    -webkit-font-smoothing:antialiased;
+  }
+  #app{
+    position:fixed; inset:0;
+    display:flex; flex-direction:column;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    background:var(--ink);
+    transition:background-color .18s linear;
+  }
+  #app[data-phase="down"]{background:var(--down)}
+  #app[data-phase="hold"]{background:var(--hold)}
+  #app[data-phase="up"]{background:var(--up)}
+  #app[data-phase="top"]{background:#232a33}
+
+  /* ---------- shared bits ---------- */
+  .eyebrow{
+    font-family:var(--body); font-size:12px; font-weight:600;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--muted);
+  }
+  .big{
+    font-family:var(--display); font-weight:700;
+    font-variant-numeric:tabular-nums; line-height:.86;
+    letter-spacing:-.01em;
+  }
+
+  /* ---------- setup ---------- */
+  #setup{flex:1; overflow-y:auto; padding:28px 22px 32px; max-width:520px; width:100%; margin:0 auto}
+  #setup h1{font-family:var(--display); font-size:52px; font-weight:700; line-height:.9; letter-spacing:-.02em}
+  #setup .sub{color:var(--muted); font-size:14px; margin-top:10px; line-height:1.5}
+  .group{margin-top:30px}
+  .group > .eyebrow{display:block; margin-bottom:12px}
+  .row{display:flex; gap:10px}
+  .field{flex:1; min-width:0}
+  .field label{display:block; font-size:11px; color:var(--muted); margin-bottom:5px; letter-spacing:.05em}
+  .field input{
+    width:100%; background:transparent; border:1px solid var(--line); border-radius:2px;
+    color:var(--paper); font-family:var(--display); font-size:30px; font-weight:700;
+    font-variant-numeric:tabular-nums; text-align:center; padding:10px 4px;
+    appearance:none; -webkit-appearance:none;
+  }
+  .field input:focus{outline:none; border-color:var(--paper)}
+  .estimate{
+    margin-top:26px; padding-top:16px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:baseline; font-size:13px; color:var(--muted);
+  }
+  .estimate strong{font-family:var(--display); font-size:26px; color:var(--paper); font-weight:700}
+  #start{
+    width:100%; margin-top:26px; padding:20px; border:none; border-radius:2px;
+    background:var(--paper); color:var(--ink);
+    font-family:var(--display); font-size:26px; font-weight:700; letter-spacing:.04em;
+    text-transform:uppercase; cursor:pointer;
+  }
+  #start:active{opacity:.75}
+  .note{margin-top:18px; font-size:12px; color:var(--muted); line-height:1.6}
+
+  /* ---------- run ---------- */
+  #run{flex:1; display:none; flex-direction:column}
+  #app.running #setup{display:none}
+  #app.running #run{display:flex}
+
+  #topbar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 20px 10px; flex:0 0 auto;
+  }
+  #stop{
+    background:none; border:1px solid var(--line); color:var(--paper);
+    font-family:var(--body); font-size:11px; font-weight:600; letter-spacing:.14em;
+    text-transform:uppercase; padding:8px 14px; border-radius:2px; cursor:pointer;
+  }
+
+  /* the signature: a rule that travels down and back up with your body */
+  #stage{flex:1; position:relative; overflow:hidden; min-height:0}
+  #track{position:absolute; inset:14% 0 14%; }
+  #rule{
+    position:absolute; left:0; right:0; top:0; height:3px; background:var(--paper);
+    box-shadow:0 0 18px rgba(236,229,213,.35);
+    transform:translateY(0);
+  }
+  #rule::before,#rule::after{
+    content:""; position:absolute; top:-4px; width:11px; height:11px;
+    background:var(--paper); transform:rotate(45deg);
+  }
+  #rule::before{left:16px} #rule::after{right:16px}
+
+  #centre{
+    position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; pointer-events:none;
+  }
+  #phase{font-family:var(--display); font-size:clamp(52px,17vw,110px); font-weight:700; text-transform:uppercase; letter-spacing:.02em}
+  #countdown{font-family:var(--display); font-size:clamp(84px,30vw,190px); font-weight:700; font-variant-numeric:tabular-nums; line-height:.9}
+  #nextup{font-size:13px; color:rgba(236,229,213,.7); margin-top:14px; letter-spacing:.08em; text-transform:uppercase}
+
+  #bottombar{flex:0 0 auto; padding:0 20px 22px}
+  #dots{display:flex; flex-wrap:wrap; gap:5px; justify-content:center; margin-bottom:18px; min-height:9px}
+  .dot{width:9px; height:9px; border-radius:50%; border:1.5px solid rgba(236,229,213,.5)}
+  .dot.done{background:var(--paper); border-color:var(--paper)}
+  #stats{display:flex; justify-content:space-between; align-items:flex-end}
+  .stat{display:flex; flex-direction:column; gap:5px}
+  .stat .eyebrow{font-size:10px}
+  .stat .v{font-family:var(--display); font-size:34px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1}
+  .stat.r{align-items:flex-end}
+  #pause{
+    background:none; border:1px solid var(--line); color:var(--paper);
+    font-family:var(--display); font-size:17px; font-weight:700; letter-spacing:.1em;
+    text-transform:uppercase; padding:11px 22px; border-radius:2px; cursor:pointer; min-width:104px;
+  }
+  #pause:active{opacity:.7}
+
+  @media (prefers-reduced-motion: reduce){
+    #app{transition:none}
+  }
+</style>
+</head>
+<body>
+<div id="app" data-phase="idle">
+
+  <section id="setup">
+    <h1>Tempo</h1>
+    <p class="sub">Rep-by-rep tempo cues and rest countdown. Prop the phone where you can see it, ringer on.</p>
+
+    <div class="group">
+      <span class="eyebrow">Tempo — seconds per phase</span>
+      <div class="row">
+        <div class="field"><label>Down</label><input id="f-down" type="number" inputmode="decimal" min="0" max="15" step=".5" value="3"></div>
+        <div class="field"><label>Bottom</label><input id="f-hold" type="number" inputmode="decimal" min="0" max="15" step=".5" value="1"></div>
+        <div class="field"><label>Up</label><input id="f-up" type="number" inputmode="decimal" min="0" max="15" step=".5" value="2"></div>
+        <div class="field"><label>Top</label><input id="f-top" type="number" inputmode="decimal" min="0" max="15" step=".5" value="0"></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="eyebrow">Volume</span>
+      <div class="row">
+        <div class="field"><label>Reps</label><input id="f-reps" type="number" inputmode="numeric" min="1" max="99" value="15"></div>
+        <div class="field"><label>Sets</label><input id="f-sets" type="number" inputmode="numeric" min="1" max="30" value="5"></div>
+        <div class="field"><label>Rest (sec)</label><input id="f-rest" type="number" inputmode="numeric" min="0" max="900" step="5" value="180"></div>
+      </div>
+    </div>
+
+    <div class="estimate">
+      <span>Total session</span>
+      <strong id="est">—</strong>
+    </div>
+
+    <button id="start">Start</button>
+    <p class="note">Settings live in the URL — bookmark once it's dialled in and it reopens ready to go. Screen stays awake while it runs.</p>
+  </section>
+
+  <section id="run">
+    <div id="topbar">
+      <span class="eyebrow" id="label">Get ready</span>
+      <button id="stop">End</button>
+    </div>
+
+    <div id="stage">
+      <div id="track"><div id="rule"></div></div>
+      <div id="centre">
+        <div id="phase"></div>
+        <div id="countdown"></div>
+        <div id="nextup"></div>
+      </div>
+    </div>
+
+    <div id="bottombar">
+      <div id="dots"></div>
+      <div id="stats">
+        <div class="stat"><span class="eyebrow">Rep</span><span class="v" id="v-rep">—</span></div>
+        <button id="pause">Pause</button>
+        <div class="stat r"><span class="eyebrow">Set</span><span class="v" id="v-set">—</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var app = document.getElementById('app');
+  var els = {
+    est: document.getElementById('est'),
+    label: document.getElementById('label'),
+    phase: document.getElementById('phase'),
+    countdown: document.getElementById('countdown'),
+    nextup: document.getElementById('nextup'),
+    rule: document.getElementById('rule'),
+    track: document.getElementById('track'),
+    dots: document.getElementById('dots'),
+    vrep: document.getElementById('v-rep'),
+    vset: document.getElementById('v-set'),
+    pause: document.getElementById('pause')
+  };
+  var fields = {
+    down: document.getElementById('f-down'), hold: document.getElementById('f-hold'),
+    up: document.getElementById('f-up'), top: document.getElementById('f-top'),
+    reps: document.getElementById('f-reps'), sets: document.getElementById('f-sets'),
+    rest: document.getElementById('f-rest')
+  };
+
+  /* ---------- config in the URL hash ---------- */
+  var KEYS = ['down','hold','up','top','reps','sets','rest'];
+
+  function readHash(){
+    var h = location.hash.replace(/^#/,'');
+    if(!h) return;
+    var p = new URLSearchParams(h);
+    KEYS.forEach(function(k){
+      var v = p.get(k);
+      if(v !== null && v !== '' && isFinite(+v)) fields[k].value = v;
+    });
+  }
+  function writeHash(){
+    var p = new URLSearchParams();
+    KEYS.forEach(function(k){ p.set(k, cfg[k]); });
+    history.replaceState(null,'','#'+p.toString());
+  }
+
+  var cfg = {};
+  function readConfig(){
+    cfg.down = clamp(+fields.down.value, 0, 15);
+    cfg.hold = clamp(+fields.hold.value, 0, 15);
+    cfg.up   = clamp(+fields.up.value,   0, 15);
+    cfg.top  = clamp(+fields.top.value,  0, 15);
+    cfg.reps = Math.round(clamp(+fields.reps.value, 1, 99));
+    cfg.sets = Math.round(clamp(+fields.sets.value, 1, 30));
+    cfg.rest = Math.round(clamp(+fields.rest.value, 0, 900));
+    if(cfg.down + cfg.hold + cfg.up + cfg.top <= 0) cfg.up = 1;
+  }
+  function clamp(n,lo,hi){ n = isFinite(n) ? n : lo; return Math.min(hi, Math.max(lo, n)); }
+
+  function repSeconds(){ return cfg.down + cfg.hold + cfg.up + cfg.top; }
+
+  function updateEstimate(){
+    readConfig();
+    var total = cfg.sets * cfg.reps * repSeconds() + (cfg.sets - 1) * cfg.rest + 5;
+    els.est.textContent = mmss(total * 1000);
+  }
+  function mmss(ms){
+    var s = Math.max(0, Math.round(ms/1000));
+    var m = Math.floor(s/60);
+    return m + ':' + String(s % 60).padStart(2,'0');
+  }
+
+  Object.keys(fields).forEach(function(k){
+    fields[k].addEventListener('input', updateEstimate);
+    fields[k].addEventListener('blur', function(){ fields[k].value = cfg[k]; });
+  });
+
+  /* ---------- audio ---------- */
+  var ac = null;
+  function unlockAudio(){
+    if(ac) return;
+    var C = window.AudioContext || window.webkitAudioContext;
+    if(!C) return;
+    ac = new C();
+    // silent primer so iOS actually opens the output
+    var b = ac.createBuffer(1, 1, 22050);
+    var s = ac.createBufferSource();
+    s.buffer = b; s.connect(ac.destination); s.start(0);
+  }
+  function tone(freq, dur, vol){
+    if(!ac) return;
+    if(ac.state === 'suspended') ac.resume();
+    var t = ac.currentTime;
+    var osc = ac.createOscillator();
+    var g = ac.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, t);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.connect(g); g.connect(ac.destination);
+    osc.start(t); osc.stop(t + dur + 0.02);
+  }
+  var CUES = {
+    down: function(){ tone(392, .16, .30); },
+    hold: function(){ tone(523, .10, .26); },
+    up:   function(){ tone(659, .16, .30); },
+    top:  function(){ tone(494, .09, .22); },
+    tick: function(){ tone(880, .07, .22); },
+    setEnd: function(){ tone(392,.14,.28); setTimeout(function(){tone(523,.14,.28);},150); setTimeout(function(){tone(659,.24,.30);},300); },
+    done: function(){ [523,659,784,1047].forEach(function(f,i){ setTimeout(function(){ tone(f,.3,.3); }, i*180); }); }
+  };
+
+  /* ---------- wake lock ---------- */
+  var wakeLock = null;
+  function lockScreen(){
+    if(!('wakeLock' in navigator)) return;
+    navigator.wakeLock.request('screen').then(function(l){
+      wakeLock = l;
+      l.addEventListener('release', function(){ wakeLock = null; });
+    }).catch(function(){});
+  }
+  function releaseScreen(){ if(wakeLock){ wakeLock.release().catch(function(){}); wakeLock = null; } }
+  document.addEventListener('visibilitychange', function(){
+    if(document.visibilityState === 'visible' && state.mode !== 'idle' && !state.paused) lockScreen();
+  });
+
+  /* ---------- state machine ---------- */
+  var state = {
+    mode: 'idle',      // idle | ready | work | rest | done
+    phase: null,       // down | hold | up | top
+    set: 1, rep: 1,
+    t: 0,              // ms elapsed in current segment
+    paused: false,
+    lastTick: -1,
+    raf: null, last: 0
+  };
+
+  var PHASE_ORDER = ['down','hold','up','top'];
+  var PHASE_WORD = { down:'Down', hold:'Hold', up:'Up', top:'Top' };
+
+  function segDuration(){
+    if(state.mode === 'ready') return 5000;
+    if(state.mode === 'rest')  return cfg.rest * 1000;
+    if(state.mode === 'work')  return cfg[state.phase] * 1000;
+    return Infinity;
+  }
+
+  function firstPhase(from){
+    var i = from === undefined ? 0 : from;
+    for(; i < PHASE_ORDER.length; i++){
+      if(cfg[PHASE_ORDER[i]] > 0) return i;
+    }
+    return -1;
+  }
+
+  function enterPhase(idx){
+    state.phase = PHASE_ORDER[idx];
+    CUES[state.phase]();
+  }
+
+  function advance(){
+    if(state.mode === 'ready'){
+      state.mode = 'work'; state.set = 1; state.rep = 1;
+      enterPhase(firstPhase());
+      buildDots();
+      return;
+    }
+    if(state.mode === 'rest'){
+      state.mode = 'work'; state.rep = 1;
+      enterPhase(firstPhase());
+      buildDots();
+      return;
+    }
+    if(state.mode === 'work'){
+      var next = firstPhase(PHASE_ORDER.indexOf(state.phase) + 1);
+      if(next !== -1){ enterPhase(next); return; }
+      // rep finished
+      markDot(state.rep);
+      if(state.rep < cfg.reps){
+        state.rep++;
+        enterPhase(firstPhase());
+        return;
+      }
+      // set finished
+      if(state.set < cfg.sets){
+        state.set++;
+        state.mode = 'rest'; state.phase = null; state.lastTick = -1;
+        CUES.setEnd();
+        if(cfg.rest === 0) advance();
+        return;
+      }
+      state.mode = 'done'; state.phase = null;
+      CUES.done();
+      releaseScreen();
+      return;
+    }
+  }
+
+  function loop(now){
+    state.raf = requestAnimationFrame(loop);
+    var dt = now - state.last;
+    state.last = now;
+    if(state.paused || state.mode === 'idle' || state.mode === 'done'){ render(0); return; }
+    if(dt > 2000) dt = 2000;              // returned from background — don't fast-forward wildly
+    state.t += dt;
+
+    var guard = 0;
+    while(state.t >= segDuration() && guard++ < 200){
+      state.t -= segDuration();
+      advance();
+      if(state.mode === 'done') break;
+    }
+    render(dt);
+  }
+
+  function render(){
+    var dur = segDuration();
+    var remain = dur - state.t;
+
+    if(state.mode === 'ready'){
+      app.dataset.phase = 'idle';
+      els.label.textContent = 'Get ready';
+      els.phase.textContent = '';
+      els.countdown.textContent = Math.ceil(remain/1000);
+      els.nextup.textContent = 'Set 1 of ' + cfg.sets;
+      moveRule(0);
+      countIn(remain);
+    }
+    else if(state.mode === 'work'){
+      app.dataset.phase = state.phase;
+      els.label.textContent = 'Set ' + state.set + ' of ' + cfg.sets;
+      els.phase.textContent = PHASE_WORD[state.phase];
+      els.countdown.textContent = '';
+      els.nextup.textContent = '';
+      moveRule(rulePosition());
+      els.vrep.textContent = state.rep + '/' + cfg.reps;
+      els.vset.textContent = state.set + '/' + cfg.sets;
+    }
+    else if(state.mode === 'rest'){
+      app.dataset.phase = 'idle';
+      els.label.textContent = 'Rest';
+      els.phase.textContent = '';
+      els.countdown.textContent = mmss(remain);
+      els.nextup.textContent = 'Next — set ' + state.set + ' of ' + cfg.sets;
+      moveRule(0);
+      countIn(remain);
+      els.vrep.textContent = '—';
+      els.vset.textContent = state.set + '/' + cfg.sets;
+    }
+    else if(state.mode === 'done'){
+      app.dataset.phase = 'idle';
+      els.label.textContent = 'Finished';
+      els.phase.textContent = 'Done';
+      els.countdown.textContent = '';
+      els.nextup.textContent = cfg.sets + ' sets · ' + (cfg.sets*cfg.reps) + ' reps';
+      moveRule(0);
+      els.pause.textContent = 'Again';
+    }
+  }
+
+  function countIn(remain){
+    var s = Math.ceil(remain/1000);
+    if(s <= 3 && s >= 1 && s !== state.lastTick){
+      state.lastTick = s;
+      CUES.tick();
+    }
+  }
+
+  // 0 = top of the rep (arms locked), 1 = bottom
+  function rulePosition(){
+    var p = state.t / segDuration();
+    if(p > 1) p = 1;
+    if(state.phase === 'down') return ease(p);
+    if(state.phase === 'hold') return 1;
+    if(state.phase === 'up')   return 1 - ease(p);
+    return 0;
+  }
+  function ease(p){ return p < .5 ? 2*p*p : 1 - Math.pow(-2*p+2, 2)/2; }
+
+  function moveRule(pos){
+    var h = els.track.clientHeight - 3;
+    els.rule.style.transform = 'translateY(' + (pos * h).toFixed(1) + 'px)';
+  }
+
+  function buildDots(){
+    els.dots.innerHTML = '';
+    if(cfg.reps > 30) return;
+    for(var i = 0; i < cfg.reps; i++){
+      var d = document.createElement('span');
+      d.className = 'dot';
+      els.dots.appendChild(d);
+    }
+  }
+  function markDot(n){
+    var d = els.dots.children[n-1];
+    if(d) d.className = 'dot done';
+  }
+
+  /* ---------- controls ---------- */
+  document.getElementById('start').addEventListener('click', function(){
+    readConfig();
+    KEYS.forEach(function(k){ fields[k].value = cfg[k]; });
+    writeHash();
+    unlockAudio();
+    lockScreen();
+    state.mode = 'ready'; state.t = 0; state.paused = false;
+    state.set = 1; state.rep = 1; state.lastTick = -1;
+    els.pause.textContent = 'Pause';
+    els.vrep.textContent = '—';
+    els.vset.textContent = '1/' + cfg.sets;
+    buildDots();
+    app.classList.add('running');
+    state.last = performance.now();
+    cancelAnimationFrame(state.raf);
+    state.raf = requestAnimationFrame(loop);
+  });
+
+  els.pause.addEventListener('click', function(){
+    if(state.mode === 'done'){ reset(); return; }
+    state.paused = !state.paused;
+    els.pause.textContent = state.paused ? 'Resume' : 'Pause';
+    if(state.paused){ releaseScreen(); }
+    else { lockScreen(); if(ac && ac.state === 'suspended') ac.resume(); }
+  });
+
+  document.getElementById('stop').addEventListener('click', reset);
+
+  function reset(){
+    cancelAnimationFrame(state.raf);
+    state.mode = 'idle'; state.paused = false; state.t = 0;
+    app.classList.remove('running');
+    app.dataset.phase = 'idle';
+    els.pause.textContent = 'Pause';
+    releaseScreen();
+  }
+
+  // tapping the stage pauses too — easier than aiming for a button mid-set
+  document.getElementById('stage').addEventListener('click', function(){
+    if(state.mode !== 'idle' && state.mode !== 'done') els.pause.click();
+  });
+
+  window.addEventListener('resize', function(){ if(state.mode === 'work') moveRule(rulePosition()); });
+
+  readHash();
+  updateEstimate();
+})();
+</script>
+</body>
+</html>
