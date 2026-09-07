@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recommendations — Pálos Ferenc</title>
+<meta name="description" content="Books, films and series worth your time. Updated when I finish something good.">
+<meta name="author" content="Pálos Ferenc">
+<meta name="theme-color" content="#0d1117">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Recommendations — Pálos Ferenc">
+<meta property="og:description" content="Books, films and series worth your time. Updated when I finish something good.">
+<meta property="og:image" content="../assets/profile.jpg">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/spectral-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/ibm-plex-sans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* ---- self-hosted fonts ----
+     Subset from Google Fonts, latin + latin-ext. The latin-ext files are the
+     ones carrying the Hungarian long vowels, so don't drop them.
+     IBM Plex Sans is a variable font: one file covers 400 and 500. */
+
+  @font-face {
+    font-family: 'Spectral';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../assets/fonts/spectral-400-normal-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Spectral';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../assets/fonts/spectral-400-normal-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  @font-face {
+    font-family: 'Spectral';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(../assets/fonts/spectral-500-normal-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Spectral';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(../assets/fonts/spectral-500-normal-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  @font-face {
+    font-family: 'Spectral';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../assets/fonts/spectral-400-italic-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Spectral';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../assets/fonts/spectral-400-italic-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  @font-face {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 400 500;
+    font-display: swap;
+    src: url(../assets/fonts/ibm-plex-sans-var-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 400 500;
+    font-display: swap;
+    src: url(../assets/fonts/ibm-plex-sans-var-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+
+  :root {
+    --bg:         #0d1117;
+    --rule:       #222b35;
+    --rule-soft:  #1a222b;
+    --ink:        #c4ccd6;
+    --ink-strong: #edf1f5;
+    --ink-mute:   #77828e;
+    --accent:     #c8a45c;
+
+    --serif: "Spectral", Georgia, "Times New Roman", serif;
+    --sans:  "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --measure: 60ch;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 6rem;
+  }
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .skip {
+    position: absolute;
+    left: -9999px;
+  }
+  .skip:focus {
+    left: 1.5rem;
+    top: 1rem;
+    padding: .5rem .75rem;
+    background: var(--bg);
+    border: 1px solid var(--accent);
+    z-index: 10;
+  }
+
+  /* ---- masthead ---- */
+
+  .back {
+    display: inline-block;
+    font-size: .875rem;
+    color: var(--ink-mute);
+    text-decoration: none;
+    padding: .25rem 0;
+  }
+  .back:hover { color: var(--ink-strong); }
+
+  .lede {
+    margin: 3.5rem 0 3rem;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.1rem, 6.5vw, 3.9rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    color: var(--ink-strong);
+    margin: 0 0 1.25rem;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+
+  .lede p {
+    margin: 0;
+    max-width: var(--measure);
+    color: var(--ink-mute);
+    font-size: 1.0625rem;
+  }
+
+  /* ---- controls ---- */
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem 1.25rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .chip {
+    font: inherit;
+    font-size: .9375rem;
+    color: var(--ink-mute);
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: .3rem .85rem;
+    cursor: pointer;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  .chip:hover { color: var(--ink-strong); border-color: var(--ink-mute); }
+  .chip[aria-pressed="true"] {
+    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .chip .n {
+    color: inherit;
+    opacity: .6;
+    margin-left: .35rem;
+  }
+
+  .search {
+    flex: 1 1 12rem;
+    min-width: 10rem;
+  }
+  .search input {
+    font: inherit;
+    font-size: .9375rem;
+    width: 100%;
+    color: var(--ink-strong);
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--rule);
+    padding: .35rem .1rem;
+  }
+  .search input::placeholder { color: var(--ink-mute); }
+  .search input:focus {
+    outline: none;
+    border-bottom-color: var(--accent);
+  }
+
+  /* ---- list ---- */
+
+  #list {
+    transition: opacity .12s ease;
+  }
+  #list.swapping { opacity: 0; }
+
+  .group + .group { margin-top: 3.5rem; }
+
+  .group h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.375rem;
+    color: var(--ink-mute);
+    margin: 2.5rem 0 0;
+  }
+  .group.solo h2 { display: none; }
+
+  .entry {
+    display: grid;
+    grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+    gap: .5rem 2.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .entry h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.1875rem;
+    line-height: 1.3;
+    color: var(--ink-strong);
+    margin: 0;
+  }
+
+  .entry .by {
+    grid-column: 1;
+    font-size: .875rem;
+    color: var(--ink-mute);
+    line-height: 1.45;
+  }
+
+  .entry .note {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin: 0;
+    max-width: var(--measure);
+    align-self: start;
+  }
+
+  .entry mark {
+    background: rgba(200, 164, 92, .18);
+    color: var(--ink-strong);
+    border-radius: 2px;
+  }
+
+  .empty {
+    padding: 3rem 0;
+    max-width: var(--measure);
+    color: var(--ink-mute);
+  }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: .875rem;
+    color: var(--ink-mute);
+  }
+  footer a { color: var(--ink); text-decoration-color: var(--rule); }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 44rem) {
+    .entry {
+      grid-template-columns: 1fr;
+      gap: .35rem;
+    }
+    .entry .note {
+      grid-column: 1;
+      grid-row: auto;
+      margin-top: .5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#list">Skip to the list</a>
+
+<div class="wrap">
+
+  <a class="back" href="../">← Pálos Ferenc</a>
+
+  <header class="lede">
+    <h1>Recommendations</h1>
+    <p>Books, films and series worth your time. Updated when I finish something good.</p>
+  </header>
+
+  <div class="controls">
+    <div class="filters" id="filters" role="group" aria-label="Filter by medium"></div>
+    <div class="search">
+      <label class="skip" for="q">Search the list</label>
+      <input id="q" type="search" placeholder="Search a title, an author, a word…" autocomplete="off">
+    </div>
+  </div>
+
+  <main id="list"></main>
+
+  <footer>
+    <p>Updated <span id="updated">September 2026</span>. Suggestions welcome —
+    <a href="mailto:ferencpalos.image003@simplelogin.com">send me one</a>.</p>
+  </footer>
+
+</div>
+
+<script>
+/* ============================================================
+   THE LIST — this is the only part you need to edit.
+
+   Add an entry:  { medium: 'book' | 'film' | 'series',
+                    title:  'Title',
+                    by:     'Author or director',
+                    year:   '2007'  (a string, so ranges work),
+                    note:   'One or two sentences on why.' }
+
+   Order inside each medium is the order shown. No ratings by design.
+   ============================================================ */
+
+const DATA = [
+
+  /* ---------- BOOKS ---------- */
+
+  { medium: 'book', title: 'Crime and Punishment', by: 'Fyodor Dostoevsky', year: '1866',
+    note: 'A student reasons his way into a murder and then has to live inside his own head.' },
+
+  { medium: 'book', title: 'The Master and Margarita', by: 'Mikhail Bulgakov', year: '1967',
+    note: 'The devil arrives in 1930s Moscow with a talking cat, cut with a retelling of the trial of Christ.' },
+
+  { medium: 'book', title: 'One Hundred Years of Solitude', by: 'Gabriel García Márquez', year: '1967',
+    note: 'Six generations of one family in a town that keeps forgetting its own past.' },
+
+  { medium: 'book', title: 'Vanity Fair', by: 'William Makepeace Thackeray', year: '1848',
+    note: 'Two girls leave the same school and their lives invert — the scheming one does well, the decent one doesn\'t.' },
+
+  { medium: 'book', title: 'The Odyssey', by: 'Homer', year: 'c. 700 BC',
+    note: 'Ten years of one man trying to get home from a war.' },
+
+  { medium: 'book', title: 'Satantango', by: 'László Krasznahorkai', year: '1985',
+    note: 'A collapsing collective farm in the rain, and the con man who comes back to take what\'s left. Sentences run for pages.' },
+
+  { medium: 'book', title: '1984', by: 'George Orwell', year: '1949',
+    note: 'A clerk in a surveillance state starts keeping a diary.' },
+
+  { medium: 'book', title: 'Animal Farm', by: 'George Orwell', year: '1945',
+    note: 'Farm animals take over the farm. A hundred pages.' },
+
+  { medium: 'book', title: 'Lord of the Flies', by: 'William Golding', year: '1954',
+    note: 'Schoolboys stranded on an island, and how fast the rules stop meaning anything.' },
+
+  { medium: 'book', title: 'A Clockwork Orange', by: 'Anthony Burgess', year: '1962',
+    note: 'A violent teenager gets conditioned out of violence by the state. Told in invented slang. Some editions cut the last chapter.' },
+
+  { medium: 'book', title: 'Nothing', by: 'Janne Teller', year: '2000',
+    note: 'A boy climbs a tree and announces nothing means anything. His classmates set out to prove him wrong.' },
+
+  { medium: 'book', title: 'Less Than Zero', by: 'Bret Easton Ellis', year: '1985',
+    note: 'A student comes home to Los Angeles for Christmas and drifts through his old circle.' },
+
+  { medium: 'book', title: 'Tai-Pan', by: 'James Clavell', year: '1966',
+    note: 'The founding of Hong Kong in 1841, by traders who would do anything.' },
+
+  { medium: 'book', title: 'King Rat', by: 'James Clavell', year: '1962',
+    note: 'Changi POW camp, 1945. One American corporal runs the black market and eats well while everyone else starves. Clavell was there.' },
+
+  { medium: 'book', title: 'Shutter Island', by: 'Dennis Lehane', year: '2003',
+    note: 'A US marshal investigates a disappearance at an island asylum.' },
+
+  { medium: 'book', title: 'All Creatures Great and Small', by: 'James Herriot', year: '1970–1973',
+    note: 'A young vet working the Yorkshire hills in the thirties.' },
+
+  { medium: 'book', title: 'The Little Prince', by: 'Antoine de Saint-Exupéry', year: '1943',
+    note: 'A pilot crashes in the desert and meets a boy from another planet.' },
+
+  { medium: 'book', title: 'Ágrólszakadt Tóbiás', by: 'Timothée de Fombelle', year: '2006–2007',
+    note: 'A boy a millimetre and a half tall, living in an oak tree, has to run when his father\'s discovery turns the tree against him. Two volumes.' },
+
+  { medium: 'book', title: 'Endure', by: 'Alex Hutchinson', year: '2018',
+    note: 'What actually stops you at hour fourteen, and how much of it is your brain rather than your body.' },
+
+  { medium: 'book', title: 'Atomic Habits', by: 'James Clear', year: '2018',
+    note: 'How habits form and how to build them deliberately.' },
+
+  /* ---------- FILMS ---------- */
+
+  { medium: 'film', title: 'Kontroll', by: 'Nimród Antal', year: '2003',
+    note: 'Ticket inspectors on the Budapest metro, and someone pushing passengers under trains.' },
+
+  { medium: 'film', title: 'Rossz versek', by: 'Gábor Reisz', year: '2018',
+    note: 'A Budapest man in his thirties gets dumped and goes back through his whole life looking for where it went wrong.' },
+
+  { medium: 'film', title: 'VAN valami furcsa és megmagyarázhatatlan', by: 'Gábor Reisz', year: '2014',
+    note: 'Áron quits his job, does nothing for a while, and ends up on a bus to Lisbon.' },
+
+  { medium: 'film', title: 'Se7en', by: 'David Fincher', year: '1995',
+    note: 'Two detectives work a series of murders staged around the seven deadly sins.' },
+
+  { medium: 'film', title: 'Zodiac', by: 'David Fincher', year: '2007',
+    note: 'Two decades of police work and journalism on a serial killer case that never closes.' },
+
+  { medium: 'film', title: 'Prisoners', by: 'Denis Villeneuve', year: '2013',
+    note: 'Two girls go missing and one father decides the police are too slow.' },
+
+  { medium: 'film', title: 'No Country for Old Men', by: 'Joel & Ethan Coen', year: '2007',
+    note: 'A man finds two million dollars in the desert and takes it.' },
+
+  { medium: 'film', title: 'Taxi Driver', by: 'Martin Scorsese', year: '1976',
+    note: 'A New York cab driver working nights decides he\'s the one who has to clean up the city.' },
+
+  { medium: 'film', title: 'Goodfellas', by: 'Martin Scorsese', year: '1990',
+    note: 'Thirty years in the New York mob, from the inside.' },
+
+  { medium: 'film', title: 'The Godfather', by: 'Francis Ford Coppola', year: '1972',
+    note: 'A son who wanted nothing to do with the family business ends up running it. Part II covers the next generation and the father\'s youth.' },
+
+  { medium: 'film', title: 'Killers of the Flower Moon', by: 'Martin Scorsese', year: '2023',
+    note: 'Osage oil money in 1920s Oklahoma, and the white men marrying into it.' },
+
+  { medium: 'film', title: 'Gone Girl', by: 'David Fincher', year: '2014',
+    note: 'A wife disappears on her anniversary and the husband looks guilty.' },
+
+  { medium: 'film', title: 'Shutter Island', by: 'Martin Scorsese', year: '2010',
+    note: 'A US marshal investigates a disappearance at an island asylum.' },
+
+  { medium: 'film', title: 'The Sixth Sense', by: 'M. Night Shyamalan', year: '1999',
+    note: 'A child psychologist takes on a boy who says he sees the dead.' },
+
+  { medium: 'film', title: 'Motherless Brooklyn', by: 'Edward Norton', year: '2019',
+    note: 'A private detective with Tourette\'s investigates his boss\'s murder in 1950s New York.' },
+
+  { medium: 'film', title: 'The Name of the Rose', by: 'Jean-Jacques Annaud', year: '1986',
+    note: 'A Franciscan investigates a series of deaths at a medieval abbey. From Eco\'s novel.' },
+
+  { medium: 'film', title: 'Knives Out', by: 'Rian Johnson', year: '2019',
+    note: 'A crime novelist dies after his birthday party and his family are all suspects.' },
+
+  { medium: 'film', title: 'Fight Club', by: 'David Fincher', year: '1999',
+    note: 'An insomniac office worker starts a basement fight club with a soap salesman.' },
+
+  { medium: 'film', title: 'Joker', by: 'Todd Phillips', year: '2019',
+    note: 'A mentally ill clown-for-hire in a city with no use for him.' },
+
+  { medium: 'film', title: 'American History X', by: 'Tony Kaye', year: '1998',
+    note: 'A neo-Nazi comes out of prison having changed his mind, and finds his younger brother has become him.' },
+
+  { medium: 'film', title: 'There Will Be Blood', by: 'Paul Thomas Anderson', year: '2007',
+    note: 'A California oil prospector and the preacher who won\'t get out of his way.' },
+
+  { medium: 'film', title: 'The Deer Hunter', by: 'Michael Cimino', year: '1978',
+    note: 'Three Pennsylvania steelworkers before, during and after Vietnam. The first hour is a wedding.' },
+
+  { medium: 'film', title: 'Parasite', by: 'Bong Joon-ho', year: '2019',
+    note: 'A poor family talks its way into a rich family\'s house, one job at a time.' },
+
+  { medium: 'film', title: '12 Angry Men', by: 'Sidney Lumet', year: '1957',
+    note: 'One jury room, and one juror who won\'t vote guilty.' },
+
+  { medium: 'film', title: 'The Shawshank Redemption', by: 'Frank Darabont', year: '1994',
+    note: 'Forty years in a Maine prison, and the friendship that gets a banker through them.' },
+
+  { medium: 'film', title: 'The Green Mile', by: 'Frank Darabont', year: '1999',
+    note: 'Death row guards in the thirties and an inmate who can do things nobody can explain.' },
+
+  { medium: 'film', title: 'Gran Torino', by: 'Clint Eastwood', year: '2008',
+    note: 'A widowed Korean War veteran and the Hmong family next door.' },
+
+  { medium: 'film', title: 'The Big Short', by: 'Adam McKay', year: '2015',
+    note: 'The handful of people who saw the 2008 crash coming and bet on it.' },
+
+  { medium: 'film', title: 'Good Will Hunting', by: 'Gus Van Sant', year: '1997',
+    note: 'A janitor at MIT can do the mathematics and won\'t do anything with it.' },
+
+  { medium: 'film', title: 'Dead Poets Society', by: 'Peter Weir', year: '1989',
+    note: 'A new English teacher at a strict boarding school, and what it costs him.' },
+
+  { medium: 'film', title: 'Rocky', by: 'John G. Avildsen', year: '1976',
+    note: 'A club fighter from Philadelphia gets one shot at the heavyweight title.' },
+
+  { medium: 'film', title: 'A River Runs Through It', by: 'Robert Redford', year: '1992',
+    note: 'Two brothers in Montana, and fly fishing as the only language their family has.' },
+
+  { medium: 'film', title: 'Forrest Gump', by: 'Robert Zemeckis', year: '1994',
+    note: 'One man walks through thirty years of American history without quite noticing.' },
+
+  { medium: 'film', title: 'The Curious Case of Benjamin Button', by: 'David Fincher', year: '2008',
+    note: 'A man born old ages backwards through the twentieth century.' },
+
+  { medium: 'film', title: 'The Intouchables', by: 'Olivier Nakache & Éric Toledano', year: '2011',
+    note: 'A rich quadriplegic hires the least qualified carer who applies.' },
+
+  { medium: 'film', title: 'Green Book', by: 'Peter Farrelly', year: '2018',
+    note: 'A black concert pianist tours the segregated South in 1962 with an Italian-American driver.' },
+
+  { medium: 'film', title: 'Slumdog Millionaire', by: 'Danny Boyle', year: '2008',
+    note: 'A Mumbai teenager on the quiz show, with his own life as the answer key.' },
+
+  { medium: 'film', title: 'The Bucket List', by: 'Rob Reiner', year: '2007',
+    note: 'Two terminally ill men leave the hospital with a list.' },
+
+  { medium: 'film', title: 'The Intern', by: 'Nancy Meyers', year: '2015',
+    note: 'A retired executive takes an internship at a fashion startup.' },
+
+  { medium: 'film', title: 'Eternal Sunshine of the Spotless Mind', by: 'Michel Gondry', year: '2004',
+    note: 'A couple pay to have each other erased, and he changes his mind mid-procedure.' },
+
+  { medium: 'film', title: 'The Truman Show', by: 'Peter Weir', year: '1998',
+    note: 'A man works out that his entire life is a broadcast.' },
+
+  { medium: 'film', title: 'Amélie', by: 'Jean-Pierre Jeunet', year: '2001',
+    note: 'A shy Paris waitress quietly arranges other people\'s lives.' },
+
+  { medium: 'film', title: 'Pulp Fiction', by: 'Quentin Tarantino', year: '1994',
+    note: 'Hitmen, a boxer and a briefcase, told out of order.' },
+
+  { medium: 'film', title: 'Inglourious Basterds', by: 'Quentin Tarantino', year: '2009',
+    note: 'A Jewish-American unit hunting Nazis in occupied France, and a cinema owner with her own plan.' },
+
+  { medium: 'film', title: 'Django Unchained', by: 'Quentin Tarantino', year: '2012',
+    note: 'A freed slave and a German bounty hunter ride south to find his wife.' },
+
+  { medium: 'film', title: 'Snatch', by: 'Guy Ritchie', year: '2000',
+    note: 'A stolen diamond, an unlicensed boxer and several London crews colliding.' },
+
+  { medium: 'film', title: 'Lock, Stock and Two Smoking Barrels', by: 'Guy Ritchie', year: '1998',
+    note: 'Four friends owe half a million to a porn baron after a rigged card game.' },
+
+  { medium: 'film', title: 'Léon: The Professional', by: 'Luc Besson', year: '1994',
+    note: 'A hitman ends up looking after the twelve-year-old from down the hall.' },
+
+  { medium: 'film', title: 'Baby Driver', by: 'Edgar Wright', year: '2017',
+    note: 'A getaway driver with tinnitus who does everything to music.' },
+
+  { medium: 'film', title: 'The Grand Budapest Hotel', by: 'Wes Anderson', year: '2014',
+    note: 'A concierge, a lobby boy and a stolen painting in a fictional prewar Europe.' },
+
+  { medium: 'film', title: 'Catch Me If You Can', by: 'Steven Spielberg', year: '2002',
+    note: 'A teenage con man passing as a pilot and a doctor, and the FBI agent chasing him.' },
+
+  { medium: 'film', title: 'The Big Lebowski', by: 'Joel & Ethan Coen', year: '1998',
+    note: 'A man is mistaken for a millionaire with the same name and wants his rug replaced.' },
+
+  { medium: 'film', title: 'Ferris Bueller\'s Day Off', by: 'John Hughes', year: '1986',
+    note: 'A kid skips school and takes Chicago apart for a day.' },
+
+  { medium: 'film', title: 'The Breakfast Club', by: 'John Hughes', year: '1985',
+    note: 'Five kids from different cliques in Saturday detention.' },
+
+  { medium: 'film', title: 'Step Brothers', by: 'Adam McKay', year: '2008',
+    note: 'Two forty-year-olds still living at home become stepbrothers when their parents marry.' },
+
+  { medium: 'film', title: 'Daddy\'s Home 1–2', by: 'Sean Anders', year: '2015–2017',
+    note: 'A stepfather competes with the biological father for the kids. The second adds both grandfathers.' },
+
+  { medium: 'film', title: 'Zoolander', by: 'Ben Stiller', year: '2001',
+    note: 'A male model is brainwashed to assassinate the prime minister of Malaysia.' },
+
+  { medium: 'film', title: 'Starsky & Hutch', by: 'Todd Phillips', year: '2004',
+    note: 'Two mismatched seventies detectives on a cocaine case. Remake of the TV series.' },
+
+  { medium: 'film', title: 'Holmes & Watson', by: 'Etan Cohen', year: '2018',
+    note: 'Ferrell and Reilly as Holmes and Watson.' },
+
+  { medium: 'film', title: 'Austin Powers', by: 'Jay Roach', year: '1997–2002',
+    note: 'A sixties British spy is unfrozen in the nineties. Three films.' },
+
+  { medium: 'film', title: 'Barbie', by: 'Greta Gerwig', year: '2023',
+    note: 'Barbie leaves Barbieland for the real world.' },
+
+  { medium: 'film', title: 'The Dark Knight trilogy', by: 'Christopher Nolan', year: '2005–2012',
+    note: 'Batman from the beginning through to the end.' },
+
+  { medium: 'film', title: 'Inception', by: 'Christopher Nolan', year: '2010',
+    note: 'A crew who steal information from dreams take a job planting an idea instead.' },
+
+  { medium: 'film', title: 'Blade Runner 2049', by: 'Denis Villeneuve', year: '2017',
+    note: 'A replicant working for the LAPD turns up something that shouldn\'t exist.' },
+
+  { medium: 'film', title: 'The Terminator', by: 'James Cameron', year: '1984',
+    note: 'A machine is sent back to kill the mother of a man not yet born.' },
+
+  { medium: 'film', title: 'Die Hard', by: 'John McTiernan', year: '1988',
+    note: 'A New York cop is in the wrong Los Angeles office block on the wrong evening.' },
+
+  { medium: 'film', title: 'Jurassic Park', by: 'Steven Spielberg', year: '1993',
+    note: 'A dinosaur park on an island, on the weekend the power fails.' },
+
+  { medium: 'film', title: 'Back to the Future trilogy', by: 'Robert Zemeckis', year: '1985–1990',
+    note: 'A kid ends up in 1955 and nearly prevents his own existence, then 2015 and 1885.' },
+
+  { medium: 'film', title: 'The Good, the Bad and the Ugly', by: 'Sergio Leone', year: '1966',
+    note: 'Three men race for buried Confederate gold.' },
+
+  { medium: 'film', title: 'Harry Potter', by: 'various', year: '2001–2011',
+    note: 'Eight films over ten years, with the cast growing up on screen.' },
+
+  { medium: 'film', title: 'Spirited Away', by: 'Hayao Miyazaki', year: '2001',
+    note: 'A girl\'s parents turn into pigs and she has to work in a bathhouse for spirits.' },
+
+  { medium: 'film', title: 'Howl\'s Moving Castle', by: 'Hayao Miyazaki', year: '2004',
+    note: 'A girl is cursed into an old woman and moves in with a wizard.' },
+
+  { medium: 'film', title: 'WALL·E', by: 'Andrew Stanton', year: '2008',
+    note: 'The last rubbish-compacting robot on an abandoned Earth. The first forty minutes are near-silent.' },
+
+  { medium: 'film', title: 'Finding Nemo', by: 'Andrew Stanton', year: '2003',
+    note: 'A clownfish crosses the ocean to find his son.' },
+
+  { medium: 'film', title: 'Toy Story 1–3', by: 'Pixar', year: '1995–2010',
+    note: 'Toys that come alive when nobody is looking. The third has the kid leaving for college.' },
+
+  { medium: 'film', title: 'Monsters, Inc.', by: 'Pete Docter', year: '2001',
+    note: 'Scaring children is an energy industry, until a child gets through the door.' },
+
+  { medium: 'film', title: 'The Incredibles', by: 'Brad Bird', year: '2004',
+    note: 'A retired superhero family forced back into work.' },
+
+  { medium: 'film', title: 'Ratatouille', by: 'Brad Bird', year: '2007',
+    note: 'A rat with a palate ends up running a Paris kitchen through a hopeless kitchen boy.' },
+
+  { medium: 'film', title: 'The Iron Giant', by: 'Brad Bird', year: '1999',
+    note: 'A boy finds a giant robot in 1950s Maine and hides it from the government.' },
+
+  { medium: 'film', title: 'A Bug\'s Life', by: 'John Lasseter', year: '1998',
+    note: 'An ant hires circus insects to fight off the grasshoppers.' },
+
+  { medium: 'film', title: 'The Lego Movie', by: 'Phil Lord & Christopher Miller', year: '2014',
+    note: 'An ordinary construction minifigure is mistaken for the chosen one.' },
+
+  { medium: 'film', title: 'Despicable Me', by: 'Pierre Coffin & Chris Renaud', year: '2010',
+    note: 'A supervillain adopts three girls as part of a heist and gets attached.' },
+
+  { medium: 'film', title: 'Shark Tale', by: 'Bibo Bergeron & Vicky Jenson', year: '2004',
+    note: 'A fish takes credit for a shark\'s death and has to keep the story going.' },
+
+  { medium: 'film', title: 'The Croods', by: 'Kirk DeMicco & Chris Sanders', year: '2013',
+    note: 'A cave family leaves the cave when their valley starts breaking apart.' },
+
+  { medium: 'film', title: 'Bee Movie', by: 'Simon J. Smith & Steve Hickner', year: '2007',
+    note: 'A bee sues the human race for stealing honey.' },
+
+  /* ---------- SERIES ---------- */
+
+  { medium: 'series', title: 'The Wire', by: 'David Simon', year: '2002–2008',
+    note: 'Baltimore taken apart one institution per season — drugs, docks, city hall, schools, the press.' },
+
+  { medium: 'series', title: 'The Sopranos', by: 'David Chase', year: '1999–2007',
+    note: 'A New Jersey mob boss starts seeing a psychiatrist.' },
+
+  { medium: 'series', title: 'Breaking Bad', by: 'Vince Gilligan', year: '2008–2013',
+    note: 'A chemistry teacher with cancer starts cooking methamphetamine.' },
+
+  { medium: 'series', title: 'Better Call Saul', by: 'Vince Gilligan & Peter Gould', year: '2015–2022',
+    note: 'How a struggling lawyer became Breaking Bad\'s Saul Goodman.' },
+
+  { medium: 'series', title: 'Succession', by: 'Jesse Armstrong', year: '2018–2023',
+    note: 'Four siblings fight over their father\'s media empire while he refuses to retire.' },
+
+  { medium: 'series', title: 'Chernobyl', by: 'Craig Mazin', year: '2019',
+    note: 'Five episodes on the 1986 accident and the response to it.' },
+
+  { medium: 'series', title: 'True Detective, season one', by: 'Nic Pizzolatto', year: '2014',
+    note: 'Two Louisiana detectives on one case across seventeen years.' },
+
+  { medium: 'series', title: 'Fargo, season one', by: 'Noah Hawley', year: '2014',
+    note: 'A small-town insurance salesman meets a drifter who tells him what he wants to hear.' },
+
+  { medium: 'series', title: 'Narcos', by: 'Chris Brancato, Carlo Bernard & Doug Miro', year: '2015–2017',
+    note: 'The Medellín cartel and the DEA agents chasing Escobar. Seasons one and two are the Escobar story.' },
+
+  { medium: 'series', title: 'Snowfall', by: 'John Singleton, Eric Amadio & Dave Andron', year: '2017–2023',
+    note: 'The crack epidemic arrives in early-eighties Los Angeles, followed from three sides at once.' },
+
+  { medium: 'series', title: 'Peaky Blinders', by: 'Steven Knight', year: '2013–2022',
+    note: 'A Birmingham crime family works its way up after the First World War.' },
+
+  { medium: 'series', title: 'Mr. Robot', by: 'Sam Esmail', year: '2015–2019',
+    note: 'A security engineer with severe mental illness is recruited into a hacking group.' },
+
+  { medium: 'series', title: 'Slow Horses', by: 'Will Smith', year: '2022–',
+    note: 'MI5 agents who screwed up get dumped in a dead-end department under a boss who despises them. From Mick Herron\'s novels.' },
+
+  { medium: 'series', title: 'Arcane', by: 'Christian Linke & Alex Yee', year: '2021–2024',
+    note: 'Two sisters end up on opposite sides of a city divided by class. Based on League of Legends.' },
+
+  { medium: 'series', title: 'The Office (US)', by: 'Greg Daniels', year: '2005–2013',
+    note: 'A documentary crew films a paper company branch in Scranton.' },
+
+  { medium: 'series', title: 'Ted Lasso', by: 'Bill Lawrence, Brendan Hunt & Jason Sudeikis', year: '2020–2023',
+    note: 'An American college football coach is hired to manage a Premier League club.' },
+
+  { medium: 'series', title: 'How I Met Your Mother', by: 'Carter Bays & Craig Thomas', year: '2005–2014',
+    note: 'A man tells his kids the long version of how he met their mother.' },
+
+  { medium: 'series', title: 'Friends', by: 'David Crane & Marta Kauffman', year: '1994–2004',
+    note: 'Six friends in Manhattan across ten years.' },
+
+  { medium: 'series', title: 'The Last Man on Earth', by: 'Will Forte', year: '2015–2018',
+    note: 'A virus wipes out humanity and the survivor is insufferable. Cancelled on a cliffhanger.' },
+
+  { medium: 'series', title: 'The Simpsons', by: 'Matt Groening', year: '1989–',
+    note: 'A family in Springfield, going since 1989.' },
+
+  { medium: 'series', title: 'South Park', by: 'Trey Parker & Matt Stone', year: '1997–',
+    note: 'Four boys in a Colorado town. Episodes are written in the week they air, so it tracks the news.' },
+
+  { medium: 'series', title: 'Rick and Morty', by: 'Justin Roiland & Dan Harmon', year: '2013–',
+    note: 'An alcoholic scientist drags his grandson across dimensions.' },
+
+  { medium: 'series', title: 'The Boondocks', by: 'Aaron McGruder', year: '2005–2014',
+    note: 'Two black kids from Chicago move to a white suburb with their grandfather.' },
+
+  { medium: 'series', title: 'The Bugs Bunny Show', by: 'Warner Bros.', year: '1960–2000',
+    note: 'The Looney Tunes shorts, repackaged. Chuck Jones directed many of them.' },
+
+  { medium: 'series', title: 'The Last Dance', by: 'Jason Hehir', year: '2020',
+    note: 'The 1997–98 Chicago Bulls, built around unreleased footage from that season.' },
+
+  { medium: 'series', title: 'The Grand Tour', by: 'Jeremy Clarkson, Richard Hammond & James May', year: '2016–2024',
+    note: 'The old Top Gear trio. The later series are all long-distance specials.' },
+    
+];
+
+/* ============================================================
+   Rendering — you should not need to touch anything below.
+   ============================================================ */
+
+const GROUPS = [
+  { key: 'book',   label: 'Books'  },
+  { key: 'film',   label: 'Films'  },
+  { key: 'series', label: 'Series' },
+];
+
+const listEl    = document.getElementById('list');
+const filtersEl = document.getElementById('filters');
+const searchEl  = document.getElementById('q');
+
+let medium = 'all';
+let query  = '';
+
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function highlight(text) {
+  const safe = esc(text);
+  if (!query) return safe;
+  const rx = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return safe.replace(rx, '<mark>$1</mark>');
+}
+
+function matches(item) {
+  if (medium !== 'all' && item.medium !== medium) return false;
+  if (!query) return true;
+  const hay = (item.title + ' ' + item.by + ' ' + item.note).toLowerCase();
+  return hay.includes(query.toLowerCase());
+}
+
+function buildFilters() {
+  const counts = { all: DATA.length };
+  GROUPS.forEach(g => counts[g.key] = DATA.filter(d => d.medium === g.key).length);
+
+  const opts = [{ key: 'all', label: 'Everything' }, ...GROUPS];
+  filtersEl.innerHTML = opts.map(o =>
+    `<button class="chip" type="button" data-medium="${o.key}" aria-pressed="false">` +
+    `${o.label}<span class="n">${counts[o.key]}</span></button>`
+  ).join('');
+
+  filtersEl.addEventListener('click', e => {
+    const btn = e.target.closest('.chip');
+    if (!btn) return;
+    const next = btn.dataset.medium;
+    if (next === medium) return;
+    location.hash = next === 'all' ? '' : next;
+    if (next === 'all') { medium = 'all'; swap(render); }
+  });
+}
+
+function render() {
+  filtersEl.querySelectorAll('.chip').forEach(c =>
+    c.setAttribute('aria-pressed', String(c.dataset.medium === medium))
+  );
+
+  const visible = GROUPS
+    .map(g => ({ ...g, items: DATA.filter(d => d.medium === g.key && matches(d)) }))
+    .filter(g => g.items.length);
+
+  if (!visible.length) {
+    listEl.innerHTML =
+      `<p class="empty">Nothing matches that. Try a director, an author, or a word from one of the descriptions.</p>`;
+    return;
+  }
+
+  const solo = visible.length === 1 ? ' solo' : '';
+
+  listEl.innerHTML = visible.map(g => `
+    <section class="group${solo}">
+      <h2>${g.label}</h2>
+      ${g.items.map(it => `
+        <article class="entry">
+          <h3>${highlight(it.title)}</h3>
+          <p class="by">${highlight(it.by)}<br>${esc(it.year)}</p>
+          <p class="note">${highlight(it.note)}</p>
+        </article>`).join('')}
+    </section>`).join('');
+}
+
+function swap(fn) {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { fn(); return; }
+  listEl.classList.add('swapping');
+  setTimeout(() => { fn(); listEl.classList.remove('swapping'); }, 120);
+}
+
+function readHash() {
+  const h = location.hash.replace('#', '');
+  const next = GROUPS.some(g => g.key === h) ? h : 'all';
+  if (next === medium) return;
+  medium = next;
+  swap(render);
+}
+
+let t;
+searchEl.addEventListener('input', () => {
+  clearTimeout(t);
+  t = setTimeout(() => { query = searchEl.value.trim(); render(); }, 120);
+});
+
+window.addEventListener('hashchange', readHash);
+
+buildFilters();
+readHash();
+render();
+</script>
+
+</body>
+</html>
