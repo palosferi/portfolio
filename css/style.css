@@ -68,10 +68,51 @@ a:hover, a:focus-visible { text-decoration: underline; }
   padding-inline: 1.25rem;
 }
 
+/* ---------- Language switch ---------- */
+
+.topbar-inner {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.75rem;
+}
+
+.lang-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-raised);
+}
+
+.lang-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.lang-btn:hover { color: var(--text); }
+.lang-btn[aria-pressed="true"] {
+  background: var(--accent-dim);
+  color: var(--accent);
+  cursor: default;
+}
+
 /* ---------- Hero ---------- */
 
 .hero {
-  padding: 4.5rem 0 3.5rem;
+  padding: 1.25rem 0 3.5rem;
   border-bottom: 1px solid var(--border);
   background:
     radial-gradient(60rem 26rem at 15% -10%, var(--accent-dim), transparent 70%);
@@ -333,7 +374,8 @@ a:hover, a:focus-visible { text-decoration: underline; }
 /* ---------- Breakpoints ---------- */
 
 @media (min-width: 40rem) {
-  .hero { padding: 6rem 0 4.5rem; }
+  .hero { padding: 1.5rem 0 4.5rem; }
+  .topbar-inner { margin-bottom: 2.75rem; }
   .hero-inner { flex-direction: row; align-items: center; gap: 2.25rem; }
   .hero-photo { width: 150px; height: 150px; }
   .section { padding: 4.5rem 0; }

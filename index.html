@@ -3,33 +3,213 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pálos Ferenc — Computer Engineering Student, Systems &amp; Infrastructure</title>
-<meta name="description" content="Pálos Ferenc — final-semester Computer Engineering BSc student at BME Budapest, working in systems, infrastructure and cloud. Incoming Junior Systems Engineer at PCS-SYSTEM.">
+<title data-i18n="meta.title">Pálos Ferenc — Computer Engineering Student, Systems &amp; Infrastructure</title>
+<meta name="description" data-i18n-attr="content:meta.description" content="Pálos Ferenc — final-semester Computer Engineering BSc student at BME Budapest, working in systems, infrastructure and cloud. Incoming Junior Systems Engineer at PCS-SYSTEM.">
 <meta name="author" content="Pálos Ferenc">
 <meta name="theme-color" content="#0d1117">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Pálos Ferenc — Computer Engineering Student, Systems &amp; Infrastructure">
-<meta property="og:description" content="Final-semester Computer Engineering BSc student at BME Budapest. Systems, infrastructure and cloud. Incoming Junior Systems Engineer at PCS-SYSTEM.">
+<meta property="og:title" data-i18n-attr="content:meta.title" content="Pálos Ferenc — Computer Engineering Student, Systems &amp; Infrastructure">
+<meta property="og:description" data-i18n-attr="content:meta.ogDescription" content="Final-semester Computer Engineering BSc student at BME Budapest. Systems, infrastructure and cloud. Incoming Junior Systems Engineer at PCS-SYSTEM.">
 <meta property="og:image" content="assets/profile.jpg">
-<meta property="og:locale" content="en_GB">
+<meta property="og:locale" data-i18n-attr="content:meta.locale" content="en_GB">
 <meta name="twitter:card" content="summary">
+
+<link rel="alternate" hreflang="en" href="./?lang=en">
+<link rel="alternate" hreflang="hu" href="./?lang=hu">
+<link rel="alternate" hreflang="x-default" href="./">
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/style.css">
+
+<script src="js/i18n.js"></script>
+<script>
+I18n.use({
+
+  en: {
+    'lang.label':        'Language',
+
+    'meta.title':        'Pálos Ferenc — Computer Engineering Student, Systems & Infrastructure',
+    'meta.description':  'Pálos Ferenc — final-semester Computer Engineering BSc student at BME Budapest, working in systems, infrastructure and cloud. Incoming Junior Systems Engineer at PCS-SYSTEM.',
+    'meta.ogDescription':'Final-semester Computer Engineering BSc student at BME Budapest. Systems, infrastructure and cloud. Incoming Junior Systems Engineer at PCS-SYSTEM.',
+    'meta.locale':       'en_GB',
+
+    'skip':              'Skip to content',
+
+    'hero.place':        'Budapest, Hungary',
+    'hero.tagline':      'Computer Engineering student — systems & infrastructure.',
+    'hero.contactLabel': 'Contact links',
+
+    'about.h':           'About',
+    'about.lead':        "I'm a final-semester Computer Engineering (mérnök-informatikus) BSc student at the Budapest University of Technology and Economics (BME). Since January 2025 I've been an IT intern at Movasol Energy, where I handle cloud administration, server maintenance, DNS and domain operations, and build internal web tooling. In September I join PCS-SYSTEM as a Junior Systems Engineer.",
+
+    'projects.h':        'Projects',
+    'projects.repo':     'Repository',
+
+    'tor.h':             'Tor Security Research & Website Fingerprinting',
+    'tor.p':             'University lab research using machine learning and traffic analysis to identify weaknesses in the Tor network. Published the resulting analytics and metrics dataset.',
+    'tor.t2':            'Machine Learning',
+    'tor.t3':            'Traffic Analysis',
+
+    'server.h':          'Self-hosted Server & Sysadmin',
+    'server.p':          'Headless Linux server running Docker-based media and automation services, with an rclone backup pipeline and Caddy as reverse proxy.',
+    'server.t5':         'Networking',
+
+    'bucket.h':          'Bucketlist App',
+    'bucket.p':          'A bucket list web application for tracking and ticking off personal goals.',
+
+    'tempo.h':           'Tempo — training timer',
+    'tempo.p':           'A phone-first timer that calls each phase of a rep out loud — down, bottom, up, top — then counts the rest between sets. Single HTML file, no dependencies; settings live in the URL, so a bookmark reopens a session ready to go.',
+    'tempo.t4':          'Mobile',
+    'tempo.open':        'Open the timer',
+
+    'map.h':             'World Map Destination Picker',
+    'map.p':             "Interactive world map for choosing travel destinations. It ties into the adventures page, so a signed-in user's own adventures show up pinned on the map.",
+    'map.t2':            'Interactive map',
+    'map.t3':            'User accounts',
+    'map.t4':            'Web app',
+    'map.soon':          'Link coming soon',
+
+    'resec.h':           'ReSec — OTP IT Hackathon special prize',
+    'resec.p':           'A secure hardware-recycling and cybersecurity concept built with a 3-person team. Presented to a jury of IT professionals among 15 finalists and awarded a special prize in January 2026.',
+    'resec.t1':          'Cybersecurity',
+    'resec.t2':          'Hardware recycling',
+    'resec.t3':          'Teamwork',
+
+    'skills.h':          'Skills',
+    'skills.langs':      'Languages',
+    'skills.web':        'Web',
+    'skills.infra':      'Infrastructure & Cloud',
+    'skills.security':   'Security & Networking',
+    'skills.netsec':     'Network security',
+    'skills.tools':      'Tools',
+
+    'cert.h':            'Certifications & Languages',
+    'cert.certs':        'Certifications',
+    'cert.ccnaMeta':     'Cisco · May 2026',
+    'cert.devMeta':      'March 2026',
+    'cert.foundMeta':    'October 2025',
+    'cert.languages':    'Languages',
+    'cert.hungarian':    'Hungarian',
+    'cert.native':       'Native',
+    'cert.english':      'English',
+    'cert.french':       'French',
+    'cert.frenchMeta':   'B2 — in progress',
+
+    'cv.h':              'Curriculum vitae',
+    'cv.p':              'The full CV, with detailed experience and education — available in English and Hungarian.',
+    'cv.en':             'Download CV — English (PDF)',
+    'cv.hu':             'Letöltés — Magyar (PDF)',
+
+    'rec.h':             'Recommendations',
+    'rec.lead':          "Books, films and series I'd actually hand to someone — no stars and no ratings, just a running list of things worth an evening.",
+    'rec.browse':        'Browse the list',
+
+    'footer.p':          "Outside of work I do endurance hiking and trail running — Kinizsi 100 and Mátrabérc 55 — play competitive basketball in a county-level adult league, and I'm a certified scuba diver.",
+    'footer.email':      'Email'
+  },
+
+  hu: {
+    'lang.label':        'Nyelv',
+
+    'meta.title':        'Pálos Ferenc — mérnökinformatikus hallgató, rendszerek és infrastruktúra',
+    'meta.description':  'Pálos Ferenc — utolsó féléves mérnökinformatikus BSc hallgató a BME-n, rendszerekkel, infrastruktúrával és felhővel foglalkozik. Szeptembertől junior rendszermérnök a PCS-SYSTEM-nél.',
+    'meta.ogDescription':'Utolsó féléves mérnökinformatikus BSc hallgató a BME-n. Rendszerek, infrastruktúra és felhő. Szeptembertől junior rendszermérnök a PCS-SYSTEM-nél.',
+    'meta.locale':       'hu_HU',
+
+    'skip':              'Ugrás a tartalomra',
+
+    'hero.place':        'Budapest, Magyarország',
+    'hero.tagline':      'Mérnökinformatikus hallgató — rendszerek és infrastruktúra.',
+    'hero.contactLabel': 'Elérhetőségek',
+
+    'about.h':           'Rólam',
+    'about.lead':        'Utolsó féléves mérnökinformatikus BSc hallgató vagyok a Budapesti Műszaki és Gazdaságtudományi Egyetemen (BME). 2025 januárja óta IT-gyakornok vagyok a Movasol Energynél, ahol felhőadminisztrációval, szerverüzemeltetéssel, DNS- és domainkezeléssel foglalkozom, és belsős webes eszközöket fejlesztek. Szeptembertől a PCS-SYSTEM junior rendszermérnökeként dolgozom.',
+
+    'projects.h':        'Projektek',
+    'projects.repo':     'Forráskód',
+
+    'tor.h':             'Tor biztonsági kutatás és website fingerprinting',
+    'tor.p':             'Önálló laboratóriumi kutatás az egyetemen: gépi tanulással és forgalomelemzéssel kerestem gyenge pontokat a Tor-hálózatban. Az elkészült elemzési és metrikaadatokat publikáltam.',
+    'tor.t2':            'Gépi tanulás',
+    'tor.t3':            'Forgalomelemzés',
+
+    'server.h':          'Saját üzemeltetésű szerver',
+    'server.p':          'Kijelző nélküli Linux szerver, rajta Docker alapú média- és automatizálási szolgáltatások, rclone-os mentési folyamat és Caddy reverse proxyként.',
+    'server.t5':         'Hálózatok',
+
+    'bucket.h':          'Bakancslista alkalmazás',
+    'bucket.p':          'Webalkalmazás személyes célok nyilvántartására és kipipálására.',
+
+    'tempo.h':           'Tempo — edzésidőzítő',
+    'tempo.p':           'Telefonra tervezett időzítő, ami az ismétlés minden fázisát bemondja — le, alul, fel, felül —, majd visszaszámolja a sorozatok közti pihenőt. Egyetlen HTML-fájl, függőségek nélkül; a beállítások az URL-ben laknak, így egy könyvjelző indulásra kész edzést nyit meg.',
+    'tempo.t4':          'Mobil',
+    'tempo.open':        'Időzítő megnyitása',
+
+    'map.h':             'Világtérképes úticélválasztó',
+    'map.p':             'Interaktív világtérkép úticélok kiválasztásához. Összeér a kalandok oldallal, így a bejelentkezett felhasználó saját kalandjai kitűzve jelennek meg a térképen.',
+    'map.t2':            'Interaktív térkép',
+    'map.t3':            'Felhasználói fiókok',
+    'map.t4':            'Webalkalmazás',
+    'map.soon':          'A link hamarosan',
+
+    'resec.h':           'ReSec — OTP IT Hackathon különdíj',
+    'resec.p':           'Biztonságos hardver-újrahasznosítási és kiberbiztonsági koncepció, három fős csapatban. A 15 döntős között mutattuk be informatikus szakemberekből álló zsűrinek, és 2026 januárjában különdíjat kaptunk.',
+    'resec.t1':          'Kiberbiztonság',
+    'resec.t2':          'Hardver-újrahasznosítás',
+    'resec.t3':          'Csapatmunka',
+
+    'skills.h':          'Készségek',
+    'skills.langs':      'Programozási nyelvek',
+    'skills.web':        'Web',
+    'skills.infra':      'Infrastruktúra és felhő',
+    'skills.security':   'Biztonság és hálózatok',
+    'skills.netsec':     'Hálózatbiztonság',
+    'skills.tools':      'Eszközök',
+
+    'cert.h':            'Tanúsítványok és nyelvek',
+    'cert.certs':        'Tanúsítványok',
+    'cert.ccnaMeta':     'Cisco · 2026. május',
+    'cert.devMeta':      '2026. március',
+    'cert.foundMeta':    '2025. október',
+    'cert.languages':    'Nyelvek',
+    'cert.hungarian':    'Magyar',
+    'cert.native':       'Anyanyelv',
+    'cert.english':      'Angol',
+    'cert.french':       'Francia',
+    'cert.frenchMeta':   'B2 — folyamatban',
+
+    'cv.h':              'Önéletrajz',
+    'cv.p':              'A teljes önéletrajz részletes szakmai tapasztalattal és tanulmányokkal — magyarul és angolul.',
+    'cv.en':             'Download CV — English (PDF)',
+    'cv.hu':             'Önéletrajz letöltése — magyar (PDF)',
+
+    'rec.h':             'Ajánlók',
+    'rec.lead':          'Könyvek, filmek és sorozatok, amiket tényleg odaadnék valakinek — csillagok és pontszámok nélkül, egyszerűen egy folyamatosan bővülő lista arról, ami megér egy estét.',
+    'rec.browse':        'Lista megnyitása',
+
+    'footer.p':          'Munkán kívül teljesítménytúrázom és terepfutok — Kinizsi 100 és Mátrabérc 55 —, megyei felnőtt bajnokságban kosárlabdázom, és búvárvizsgám is van.',
+    'footer.email':      'E-mail'
+  }
+
+});
+</script>
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
 <header class="hero" id="top">
+  <div class="wrap topbar-inner">
+    <div class="lang-switch" data-lang-switch></div>
+  </div>
   <div class="wrap hero-inner">
-    <img class="hero-photo" src="assets/profile.jpg" alt="Portrait of Pálos Ferenc" width="160" height="160">
+    <img class="hero-photo" src="assets/profile.jpg" alt="Pálos Ferenc" width="160" height="160">
     <div class="hero-text">
-      <p class="eyebrow">Budapest, Hungary</p>
+      <p class="eyebrow" data-i18n="hero.place">Budapest, Hungary</p>
       <h1>Pálos Ferenc</h1>
-      <p class="tagline">Computer Engineering student — systems &amp; infrastructure.</p>
-      <nav class="hero-links" aria-label="Contact links">
+      <p class="tagline" data-i18n="hero.tagline">Computer Engineering student — systems &amp; infrastructure.</p>
+      <nav class="hero-links" data-i18n-attr="aria-label:hero.contactLabel" aria-label="Contact links">
         <a href="https://github.com/palosferi" rel="me noopener" target="_blank">GitHub</a>
         <a href="https://linkedin.com/in/ferencpalos" rel="me noopener" target="_blank">LinkedIn</a>
         <a href="mailto:ferencpalos.image003@simplelogin.com">ferencpalos.image003@simplelogin.com</a>
@@ -42,8 +222,8 @@
 
   <section class="section reveal" id="about" aria-labelledby="about-h">
     <div class="wrap">
-      <h2 id="about-h">About</h2>
-      <p class="lead">
+      <h2 id="about-h" data-i18n="about.h">About</h2>
+      <p class="lead" data-i18n="about.lead">
         I'm a final-semester Computer Engineering (mérnök-informatikus) BSc student at the
         Budapest University of Technology and Economics (BME). Since January 2025 I've been an
         IT intern at Movasol Energy, where I handle cloud administration, server maintenance,
@@ -55,71 +235,71 @@
 
   <section class="section reveal" id="projects" aria-labelledby="projects-h">
     <div class="wrap">
-      <h2 id="projects-h">Projects</h2>
+      <h2 id="projects-h" data-i18n="projects.h">Projects</h2>
       <ul class="cards">
 
         <li class="card">
-          <h3>Tor Security Research &amp; Website Fingerprinting</h3>
-          <p>University lab research using machine learning and traffic analysis to identify
+          <h3 data-i18n="tor.h">Tor Security Research &amp; Website Fingerprinting</h3>
+          <p data-i18n="tor.p">University lab research using machine learning and traffic analysis to identify
              weaknesses in the Tor network. Published the resulting analytics and metrics dataset.</p>
           <ul class="tags">
-            <li>Python</li><li>Machine Learning</li><li>Traffic Analysis</li><li>Tor</li>
+            <li>Python</li><li data-i18n="tor.t2">Machine Learning</li><li data-i18n="tor.t3">Traffic Analysis</li><li>Tor</li>
           </ul>
           <p class="card-links">
-            <a href="https://github.com/palosferi/onlab" rel="noopener" target="_blank">Repository</a>
+            <a href="https://github.com/palosferi/onlab" rel="noopener" target="_blank" data-i18n="projects.repo">Repository</a>
           </p>
         </li>
 
         <li class="card">
-          <h3>Self-hosted Server &amp; Sysadmin</h3>
-          <p>Headless Linux server running Docker-based media and automation services, with an
+          <h3 data-i18n="server.h">Self-hosted Server &amp; Sysadmin</h3>
+          <p data-i18n="server.p">Headless Linux server running Docker-based media and automation services, with an
              rclone backup pipeline and Caddy as reverse proxy.</p>
           <ul class="tags">
-            <li>Linux</li><li>Docker</li><li>Caddy</li><li>rclone</li><li>Networking</li>
+            <li>Linux</li><li>Docker</li><li>Caddy</li><li>rclone</li><li data-i18n="server.t5">Networking</li>
           </ul>
         </li>
 
         <li class="card">
-          <h3>Bucketlist App</h3>
-          <p>A bucket list web application for tracking and ticking off personal goals.</p>
+          <h3 data-i18n="bucket.h">Bucketlist App</h3>
+          <p data-i18n="bucket.p">A bucket list web application for tracking and ticking off personal goals.</p>
           <ul class="tags">
             <li>JavaScript</li><li>HTML</li><li>CSS</li>
           </ul>
           <p class="card-links">
-            <a href="https://github.com/palosferi/bucketlist" rel="noopener" target="_blank">Repository</a>
+            <a href="https://github.com/palosferi/bucketlist" rel="noopener" target="_blank" data-i18n="projects.repo">Repository</a>
           </p>
         </li>
 
         <li class="card">
-          <h3>Tempo — training timer</h3>
-          <p>A phone-first timer that calls each phase of a rep out loud — down, bottom, up,
+          <h3 data-i18n="tempo.h">Tempo — training timer</h3>
+          <p data-i18n="tempo.p">A phone-first timer that calls each phase of a rep out loud — down, bottom, up,
              top — then counts the rest between sets. Single HTML file, no dependencies;
              settings live in the URL, so a bookmark reopens a session ready to go.</p>
           <ul class="tags">
-            <li>JavaScript</li><li>Web Audio</li><li>Wake Lock</li><li>Mobile</li>
+            <li>JavaScript</li><li>Web Audio</li><li>Wake Lock</li><li data-i18n="tempo.t4">Mobile</li>
           </ul>
           <p class="card-links">
-            <a href="tempo/">Open the timer</a>
+            <a href="tempo/" data-i18n="tempo.open">Open the timer</a>
           </p>
         </li>
 
         <li class="card">
-          <h3>World Map Destination Picker</h3>
-          <p>Interactive world map for choosing travel destinations. It ties into the adventures
+          <h3 data-i18n="map.h">World Map Destination Picker</h3>
+          <p data-i18n="map.p">Interactive world map for choosing travel destinations. It ties into the adventures
              page, so a signed-in user's own adventures show up pinned on the map.</p>
           <ul class="tags">
-            <li>JavaScript</li><li>Interactive map</li><li>User accounts</li><li>Web app</li>
+            <li>JavaScript</li><li data-i18n="map.t2">Interactive map</li><li data-i18n="map.t3">User accounts</li><li data-i18n="map.t4">Web app</li>
           </ul>
-          <p class="card-links"><span class="todo">Link coming soon</span></p>
+          <p class="card-links"><span class="todo" data-i18n="map.soon">Link coming soon</span></p>
         </li>
 
         <li class="card">
-          <h3>ReSec — OTP IT Hackathon special prize</h3>
-          <p>A secure hardware-recycling and cybersecurity concept built with a 3-person team.
+          <h3 data-i18n="resec.h">ReSec — OTP IT Hackathon special prize</h3>
+          <p data-i18n="resec.p">A secure hardware-recycling and cybersecurity concept built with a 3-person team.
              Presented to a jury of IT professionals among 15 finalists and awarded a special
              prize in January 2026.</p>
           <ul class="tags">
-            <li>Cybersecurity</li><li>Hardware recycling</li><li>Teamwork</li>
+            <li data-i18n="resec.t1">Cybersecurity</li><li data-i18n="resec.t2">Hardware recycling</li><li data-i18n="resec.t3">Teamwork</li>
           </ul>
         </li>
 
@@ -129,34 +309,34 @@
 
   <section class="section reveal" id="skills" aria-labelledby="skills-h">
     <div class="wrap">
-      <h2 id="skills-h">Skills</h2>
+      <h2 id="skills-h" data-i18n="skills.h">Skills</h2>
       <div class="skill-grid">
         <div class="skill-group">
-          <h3>Languages</h3>
+          <h3 data-i18n="skills.langs">Languages</h3>
           <ul class="tags">
             <li>C++</li><li>C#</li><li>C</li><li>Python</li><li>Java</li>
           </ul>
         </div>
         <div class="skill-group">
-          <h3>Web</h3>
+          <h3 data-i18n="skills.web">Web</h3>
           <ul class="tags">
             <li>HTML</li><li>CSS</li><li>JavaScript</li>
           </ul>
         </div>
         <div class="skill-group">
-          <h3>Infrastructure &amp; Cloud</h3>
+          <h3 data-i18n="skills.infra">Infrastructure &amp; Cloud</h3>
           <ul class="tags">
             <li>AWS</li><li>Linux</li><li>Docker</li><li>Kubernetes</li><li>Cisco</li>
           </ul>
         </div>
         <div class="skill-group">
-          <h3>Security &amp; Networking</h3>
+          <h3 data-i18n="skills.security">Security &amp; Networking</h3>
           <ul class="tags">
-            <li>Wireshark</li><li>Network security</li><li>DNS</li>
+            <li>Wireshark</li><li data-i18n="skills.netsec">Network security</li><li>DNS</li>
           </ul>
         </div>
         <div class="skill-group">
-          <h3>Tools</h3>
+          <h3 data-i18n="skills.tools">Tools</h3>
           <ul class="tags">
             <li>Git</li><li>ML / DL</li>
           </ul>
@@ -167,22 +347,22 @@
 
   <section class="section reveal" id="certifications" aria-labelledby="cert-h">
     <div class="wrap">
-      <h2 id="cert-h">Certifications &amp; Languages</h2>
+      <h2 id="cert-h" data-i18n="cert.h">Certifications &amp; Languages</h2>
       <div class="two-col">
         <div>
-          <h3>Certifications</h3>
+          <h3 data-i18n="cert.certs">Certifications</h3>
           <ul class="list">
-            <li><strong>CCNA: Introduction to Networks</strong> <span class="meta">Cisco · May 2026</span></li>
-            <li><strong>AWS Academy Cloud Developing</strong> <span class="meta">March 2026</span></li>
-            <li><strong>AWS Academy Cloud Foundations</strong> <span class="meta">October 2025</span></li>
+            <li><strong>CCNA: Introduction to Networks</strong> <span class="meta" data-i18n="cert.ccnaMeta">Cisco · May 2026</span></li>
+            <li><strong>AWS Academy Cloud Developing</strong> <span class="meta" data-i18n="cert.devMeta">March 2026</span></li>
+            <li><strong>AWS Academy Cloud Foundations</strong> <span class="meta" data-i18n="cert.foundMeta">October 2025</span></li>
           </ul>
         </div>
         <div>
-          <h3>Languages</h3>
+          <h3 data-i18n="cert.languages">Languages</h3>
           <ul class="list">
-            <li><strong>Hungarian</strong> <span class="meta">Native</span></li>
-            <li><strong>English</strong> <span class="meta">C1</span></li>
-            <li><strong>French</strong> <span class="meta">B2 — in progress</span></li>
+            <li><strong data-i18n="cert.hungarian">Hungarian</strong> <span class="meta" data-i18n="cert.native">Native</span></li>
+            <li><strong data-i18n="cert.english">English</strong> <span class="meta">C1</span></li>
+            <li><strong data-i18n="cert.french">French</strong> <span class="meta" data-i18n="cert.frenchMeta">B2 — in progress</span></li>
           </ul>
         </div>
       </div>
@@ -191,24 +371,24 @@
 
   <section class="section reveal" id="cv" aria-labelledby="cv-h">
     <div class="wrap cv-block">
-      <h2 id="cv-h">Curriculum vitae</h2>
-      <p>The full CV, with detailed experience and education — available in English and Hungarian.</p>
+      <h2 id="cv-h" data-i18n="cv.h">Curriculum vitae</h2>
+      <p data-i18n="cv.p">The full CV, with detailed experience and education — available in English and Hungarian.</p>
       <p class="cv-buttons">
-        <a class="button" href="assets/palos_ferenc_cv_2026_en.pdf" download>Download CV — English (PDF)</a>
-        <a class="button button-secondary" href="assets/palos_ferenc_cv_2026.pdf" download>Letöltés — Magyar (PDF)</a>
+        <a class="button" id="cv-en" href="assets/palos_ferenc_cv_2026_en.pdf" download data-i18n="cv.en">Download CV — English (PDF)</a>
+        <a class="button button-secondary" id="cv-hu" href="assets/palos_ferenc_cv_2026.pdf" download data-i18n="cv.hu">Letöltés — Magyar (PDF)</a>
       </p>
     </div>
   </section>
 
   <section class="section reveal" id="recommendations" aria-labelledby="rec-h">
     <div class="wrap">
-      <h2 id="rec-h">Recommendations</h2>
-      <p class="lead">
+      <h2 id="rec-h" data-i18n="rec.h">Recommendations</h2>
+      <p class="lead" data-i18n="rec.lead">
         Books, films and series I'd actually hand to someone — no stars and no ratings,
         just a running list of things worth an evening.
       </p>
       <p class="cv-buttons">
-        <a class="button button-secondary" href="recommendations/">Browse the list</a>
+        <a class="button button-secondary" href="recommendations/" data-i18n="rec.browse">Browse the list</a>
       </p>
     </div>
   </section>
@@ -217,7 +397,7 @@
 
 <footer class="footer">
   <div class="wrap">
-    <p>
+    <p data-i18n="footer.p">
       Outside of work I do endurance hiking and trail running — Kinizsi 100 and Mátrabérc 55 —
       play competitive basketball in a county-level adult league, and I'm a certified scuba diver.
     </p>
@@ -225,7 +405,7 @@
       © <span id="year">2026</span> Pálos Ferenc ·
       <a href="https://github.com/palosferi" rel="noopener" target="_blank">GitHub</a> ·
       <a href="https://linkedin.com/in/ferencpalos" rel="noopener" target="_blank">LinkedIn</a> ·
-      <a href="mailto:ferencpalos.image003@simplelogin.com">Email</a>
+      <a href="mailto:ferencpalos.image003@simplelogin.com" data-i18n="footer.email">Email</a>
     </p>
   </div>
 </footer>
@@ -233,6 +413,23 @@
 <script>
   document.documentElement.classList.add('js');
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* The CV in the language you are reading the page in leads; the other one
+     stays available beside it. */
+  I18n.onChange(function (lang) {
+    var lead   = document.getElementById(lang === 'hu' ? 'cv-hu' : 'cv-en');
+    var second = document.getElementById(lang === 'hu' ? 'cv-en' : 'cv-hu');
+    lead.classList.remove('button-secondary');
+    second.classList.add('button-secondary');
+    lead.parentNode.insertBefore(lead, second);
+  });
+
+  /* The portrait's alt text is a description, so it changes with the language. */
+  I18n.onChange(function (lang) {
+    document.querySelector('.hero-photo').alt =
+      lang === 'hu' ? 'Pálos Ferenc portréja' : 'Portrait of Pálos Ferenc';
+  });
+
   if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {

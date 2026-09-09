@@ -3,17 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Recommendations — Pálos Ferenc</title>
-<meta name="description" content="Books, films and series worth your time. Updated when I finish something good.">
+<title data-i18n="meta.title">Recommendations — Pálos Ferenc</title>
+<meta name="description" data-i18n-attr="content:meta.description" content="Books, films and series worth your time. Updated when I finish something good.">
 <meta name="author" content="Pálos Ferenc">
 <meta name="theme-color" content="#0d1117">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Recommendations — Pálos Ferenc">
-<meta property="og:description" content="Books, films and series worth your time. Updated when I finish something good.">
+<meta property="og:title" data-i18n-attr="content:meta.title" content="Recommendations — Pálos Ferenc">
+<meta property="og:description" data-i18n-attr="content:meta.description" content="Books, films and series worth your time. Updated when I finish something good.">
 <meta property="og:image" content="../assets/profile.jpg">
-<meta property="og:locale" content="en_GB">
+<meta property="og:locale" data-i18n-attr="content:meta.locale" content="en_GB">
 <meta name="twitter:card" content="summary">
+
+<link rel="alternate" hreflang="en" href="./?lang=en">
+<link rel="alternate" hreflang="hu" href="./?lang=hu">
+<link rel="alternate" hreflang="x-default" href="./">
 
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/spectral-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -146,6 +150,41 @@
   }
 
   /* ---- masthead ---- */
+
+  .masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .lang-switch {
+    display: inline-flex;
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+  }
+
+  .lang-btn {
+    font: inherit;
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .06em;
+    color: var(--ink-mute);
+    background: none;
+    border: 0;
+    border-radius: 999px;
+    padding: .25rem .6rem;
+    cursor: pointer;
+    transition: color .15s ease, background-color .15s ease;
+  }
+  .lang-btn:hover { color: var(--ink-strong); }
+  .lang-btn[aria-pressed="true"] {
+    color: var(--bg);
+    background: var(--accent);
+    cursor: default;
+  }
 
   .back {
     display: inline-block;
@@ -330,32 +369,94 @@
     * { transition: none !important; }
   }
 </style>
+
+<script src="../js/i18n.js"></script>
+<script>
+I18n.use({
+
+  en: {
+    'lang.label':         'Language',
+
+    'meta.title':         'Recommendations — Pálos Ferenc',
+    'meta.description':   'Books, films and series worth your time. Updated when I finish something good.',
+    'meta.locale':        'en_GB',
+
+    'skip':               'Skip to the list',
+    'h1':                 'Recommendations',
+    'lede':               'Books, films and series worth your time. Updated when I finish something good.',
+
+    'filters.label':      'Filter by medium',
+    'filters.all':        'Everything',
+
+    'group.book':         'Books',
+    'group.film':         'Films',
+    'group.series':       'Series',
+
+    'search.label':       'Search the list',
+    'search.placeholder': 'Search a title, an author, a word…',
+
+    'list.empty':         'Nothing matches that. Try a director, an author, or a word from one of the descriptions.',
+
+    'footer':             'Updated <span id="updated">September 2026</span>. Suggestions welcome — <a href="mailto:ferencpalos.image003@simplelogin.com">send me one</a>.'
+  },
+
+  hu: {
+    'lang.label':         'Nyelv',
+
+    'meta.title':         'Ajánlók — Pálos Ferenc',
+    'meta.description':   'Könyvek, filmek és sorozatok, amikre érdemes időt szánni. Akkor bővül, amikor befejezek valami jót.',
+    'meta.locale':        'hu_HU',
+
+    'skip':               'Ugrás a listához',
+    'h1':                 'Ajánlók',
+    'lede':               'Könyvek, filmek és sorozatok, amikre érdemes időt szánni. Akkor bővül, amikor befejezek valami jót.',
+
+    'filters.label':      'Szűrés típus szerint',
+    'filters.all':        'Mind',
+
+    'group.book':         'Könyvek',
+    'group.film':         'Filmek',
+    'group.series':       'Sorozatok',
+
+    'search.label':       'Keresés a listában',
+    'search.placeholder': 'Cím, szerző vagy egy szó…',
+
+    'list.empty':         'Erre nincs találat. Próbálj egy rendezőt, egy szerzőt, vagy egy szót a leírásokból.',
+
+    'footer':             'Frissítve: <span id="updated">2026. szeptember</span>. Az ajánlatokat szívesen fogadom — <a href="mailto:ferencpalos.image003@simplelogin.com">írj egyet</a>.'
+  }
+
+});
+</script>
 </head>
 <body>
 
-<a class="skip" href="#list">Skip to the list</a>
+<a class="skip" href="#list" data-i18n="skip">Skip to the list</a>
 
 <div class="wrap">
 
-  <a class="back" href="../">← Pálos Ferenc</a>
+  <div class="masthead">
+    <a class="back" href="../">← Pálos Ferenc</a>
+    <div class="lang-switch" data-lang-switch></div>
+  </div>
 
   <header class="lede">
-    <h1>Recommendations</h1>
-    <p>Books, films and series worth your time. Updated when I finish something good.</p>
+    <h1 data-i18n="h1">Recommendations</h1>
+    <p data-i18n="lede">Books, films and series worth your time. Updated when I finish something good.</p>
   </header>
 
   <div class="controls">
-    <div class="filters" id="filters" role="group" aria-label="Filter by medium"></div>
+    <div class="filters" id="filters" role="group" data-i18n-attr="aria-label:filters.label" aria-label="Filter by medium"></div>
     <div class="search">
-      <label class="skip" for="q">Search the list</label>
-      <input id="q" type="search" placeholder="Search a title, an author, a word…" autocomplete="off">
+      <label class="skip" for="q" data-i18n="search.label">Search the list</label>
+      <input id="q" type="search" data-i18n-attr="placeholder:search.placeholder" placeholder="Search a title, an author, a word…" autocomplete="off">
     </div>
   </div>
 
   <main id="list"></main>
 
   <footer>
-    <p>Updated <span id="updated">September 2026</span>. Suggestions welcome —
+    <p data-i18n-html="footer">Updated <span id="updated">September 2026</span>. Suggestions welcome —
     <a href="mailto:ferencpalos.image003@simplelogin.com">send me one</a>.</p>
   </footer>
 
@@ -369,7 +470,13 @@
                     title:  'Title',
                     by:     'Author or director',
                     year:   '2007'  (a string, so ranges work),
-                    note:   'One or two sentences on why.' }
+                    note:   { en: 'One or two sentences on why.',
+                              hu: 'Ugyanaz magyarul.' } }
+
+   Titles and names stay in their original language in both versions — a
+   Hungarian book keeps its Hungarian title for an English reader. Only the
+   notes are translated. Any field may be written as { en: …, hu: … } if it
+   really does differ; `year` on The Odyssey is the one that does.
 
    Order inside each medium is the order shown. No ratings by design.
    ============================================================ */
@@ -378,414 +485,818 @@ const DATA = [
 
   /* ---------- BOOKS ---------- */
 
-  { medium: 'book', title: 'Crime and Punishment', by: 'Fyodor Dostoevsky', year: '1866',
-    note: 'A student reasons his way into a murder and then has to live inside his own head.' },
+  { medium: 'book', title: 'Crime and Punishment',
+    by: 'Fyodor Dostoevsky', year: '1866',
+    note: { en: 'A student reasons his way into a murder and then has to live inside his own head.',
+            hu: 'Egy diák elméletben levezeti, hogy joga van ölni, aztán együtt kell élnie a saját fejével.' } },
 
-  { medium: 'book', title: 'The Master and Margarita', by: 'Mikhail Bulgakov', year: '1967',
-    note: 'The devil arrives in 1930s Moscow with a talking cat, cut with a retelling of the trial of Christ.' },
+  { medium: 'book', title: 'The Master and Margarita',
+    by: 'Mikhail Bulgakov', year: '1967',
+    note: { en: 'The devil arrives in 1930s Moscow with a talking cat, cut with a retelling of the trial of Christ.',
+            hu: 'Az ördög megérkezik az 1930-as évek Moszkvájába egy beszélő macska kíséretében, a történet közé vágva Krisztus perének újramesélése.' } },
 
-  { medium: 'book', title: 'One Hundred Years of Solitude', by: 'Gabriel García Márquez', year: '1967',
-    note: 'Six generations of one family in a town that keeps forgetting its own past.' },
+  { medium: 'book', title: 'One Hundred Years of Solitude',
+    by: 'Gabriel García Márquez', year: '1967',
+    note: { en: 'Six generations of one family in a town that keeps forgetting its own past.',
+            hu: 'Egy család hat nemzedéke egy városban, amely folyton elfelejti a saját múltját.' } },
 
-  { medium: 'book', title: 'Vanity Fair', by: 'William Makepeace Thackeray', year: '1848',
-    note: 'Two girls leave the same school and their lives invert — the scheming one does well, the decent one doesn\'t.' },
+  { medium: 'book', title: 'Vanity Fair',
+    by: 'William Makepeace Thackeray', year: '1848',
+    note: { en: 'Two girls leave the same school and their lives invert — the scheming one does well, the decent one doesn\'t.',
+            hu: 'Két lány ugyanabból az iskolából indul, és az életük felcserélődik — az intrikus boldogul, a tisztességes nem.' } },
 
-  { medium: 'book', title: 'The Odyssey', by: 'Homer', year: 'c. 700 BC',
-    note: 'Ten years of one man trying to get home from a war.' },
+  { medium: 'book', title: 'My Name Is Asher Lev',
+    by: 'Chaim Potok', year: '1972',
+    note: { en: 'A boy in a Hasidic community in Brooklyn can draw, and everything his family wants from him is incompatible with that.',
+            hu: 'Egy brooklyni haszid közösségben élő fiú tud rajzolni, és minden, amit a családja vár tőle, összeegyeztethetetlen ezzel.' } },
 
-  { medium: 'book', title: 'Satantango', by: 'László Krasznahorkai', year: '1985',
-    note: 'A collapsing collective farm in the rain, and the con man who comes back to take what\'s left. Sentences run for pages.' },
+  { medium: 'book', title: 'The Life Before Us',
+    by: 'Romain Gary (Émile Ajar)', year: '1975',
+    note: { en: 'Momo, an Arab boy in Belleville, is raised by Madame Rosa, a retired prostitute who takes in the children of working girls. She is getting old, and it falls to him.',
+            hu: 'Momót, egy belleville-i arab kisfiút Madame Rosa neveli, a visszavonult prostituált, aki dolgozó lányok gyerekeit fogadja be. Az asszony öregszik, és a teher a fiúra száll.' } },
 
-  { medium: 'book', title: '1984', by: 'George Orwell', year: '1949',
-    note: 'A clerk in a surveillance state starts keeping a diary.' },
+  { medium: 'book', title: 'The Odyssey',
+    by: 'Homer', year: { en: 'c. 700 BC', hu: 'kb. i. e. 700' },
+    note: { en: 'Ten years of one man trying to get home from a war.',
+            hu: 'Tíz év, amíg egy ember hazajut egy háborúból.' } },
 
-  { medium: 'book', title: 'Animal Farm', by: 'George Orwell', year: '1945',
-    note: 'Farm animals take over the farm. A hundred pages.' },
+  { medium: 'book', title: 'Romeo and Juliet',
+    by: 'William Shakespeare', year: '1597',
+    note: { en: 'Two teenagers from feuding Verona families marry in secret.',
+            hu: 'Két tizenéves két egymással viszálykodó veronai családból titokban összeházasodik.' } },
 
-  { medium: 'book', title: 'Lord of the Flies', by: 'William Golding', year: '1954',
-    note: 'Schoolboys stranded on an island, and how fast the rules stop meaning anything.' },
+  { medium: 'book', title: 'Egri csillagok',
+    by: 'Gárdonyi Géza', year: '1899',
+    note: { en: 'Gergely Bornemissza, from his boyhood to the siege of Eger in 1552.',
+            hu: 'Bornemissza Gergely gyerekkorától az 1552-es egri ostromig.' } },
 
-  { medium: 'book', title: 'A Clockwork Orange', by: 'Anthony Burgess', year: '1962',
-    note: 'A violent teenager gets conditioned out of violence by the state. Told in invented slang. Some editions cut the last chapter.' },
+  { medium: 'book', title: 'A Pál utcai fiúk',
+    by: 'Molnár Ferenc', year: '1906',
+    note: { en: 'Two gangs of Budapest schoolboys go to war over a vacant lot.',
+            hu: 'Két pesti diákcsapat háborúja egy foghíjtelekért.' } },
 
-  { medium: 'book', title: 'Nothing', by: 'Janne Teller', year: '2000',
-    note: 'A boy climbs a tree and announces nothing means anything. His classmates set out to prove him wrong.' },
+  { medium: 'book', title: 'Toldi',
+    by: 'Arany János', year: '1846',
+    note: { en: 'Miklós Toldi kills a man, hides in the reeds, and makes his way to the king\'s court. In verse.',
+            hu: 'Toldi Miklós agyonüt egy embert, a nádasba menekül, majd eljut a király udvarába. Verses.' } },
 
-  { medium: 'book', title: 'Less Than Zero', by: 'Bret Easton Ellis', year: '1985',
-    note: 'A student comes home to Los Angeles for Christmas and drifts through his old circle.' },
+  { medium: 'book', title: 'János vitéz',
+    by: 'Petőfi Sándor', year: '1845',
+    note: { en: 'Jancsi loses his flock and his Iluska, joins the hussars, and ends up in fairyland. In verse.',
+            hu: 'Kukorica Jancsi elveszti a nyáját és Iluskát, beáll huszárnak, és Tündérországban köt ki. Verses.' } },
 
-  { medium: 'book', title: 'Tai-Pan', by: 'James Clavell', year: '1966',
-    note: 'The founding of Hong Kong in 1841, by traders who would do anything.' },
+  { medium: 'book', title: 'Édes Anna',
+    by: 'Kosztolányi Dezső', year: '1926',
+    note: { en: 'A servant girl in a middle-class Budapest household, just after 1919.',
+            hu: 'Egy cselédlány egy budapesti polgári házban, közvetlenül 1919 után.' } },
 
-  { medium: 'book', title: 'King Rat', by: 'James Clavell', year: '1962',
-    note: 'Changi POW camp, 1945. One American corporal runs the black market and eats well while everyone else starves. Clavell was there.' },
+  { medium: 'book', title: 'Abigél',
+    by: 'Szabó Magda', year: '1970',
+    note: { en: 'A general\'s daughter is put into a strict provincial girls\' boarding school during the war, and nobody tells her why.',
+            hu: 'Egy tábornok lányát a háború alatt szigorú vidéki leánynevelő intézetbe adják, és nem mondják meg neki, miért.' } },
 
-  { medium: 'book', title: 'Shutter Island', by: 'Dennis Lehane', year: '2003',
-    note: 'A US marshal investigates a disappearance at an island asylum.' },
+  { medium: 'book', title: 'Postarablók',
+    by: 'Gion Nándor', year: '1972',
+    note: { en: 'A gang of boys plans to empty the safe at the town post office. The safe never opens, but for that one night they run the whole town anyway.',
+            hu: 'Egy fiúbanda kitervelte, hogy kirámolja a városi posta vaskasszáját. A kassza nem nyílik ki, de aznap éjszaka mégis ők irányítják az egész várost.' } },
 
-  { medium: 'book', title: 'All Creatures Great and Small', by: 'James Herriot', year: '1970–1973',
-    note: 'A young vet working the Yorkshire hills in the thirties.' },
+  { medium: 'book', title: 'A kárókatonák még nem jöttek vissza',
+    by: 'Gion Nándor', year: '1977',
+    note: { en: 'A summer with Burai J. and his friends on the edge of a small town in Vojvodina. Published as a young-adult novel, though it is not quite one.',
+            hu: 'Burai J. és a barátai nyara egy vajdasági kisváros peremén. Ifjúsági regényként adták ki, de nem egészen az.' } },
 
-  { medium: 'book', title: 'The Little Prince', by: 'Antoine de Saint-Exupéry', year: '1943',
-    note: 'A pilot crashes in the desert and meets a boy from another planet.' },
+  { medium: 'book', title: 'Sortűz egy fekete bivalyért',
+    by: 'Gion Nándor', year: '1982',
+    note: { en: 'A new boy arrives in the village in the years after the war and comes to know the schoolmaster, the count, the priest and the buffalo keeper in turn. The sequel to A kárókatonák még nem jöttek vissza.',
+            hu: 'Új fiú érkezik a faluba a háború utáni években, és sorra megismeri a tanítót, a grófot, a plébánost meg a bivalyost. A kárókatonák folytatása.' } },
 
-  { medium: 'book', title: 'Ágrólszakadt Tóbiás', by: 'Timothée de Fombelle', year: '2006–2007',
-    note: 'A boy a millimetre and a half tall, living in an oak tree, has to run when his father\'s discovery turns the tree against him. Two volumes.' },
+  { medium: 'book', title: 'Apák könyve',
+    by: 'Vámos Miklós', year: '2000',
+    note: { en: 'Twelve generations of one Hungarian family, one per chapter, from the 1700s onwards.',
+            hu: 'Egy magyar család tizenkét nemzedéke, fejezetenként egy, az 1700-as évektől.' } },
 
-  { medium: 'book', title: 'Endure', by: 'Alex Hutchinson', year: '2018',
-    note: 'What actually stops you at hour fourteen, and how much of it is your brain rather than your body.' },
+  { medium: 'book', title: 'Látom, nekem kell lemennem',
+    by: 'Temesi Ferenc', year: '1977',
+    note: { en: 'Playful, ironic short stories that deliberately work against conventional storytelling.',
+            hu: 'Játékos, ironikus novellák, amelyek szándékosan a hagyományos elbeszélés ellen dolgoznak.' } },
 
-  { medium: 'book', title: 'Atomic Habits', by: 'James Clear', year: '2018',
-    note: 'How habits form and how to build them deliberately.' },
+  { medium: 'book', title: 'Miért nem lettem…?',
+    by: 'Temesi Ferenc', year: '2014',
+    note: { en: 'Stories about the people who mattered in Temesi\'s life: the famous, the notorious and the unknown, the living and the dead. Portraits rather than one continuous story.',
+            hu: 'Novellák emberekről, akik számítottak Temesi életében: híresek, hírhedtek és ismeretlenek, élők és holtak. Portrék, nem összefüggő történet.' } },
+
+  { medium: 'book', title: 'Az utca legjobb kocsmája',
+    by: 'Temesi Ferenc', year: '2019',
+    note: { en: 'A collection of stories arcing across a whole life: childhood, adolescence, university, adulthood, growing old.',
+            hu: 'Novelláskötet, ami egy teljes életen ível át: gyerekkor, kamaszkor, egyetem, felnőttkor, öregedés.' } },
+
+  { medium: 'book', title: '1984',
+    by: 'George Orwell', year: '1949',
+    note: { en: 'A clerk in a surveillance state starts keeping a diary.',
+            hu: 'Egy hivatalnok egy megfigyelő államban naplót kezd írni.' } },
+
+  { medium: 'book', title: 'Animal Farm',
+    by: 'George Orwell', year: '1945',
+    note: { en: 'Farm animals take over the farm. A hundred pages.',
+            hu: 'A háziállatok átveszik a gazdaságot. Száz oldal.' } },
+
+  { medium: 'book', title: 'Lord of the Flies',
+    by: 'William Golding', year: '1954',
+    note: { en: 'Schoolboys stranded on an island, and how fast the rules stop meaning anything.',
+            hu: 'Iskolás fiúk rekednek egy szigeten, és kiderül, milyen gyorsan veszítik érvényüket a szabályok.' } },
+
+  { medium: 'book', title: 'A Clockwork Orange',
+    by: 'Anthony Burgess', year: '1962',
+    note: { en: 'A violent teenager gets conditioned out of violence by the state. Told in invented slang. Some editions cut the last chapter.',
+            hu: 'Egy erőszakos kamaszból az állam kondicionálással irtja ki az erőszakot. Kitalált szlengben elbeszélve. Néhány kiadásból hiányzik az utolsó fejezet.' } },
+
+  { medium: 'book', title: 'Nothing',
+    by: 'Janne Teller', year: '2000',
+    note: { en: 'A boy climbs a tree and announces nothing means anything. His classmates set out to prove him wrong.',
+            hu: 'Egy fiú felmászik egy fára, és kijelenti, hogy semminek nincs értelme. Az osztálytársai nekiállnak bebizonyítani az ellenkezőjét.' } },
+
+  { medium: 'book', title: 'Less Than Zero',
+    by: 'Bret Easton Ellis', year: '1985',
+    note: { en: 'A student comes home to Los Angeles for Christmas and drifts through his old circle.',
+            hu: 'Egy egyetemista karácsonyra hazamegy Los Angelesbe, és céltalanul sodródik a régi társaságában.' } },
+
+  { medium: 'book', title: 'American Psycho',
+    by: 'Bret Easton Ellis', year: '1991',
+    note: { en: 'A Wall Street banker in the eighties narrates his suits, his restaurant bookings and his murders in the same tone.',
+            hu: 'Egy nyolcvanas évekbeli Wall Street-i bankár ugyanazon a hangon beszél az öltönyeiről, az asztalfoglalásairól és a gyilkosságairól.' } },
+
+  { medium: 'book', title: 'Shutter Island',
+    by: 'Dennis Lehane', year: '2003',
+    note: { en: 'A US marshal investigates a disappearance at an island asylum.',
+            hu: 'Egy szövetségi marsall egy eltűnés ügyében nyomoz egy szigeten álló elmegyógyintézetben.' } },
+
+  { medium: 'book', title: 'And Then There Were None',
+    by: 'Agatha Christie', year: '1939',
+    note: { en: 'Ten strangers are invited to an island and killed one at a time.',
+            hu: 'Tíz idegent hívnak meg egy szigetre, aztán egyenként megölik őket.' } },
+
+  { medium: 'book', title: 'Murder on the Orient Express',
+    by: 'Agatha Christie', year: '1934',
+    note: { en: 'A passenger is stabbed on a train stopped by snow, and everyone on board is a suspect.',
+            hu: 'Egy hóban vesztegelő vonaton leszúrnak egy utast, és mindenki gyanús, aki a fedélzeten van.' } },
+
+  { medium: 'book', title: 'Tai-Pan',
+    by: 'James Clavell', year: '1966',
+    note: { en: 'The founding of Hong Kong in 1841, by traders who would do anything.',
+            hu: 'Hongkong megalapítása 1841-ben, olyan kereskedők kezétől, akik semmitől sem riadtak vissza.' } },
+
+  { medium: 'book', title: 'King Rat',
+    by: 'James Clavell', year: '1962',
+    note: { en: 'Changi POW camp, 1945. One American corporal runs the black market and eats well while everyone else starves. Clavell was there.',
+            hu: 'A changi hadifogolytábor, 1945. Egy amerikai tizedes kezében a feketepiac, ő jól eszik, míg a többiek éheznek. Clavell maga is ott volt.' } },
+
+  { medium: 'book', title: 'Piszkos Fred, a kapitány',
+    by: 'Rejtő Jenő', year: '1940',
+    note: { en: 'An heir to a throne is sent out to the port of Singapore, where he falls in with the worst company in the Pacific.',
+            hu: 'Egy trónörököst kiküldenek a szingapúri kikötőbe, ahol a Csendes-óceán legrosszabb társaságába keveredik.' } },
+
+  { medium: 'book', title: 'A tizennégy karátos autó',
+    by: 'Rejtő Jenő', year: '1940',
+    note: { en: 'Two men swap places on the Riviera, and neither has any idea what he has walked into.',
+            hu: 'Két férfi szerepet cserél a Riviérán, és egyikük sem tudja, mibe csöppent.' } },
+
+  { medium: 'book', title: 'Vesztegzár a Grand Hotelben',
+    by: 'Rejtő Jenő', year: '1939',
+    note: { en: 'A hotel is put under quarantine because of plague, and someone inside is murdered.',
+            hu: 'Egy szállodát pestisjárvány miatt vesztegzár alá vonnak, és odabent gyilkosság történik.' } },
+
+  { medium: 'book', title: 'A három testőr Afrikában',
+    by: 'Rejtő Jenő', year: '1936',
+    note: { en: 'Three men in the Foreign Legion in North Africa, none of whom has any business being there.',
+            hu: 'Hárman az idegenlégióban Észak-Afrikában, akiknek semmi keresnivalójuk ott.' } },
+
+  { medium: 'book', title: 'A néma revolverek városa',
+    by: 'Rejtő Jenő', year: '1942',
+    note: { en: 'A safecracker cursed with permanent bad luck changes identity by plastic surgery and lands in the one town in Texas he should have stayed away from, where everybody wants him dead.',
+            hu: 'XIII. Pác Tivald, az örökös balszerencsével sújtott kasszafúró, plasztikai műtéttel személyt cserél, és épp abba a texasi városba kerül, amelyet kerülnie kellene — ahol mindenki őt akarja megölni.' } },
+
+  { medium: 'book', title: 'A fehér folt',
+    by: 'Rejtő Jenő', year: '1938',
+    note: { en: 'An oil magnate runs his dirty business in Africa, his daughter runs away from home, and the private detective sent after her follows the wrong woman through Paris and Stockholm. Two strands at once.',
+            hu: 'Halley olajmágnás Afrikában intézi a piszkos ügyeit, a lánya megszökik otthonról, az utána küldött magándetektív pedig rossz nőt követ Párizson és Stockholmon át. Két szálon fut.' } },
+
+  { medium: 'book', title: 'Harry Potter',
+    by: 'J. K. Rowling', year: '1997–2007',
+    note: { en: 'Seven books, one boy at a school for wizards, getting darker as it goes.',
+            hu: 'Hét kötet, egy fiú egy varázslóiskolában, és a történet menet közben egyre sötétebb.' } },
+
+  { medium: 'book', title: 'Eragon',
+    by: 'Christopher Paolini', year: '2002',
+    note: { en: 'A farm boy finds a dragon egg. First of four; Paolini was fifteen when he wrote it.',
+            hu: 'Egy parasztfiú sárkánytojást talál. A négyrészes sorozat első kötete; Paolini tizenöt éves volt, amikor írta.' } },
+
+  { medium: 'book', title: 'Toby Alone',
+    by: 'Timothée de Fombelle', year: '2006–2007',
+    note: { en: 'A boy a millimetre and a half tall, living in an oak tree, has to run when his father\'s discovery turns the tree against him. Two volumes; the second is Toby and the Secrets of the Tree.',
+            hu: 'Egy másfél milliméteres fiú egy tölgyfában él, és menekülnie kell, amikor az apja felfedezése az egész fát ellene fordítja. Két kötet; a folytatás címe Toby and the Secrets of the Tree.' } },
+
+  { medium: 'book', title: 'The Little Prince',
+    by: 'Antoine de Saint-Exupéry', year: '1943',
+    note: { en: 'A pilot crashes in the desert and meets a boy from another planet.',
+            hu: 'Egy pilóta lezuhan a sivatagban, és találkozik egy fiúval egy másik bolygóról.' } },
+
+  { medium: 'book', title: 'All Creatures Great and Small',
+    by: 'James Herriot', year: '1970–1973',
+    note: { en: 'A young vet working the Yorkshire hills in the thirties.',
+            hu: 'Egy fiatal állatorvos a yorkshire-i dombok között a harmincas években.' } },
+
+  { medium: 'book', title: 'Endure',
+    by: 'Alex Hutchinson', year: '2018',
+    note: { en: 'What actually stops you at hour fourteen, and how much of it is your brain rather than your body.',
+            hu: 'Mi állít meg valójában a tizennegyedik órában, és ebből mennyi az agy műve, nem pedig a testé.' } },
+
+  { medium: 'book', title: 'Atomic Habits',
+    by: 'James Clear', year: '2018',
+    note: { en: 'How habits form and how to build them deliberately.',
+            hu: 'Hogyan alakulnak ki a szokások, és hogyan lehet őket tudatosan felépíteni.' } },
+
 
   /* ---------- FILMS ---------- */
 
-  { medium: 'film', title: 'Kontroll', by: 'Nimród Antal', year: '2003',
-    note: 'Ticket inspectors on the Budapest metro, and someone pushing passengers under trains.' },
+  { medium: 'film', title: 'Kontroll',
+    by: 'Antal Nimród', year: '2003',
+    note: { en: 'Ticket inspectors in the Budapest metro, and someone pushing passengers in front of the trains.',
+            hu: 'Jegyellenőrök a budapesti metróban, meg valaki, aki utasokat lök a szerelvények elé.' } },
+
+  { medium: 'film', title: 'Rossz versek',
+    by: 'Reisz Gábor', year: '2018',
+    note: { en: 'A Budapest man in his thirties is left by his girlfriend, and goes back over his entire life looking for where he got it wrong.',
+            hu: 'Egy harmincas budapesti férfit elhagy a barátnője, ő pedig végigmegy az egész addigi életén, hogy megkeresse, hol rontotta el.' } },
+
+  { medium: 'film', title: 'VAN valami furcsa és megmagyarázhatatlan',
+    by: 'Reisz Gábor', year: '2014',
+    note: { en: 'Áron quits his job, does nothing for a while, then gets on a bus to Lisbon.',
+            hu: 'Áron felmond, egy ideig nem csinál semmit, aztán felül egy Lisszabonba tartó buszra.' } },
+
+  { medium: 'film', title: 'Se7en',
+    by: 'David Fincher', year: '1995',
+    note: { en: 'Two detectives work a series of murders staged around the seven deadly sins.',
+            hu: 'Két nyomozó egy gyilkosságsorozaton dolgozik, amelyet a hét főbűn köré rendeztek.' } },
+
+  { medium: 'film', title: 'Zodiac',
+    by: 'David Fincher', year: '2007',
+    note: { en: 'Two decades of police work and journalism on a serial killer case that never closes.',
+            hu: 'Két évtizednyi rendőrségi és újságírói munka egy sorozatgyilkos-ügyön, ami sosem zárul le.' } },
+
+  { medium: 'film', title: 'Prisoners',
+    by: 'Denis Villeneuve', year: '2013',
+    note: { en: 'Two girls go missing and one father decides the police are too slow.',
+            hu: 'Két kislány eltűnik, és az egyik apa úgy dönt, hogy a rendőrség túl lassú.' } },
+
+  { medium: 'film', title: 'No Country for Old Men',
+    by: 'Joel & Ethan Coen', year: '2007',
+    note: { en: 'A man finds two million dollars in the desert and takes it.',
+            hu: 'Egy férfi kétmillió dollárt talál a sivatagban, és elviszi.' } },
+
+  { medium: 'film', title: 'Taxi Driver',
+    by: 'Martin Scorsese', year: '1976',
+    note: { en: 'A New York cab driver working nights decides he\'s the one who has to clean up the city.',
+            hu: 'Egy éjszakás New York-i taxisofőr eldönti, hogy neki kell megtisztítania a várost.' } },
+
+  { medium: 'film', title: 'Goodfellas',
+    by: 'Martin Scorsese', year: '1990',
+    note: { en: 'Thirty years in the New York mob, from the inside.',
+            hu: 'Harminc év a New York-i maffiában, belülről.' } },
+
+  { medium: 'film', title: 'The Godfather trilogy',
+    by: 'Francis Ford Coppola', year: '1972–1990',
+    note: { en: 'A son who wanted nothing to do with the family business ends up running it. Part II sets the father\'s youth against the son\'s first years in charge; Part III is the old man trying to go legitimate.',
+            hu: 'A fiú, aki hallani sem akart a családi üzletről, a végén ő vezeti. A második rész az apa fiatalságát vágja össze a fiú első éveivel a család élén; a harmadik az öregedő férfi, aki tisztára akar mosakodni.' } },
+
+  { medium: 'film', title: 'Killers of the Flower Moon',
+    by: 'Martin Scorsese', year: '2023',
+    note: { en: 'Osage oil money in 1920s Oklahoma, and the white men marrying into it.',
+            hu: 'Az oszázs olajvagyon az 1920-as évek Oklahomájában, és a fehér férfiak, akik beházasodnak érte.' } },
+
+  { medium: 'film', title: 'Gone Girl',
+    by: 'David Fincher', year: '2014',
+    note: { en: 'A wife disappears on her anniversary and the husband looks guilty.',
+            hu: 'Egy feleség eltűnik a házassági évfordulójukon, és a férj bűnösnek látszik.' } },
+
+  { medium: 'film', title: 'Shutter Island',
+    by: 'Martin Scorsese', year: '2010',
+    note: { en: 'A US marshal investigates a disappearance at an island asylum.',
+            hu: 'Egy szövetségi marsall egy eltűnés ügyében nyomoz egy szigeten álló elmegyógyintézetben.' } },
+
+  { medium: 'film', title: 'The Sixth Sense',
+    by: 'M. Night Shyamalan', year: '1999',
+    note: { en: 'A child psychologist takes on a boy who says he sees the dead.',
+            hu: 'Egy gyerekpszichológus olyan kisfiút vesz kezelésbe, aki azt állítja, hogy látja a holtakat.' } },
+
+  { medium: 'film', title: 'Motherless Brooklyn',
+    by: 'Edward Norton', year: '2019',
+    note: { en: 'A private detective with Tourette\'s investigates his boss\'s murder in 1950s New York.',
+            hu: 'Egy Tourette-szindrómás magánnyomozó a főnöke meggyilkolása után nyomoz az ötvenes évek New Yorkjában.' } },
+
+  { medium: 'film', title: 'The Name of the Rose',
+    by: 'Jean-Jacques Annaud', year: '1986',
+    note: { en: 'A Franciscan investigates a series of deaths at a medieval abbey. From Eco\'s novel.',
+            hu: 'Egy ferences szerzetes haláleseteket vizsgál egy középkori apátságban. Eco regényéből.' } },
+
+  { medium: 'film', title: 'Knives Out',
+    by: 'Rian Johnson', year: '2019',
+    note: { en: 'A crime novelist dies after his birthday party and his family are all suspects.',
+            hu: 'Egy krimiíró meghal a saját születésnapi partija után, és az egész családja gyanúsított.' } },
+
+  { medium: 'film', title: 'Fight Club',
+    by: 'David Fincher', year: '1999',
+    note: { en: 'An insomniac office worker starts a basement fight club with a soap salesman.',
+            hu: 'Egy álmatlanságtól szenvedő irodista egy szappanügynökkel pinceklubot indít, ahol verekednek.' } },
+
+  { medium: 'film', title: 'Joker',
+    by: 'Todd Phillips', year: '2019',
+    note: { en: 'A mentally ill clown-for-hire in a city with no use for him.',
+            hu: 'Egy mentálisan beteg bérbohóc egy városban, amelynek semmi szüksége rá.' } },
+
+  { medium: 'film', title: 'American History X',
+    by: 'Tony Kaye', year: '1998',
+    note: { en: 'A neo-Nazi comes out of prison having changed his mind, and finds his younger brother has become him.',
+            hu: 'Egy neonáci megváltozott fejjel szabadul a börtönből, és azt találja, hogy az öccse azzá vált, aki ő volt.' } },
+
+  { medium: 'film', title: 'La Haine',
+    by: 'Mathieu Kassovitz', year: '1995',
+    note: { en: 'Twenty-four hours with three friends from a Paris housing estate the morning after a riot, one of them holding a revolver a policeman lost.',
+            hu: 'Huszonnégy óra három barát életéből egy párizsi lakótelepen, egy zavargás másnapján, miközben egyikük egy rendőr elvesztett revolverét tartja magánál.' } },
+
+  { medium: 'film', title: 'There Will Be Blood',
+    by: 'Paul Thomas Anderson', year: '2007',
+    note: { en: 'A California oil prospector and the preacher who won\'t get out of his way.',
+            hu: 'Egy kaliforniai olajkutató és a prédikátor, aki nem áll félre az útjából.' } },
+
+  { medium: 'film', title: 'The Deer Hunter',
+    by: 'Michael Cimino', year: '1978',
+    note: { en: 'Three Pennsylvania steelworkers before, during and after Vietnam. The first hour is a wedding.',
+            hu: 'Három pennsylvaniai acélmunkás Vietnám előtt, alatt és után. Az első óra egy lakodalom.' } },
+
+  { medium: 'film', title: 'Parasite',
+    by: 'Bong Joon-ho', year: '2019',
+    note: { en: 'A poor family talks its way into a rich family\'s house, one job at a time.',
+            hu: 'Egy szegény család beszéli be magát egy gazdag család házába, állásról állásra.' } },
+
+  { medium: 'film', title: '12 Angry Men',
+    by: 'Sidney Lumet', year: '1957',
+    note: { en: 'One jury room, and one juror who won\'t vote guilty.',
+            hu: 'Egyetlen esküdtszéki szoba, és egy esküdt, aki nem szavaz bűnösre.' } },
+
+  { medium: 'film', title: 'The Shawshank Redemption',
+    by: 'Frank Darabont', year: '1994',
+    note: { en: 'Forty years in a Maine prison, and the friendship that gets a banker through them.',
+            hu: 'Negyven év egy maine-i börtönben, és a barátság, ami átsegíti rajta a bankárt.' } },
+
+  { medium: 'film', title: 'The Green Mile',
+    by: 'Frank Darabont', year: '1999',
+    note: { en: 'Death row guards in the thirties and an inmate who can do things nobody can explain.',
+            hu: 'Siralomházi őrök a harmincas években, és egy rab, aki olyasmire képes, amit senki nem tud megmagyarázni.' } },
+
+  { medium: 'film', title: 'Gran Torino',
+    by: 'Clint Eastwood', year: '2008',
+    note: { en: 'A widowed Korean War veteran and the Hmong family next door.',
+            hu: 'Egy megözvegyült koreai háborús veterán és a szomszédban lakó hmong család.' } },
+
+  { medium: 'film', title: 'The Big Short',
+    by: 'Adam McKay', year: '2015',
+    note: { en: 'The handful of people who saw the 2008 crash coming and bet on it.',
+            hu: 'Az a néhány ember, aki előre látta a 2008-as összeomlást, és fogadott is rá.' } },
+
+  { medium: 'film', title: 'Good Will Hunting',
+    by: 'Gus Van Sant', year: '1997',
+    note: { en: 'A janitor at MIT can do the mathematics and won\'t do anything with it.',
+            hu: 'Egy MIT-takarító ért a matematikához, és semmit sem akar kezdeni vele.' } },
+
+  { medium: 'film', title: 'Dead Poets Society',
+    by: 'Peter Weir', year: '1989',
+    note: { en: 'A new English teacher at a strict boarding school, and what it costs him.',
+            hu: 'Új irodalomtanár egy szigorú bentlakásos iskolában, és az ár, amit ezért fizet.' } },
+
+  { medium: 'film', title: 'Rocky',
+    by: 'John G. Avildsen', year: '1976',
+    note: { en: 'A club fighter from Philadelphia gets one shot at the heavyweight title.',
+            hu: 'Egy philadelphiai kisegyleti bokszoló egyetlen esélyt kap a nehézsúlyú címre.' } },
+
+  { medium: 'film', title: 'A River Runs Through It',
+    by: 'Robert Redford', year: '1992',
+    note: { en: 'Two brothers in Montana, and fly fishing as the only language their family has.',
+            hu: 'Két testvér Montanában, és a legyezőhorgászat mint az egyetlen nyelv, amit a családjuk beszél.' } },
+
+  { medium: 'film', title: 'Forrest Gump',
+    by: 'Robert Zemeckis', year: '1994',
+    note: { en: 'One man walks through thirty years of American history without quite noticing.',
+            hu: 'Egy ember végigsétál harminc év amerikai történelmén anélkül, hogy igazán észrevenné.' } },
+
+  { medium: 'film', title: 'The Curious Case of Benjamin Button',
+    by: 'David Fincher', year: '2008',
+    note: { en: 'A man born old ages backwards through the twentieth century.',
+            hu: 'Egy öregen született férfi visszafelé öregszik a huszadik századon át.' } },
+
+  { medium: 'film', title: 'The Intouchables',
+    by: 'Olivier Nakache & Éric Toledano', year: '2011',
+    note: { en: 'A rich quadriplegic hires the least qualified carer who applies.',
+            hu: 'Egy gazdag, mozgásképtelen férfi a legkevésbé alkalmas jelentkezőt veszi fel gondozónak.' } },
+
+  { medium: 'film', title: 'Green Book',
+    by: 'Peter Farrelly', year: '2018',
+    note: { en: 'A black concert pianist tours the segregated South in 1962 with an Italian-American driver.',
+            hu: 'Egy fekete koncertzongorista 1962-ben a szegregált Délen turnézik, egy olasz-amerikai sofőrrel.' } },
+
+  { medium: 'film', title: 'Slumdog Millionaire',
+    by: 'Danny Boyle', year: '2008',
+    note: { en: 'A Mumbai teenager on the quiz show, with his own life as the answer key.',
+            hu: 'Egy mumbai kamasz a kvízműsorban, ahol a saját élete a megoldókulcs.' } },
+
+  { medium: 'film', title: 'The Bucket List',
+    by: 'Rob Reiner', year: '2007',
+    note: { en: 'Two terminally ill men leave the hospital with a list.',
+            hu: 'Két gyógyíthatatlan beteg férfi kisétál a kórházból egy listával.' } },
+
+  { medium: 'film', title: 'The Intern',
+    by: 'Nancy Meyers', year: '2015',
+    note: { en: 'A retired executive takes an internship at a fashion startup.',
+            hu: 'Egy nyugdíjas vezető gyakornoknak áll egy divatcégnél.' } },
+
+  { medium: 'film', title: 'Eternal Sunshine of the Spotless Mind',
+    by: 'Michel Gondry', year: '2004',
+    note: { en: 'A couple pay to have each other erased, and he changes his mind mid-procedure.',
+            hu: 'Egy pár kifizeti, hogy kitöröljék egymást az emlékeikből, és a férfi a beavatkozás közben meggondolja magát.' } },
+
+  { medium: 'film', title: 'The Truman Show',
+    by: 'Peter Weir', year: '1998',
+    note: { en: 'A man works out that his entire life is a broadcast.',
+            hu: 'Egy ember rájön, hogy az egész élete adásban megy.' } },
+
+  { medium: 'film', title: 'Amélie',
+    by: 'Jean-Pierre Jeunet', year: '2001',
+    note: { en: 'A shy Paris waitress quietly arranges other people\'s lives.',
+            hu: 'Egy félénk párizsi pincérnő csendben elrendezi mások életét.' } },
+
+  { medium: 'film', title: 'Pulp Fiction',
+    by: 'Quentin Tarantino', year: '1994',
+    note: { en: 'Hitmen, a boxer and a briefcase, told out of order.',
+            hu: 'Bérgyilkosok, egy bokszoló és egy aktatáska, összekevert sorrendben elmesélve.' } },
+
+  { medium: 'film', title: 'Inglourious Basterds',
+    by: 'Quentin Tarantino', year: '2009',
+    note: { en: 'A Jewish-American unit hunting Nazis in occupied France, and a cinema owner with her own plan.',
+            hu: 'Egy zsidó-amerikai különítmény nácikra vadászik a megszállt Franciaországban, egy mozitulajdonosnak pedig saját terve van.' } },
+
+  { medium: 'film', title: 'Django Unchained',
+    by: 'Quentin Tarantino', year: '2012',
+    note: { en: 'A freed slave and a German bounty hunter ride south to find his wife.',
+            hu: 'Egy felszabadított rabszolga és egy német fejvadász délre lovagol, hogy megtalálja a férfi feleségét.' } },
+
+  { medium: 'film', title: 'Snatch',
+    by: 'Guy Ritchie', year: '2000',
+    note: { en: 'A stolen diamond, an unlicensed boxer and several London crews colliding.',
+            hu: 'Egy lopott gyémánt, egy engedély nélküli bokszoló és több londoni banda, akik egymásnak rohannak.' } },
+
+  { medium: 'film', title: 'Lock, Stock and Two Smoking Barrels',
+    by: 'Guy Ritchie', year: '1998',
+    note: { en: 'Four friends owe half a million to a porn baron after a rigged card game.',
+            hu: 'Négy barát félmillióval tartozik egy pornómágnásnak egy cinkelt kártyaparti után.' } },
+
+  { medium: 'film', title: 'Léon: The Professional',
+    by: 'Luc Besson', year: '1994',
+    note: { en: 'A hitman ends up looking after the twelve-year-old from down the hall.',
+            hu: 'Egy bérgyilkos a nyakán marad a folyosó végén lakó tizenkét éves lány.' } },
+
+  { medium: 'film', title: 'Baby Driver',
+    by: 'Edgar Wright', year: '2017',
+    note: { en: 'A getaway driver with tinnitus who does everything to music.',
+            hu: 'Egy fülzúgásos menekülésisofőr, aki mindent zenére csinál.' } },
+
+  { medium: 'film', title: 'The Grand Budapest Hotel',
+    by: 'Wes Anderson', year: '2014',
+    note: { en: 'A concierge, a lobby boy and a stolen painting in a fictional prewar Europe.',
+            hu: 'Egy portás, egy londiner és egy ellopott festmény egy kitalált háború előtti Európában.' } },
+
+  { medium: 'film', title: 'Catch Me If You Can',
+    by: 'Steven Spielberg', year: '2002',
+    note: { en: 'A teenage con man passing as a pilot and a doctor, and the FBI agent chasing him.',
+            hu: 'Egy tinédzser csaló pilótának és orvosnak adja ki magát, nyomában az FBI-ügynökkel.' } },
+
+  { medium: 'film', title: 'The Big Lebowski',
+    by: 'Joel & Ethan Coen', year: '1998',
+    note: { en: 'A man is mistaken for a millionaire with the same name and wants his rug replaced.',
+            hu: 'Egy férfit összetévesztenek egy vele azonos nevű milliomossal, ő pedig új szőnyeget akar.' } },
+
+  { medium: 'film', title: 'Ferris Bueller\'s Day Off',
+    by: 'John Hughes', year: '1986',
+    note: { en: 'A kid skips school and takes Chicago apart for a day.',
+            hu: 'Egy kölyök meglóg az iskolából, és egy napra felforgatja Chicagót.' } },
+
+  { medium: 'film', title: 'The Breakfast Club',
+    by: 'John Hughes', year: '1985',
+    note: { en: 'Five kids from different cliques in Saturday detention.',
+            hu: 'Öt különböző társasághoz tartozó kamasz szombati büntetőórán.' } },
+
+  { medium: 'film', title: 'Step Brothers',
+    by: 'Adam McKay', year: '2008',
+    note: { en: 'Two forty-year-olds still living at home become stepbrothers when their parents marry.',
+            hu: 'Két negyvenéves, akik még mindig otthon laknak, mostohatestvérek lesznek, amikor a szüleik összeházasodnak.' } },
+
+  { medium: 'film', title: 'Daddy\'s Home 1–2',
+    by: 'Sean Anders', year: '2015–2017',
+    note: { en: 'A stepfather competes with the biological father for the kids. The second adds both grandfathers.',
+            hu: 'Egy mostohaapa versenyez a vér szerinti apával a gyerekekért. A második részben mindkét nagyapa is megjelenik.' } },
+
+  { medium: 'film', title: 'Zoolander',
+    by: 'Ben Stiller', year: '2001',
+    note: { en: 'A male model is brainwashed to assassinate the prime minister of Malaysia.',
+            hu: 'Egy férfimodellt kimosnak az agyából, hogy meggyilkolja Malajzia miniszterelnökét.' } },
+
+  { medium: 'film', title: 'Starsky & Hutch',
+    by: 'Todd Phillips', year: '2004',
+    note: { en: 'Two mismatched seventies detectives on a cocaine case. Remake of the TV series.',
+            hu: 'Két összeillőnek nem nevezhető hetvenes évekbeli nyomozó egy kokainügyön. A tévésorozat feldolgozása.' } },
+
+  { medium: 'film', title: 'Holmes & Watson',
+    by: 'Etan Cohen', year: '2018',
+    note: { en: 'Ferrell and Reilly as Holmes and Watson.',
+            hu: 'Ferrell és Reilly mint Holmes és Watson.' } },
+
+  { medium: 'film', title: 'Austin Powers',
+    by: 'Jay Roach', year: '1997–2002',
+    note: { en: 'A sixties British spy is unfrozen in the nineties. Three films.',
+            hu: 'Egy hatvanas évekbeli brit kémet felolvasztanak a kilencvenes években. Három film.' } },
+
+  { medium: 'film', title: 'Barbie',
+    by: 'Greta Gerwig', year: '2023',
+    note: { en: 'Barbie leaves Barbieland for the real world.',
+            hu: 'Barbie elhagyja Barbie-földet, és kilép a valós világba.' } },
+
+  { medium: 'film', title: 'The Dark Knight trilogy',
+    by: 'Christopher Nolan', year: '2005–2012',
+    note: { en: 'Batman from the beginning through to the end.',
+            hu: 'Batman az elejétől a végéig.' } },
+
+  { medium: 'film', title: 'Inception',
+    by: 'Christopher Nolan', year: '2010',
+    note: { en: 'A crew who steal information from dreams take a job planting an idea instead.',
+            hu: 'Egy csapat, amely álmokból lop információt, ezúttal arra kap megbízást, hogy ültessen el egy gondolatot.' } },
+
+  { medium: 'film', title: 'Blade Runner 2049',
+    by: 'Denis Villeneuve', year: '2017',
+    note: { en: 'A replicant working for the LAPD turns up something that shouldn\'t exist.',
+            hu: 'Egy replikáns a Los Angeles-i rendőrség szolgálatában olyasmire bukkan, aminek nem volna szabad léteznie.' } },
+
+  { medium: 'film', title: 'The Terminator',
+    by: 'James Cameron', year: '1984',
+    note: { en: 'A machine is sent back to kill the mother of a man not yet born.',
+            hu: 'Egy gépet visszaküldenek a múltba, hogy megölje egy még meg sem született férfi anyját.' } },
+
+  { medium: 'film', title: 'Die Hard',
+    by: 'John McTiernan', year: '1988',
+    note: { en: 'A New York cop is in the wrong Los Angeles office block on the wrong evening.',
+            hu: 'Egy New York-i rendőr rossz Los Angeles-i irodaházba téved, rossz estén.' } },
+
+  { medium: 'film', title: 'Jurassic Park',
+    by: 'Steven Spielberg', year: '1993',
+    note: { en: 'A dinosaur park on an island, on the weekend the power fails.',
+            hu: 'Dinoszauruszpark egy szigeten, azon a hétvégén, amikor elmegy az áram.' } },
+
+  { medium: 'film', title: 'Back to the Future trilogy',
+    by: 'Robert Zemeckis', year: '1985–1990',
+    note: { en: 'A kid ends up in 1955 and nearly prevents his own existence, then 2015 and 1885.',
+            hu: 'Egy kölyök 1955-ben találja magát, és majdnem megakadályozza a saját létezését, aztán jön 2015 és 1885.' } },
+
+  { medium: 'film', title: 'The Good, the Bad and the Ugly',
+    by: 'Sergio Leone', year: '1966',
+    note: { en: 'Three men race for buried Confederate gold.',
+            hu: 'Három férfi versenyt fut az elásott konföderációs aranyért.' } },
+
+  { medium: 'film', title: 'Harry Potter',
+    by: 'various', year: '2001–2011',
+    note: { en: 'Eight films over ten years, with the cast growing up on screen.',
+            hu: 'Nyolc film tíz év alatt, a szereplők a vásznon nőnek fel.' } },
+
+  { medium: 'film', title: 'Spirited Away',
+    by: 'Hayao Miyazaki', year: '2001',
+    note: { en: 'A girl\'s parents turn into pigs and she has to work in a bathhouse for spirits.',
+            hu: 'Egy kislány szülei disznóvá változnak, neki pedig egy szellemeknek szóló fürdőházban kell dolgoznia.' } },
+
+  { medium: 'film', title: 'Howl\'s Moving Castle',
+    by: 'Hayao Miyazaki', year: '2004',
+    note: { en: 'A girl is cursed into an old woman and moves in with a wizard.',
+            hu: 'Egy lányt öregasszonnyá átkoznak, ő pedig beköltözik egy varázslóhoz.' } },
+
+  { medium: 'film', title: 'WALL·E',
+    by: 'Andrew Stanton', year: '2008',
+    note: { en: 'The last rubbish-compacting robot on an abandoned Earth. The first forty minutes are near-silent.',
+            hu: 'Az utolsó szemétpréselő robot egy elhagyott Földön. Az első negyven perc szinte néma.' } },
+
+  { medium: 'film', title: 'Finding Nemo',
+    by: 'Andrew Stanton', year: '2003',
+    note: { en: 'A clownfish crosses the ocean to find his son.',
+            hu: 'Egy bohóchal átkel az óceánon, hogy megtalálja a fiát.' } },
+
+  { medium: 'film', title: 'Toy Story 1–3',
+    by: 'Pixar', year: '1995–2010',
+    note: { en: 'Toys that come alive when nobody is looking. The third has the kid leaving for college.',
+            hu: 'Játékok, amelyek életre kelnek, ha senki nem figyel. A harmadik részben a gyerek egyetemre megy.' } },
+
+  { medium: 'film', title: 'Monsters, Inc. & Monsters University',
+    by: 'Pete Docter & Dan Scanlon', year: '2001–2013',
+    note: { en: 'Scaring children is an energy industry, until a child gets through the door. The prequel goes back to Mike and Sulley meeting at university, where neither is the obvious talent.',
+            hu: 'A gyerekek ijesztgetése energiaipar, amíg egy gyerek át nem jut az ajtón. Az előzményfilm oda megy vissza, amikor Mike és Sulley az egyetemen találkoznak, és egyikük sem a nyilvánvaló tehetség.' } },
+
+  { medium: 'film', title: 'Up',
+    by: 'Pete Docter', year: '2009',
+    note: { en: 'A widower ties balloons to his house to fly it to South America, and finds a boy scout on the porch. The opening ten minutes do more than most films manage in two hours.',
+            hu: 'Egy özvegy lufikat köt a házára, hogy Dél-Amerikába repüljön vele, és egy kiscserkészt talál a tornácán. A nyitó tíz perc többet tesz le az asztalra, mint a legtöbb film két óra alatt.' } },
+
+  { medium: 'film', title: 'The Incredibles',
+    by: 'Brad Bird', year: '2004',
+    note: { en: 'A retired superhero family forced back into work.',
+            hu: 'Egy visszavonult szuperhőscsalád, akiket visszakényszerítenek a munkába.' } },
+
+  { medium: 'film', title: 'Ratatouille',
+    by: 'Brad Bird', year: '2007',
+    note: { en: 'A rat with a palate ends up running a Paris kitchen through a hopeless kitchen boy.',
+            hu: 'Egy jó ízlésű patkány egy reménytelen konyhai kisegítőn keresztül vezet egy párizsi konyhát.' } },
+
+  { medium: 'film', title: 'The Iron Giant',
+    by: 'Brad Bird', year: '1999',
+    note: { en: 'A boy finds a giant robot in 1950s Maine and hides it from the government.',
+            hu: 'Egy fiú óriásrobotot talál az ötvenes évek Maine-jében, és elrejti a kormány elől.' } },
+
+  { medium: 'film', title: 'A Bug\'s Life',
+    by: 'John Lasseter', year: '1998',
+    note: { en: 'An ant hires circus insects to fight off the grasshoppers.',
+            hu: 'Egy hangya cirkuszi bogarakat fogad fel, hogy elzavarják a szöcskéket.' } },
+
+  { medium: 'film', title: 'The Lego Movie',
+    by: 'Phil Lord & Christopher Miller', year: '2014',
+    note: { en: 'An ordinary construction minifigure is mistaken for the chosen one.',
+            hu: 'Egy hétköznapi építőmunkás minifigurát összetévesztenek a kiválasztottal.' } },
+
+  { medium: 'film', title: 'Despicable Me',
+    by: 'Pierre Coffin & Chris Renaud', year: '2010',
+    note: { en: 'A supervillain adopts three girls as part of a heist and gets attached.',
+            hu: 'Egy szupergonosz egy rablás részeként örökbe fogad három kislányt, aztán megszereti őket.' } },
+
+  { medium: 'film', title: 'Shark Tale',
+    by: 'Bibo Bergeron & Vicky Jenson', year: '2004',
+    note: { en: 'A fish takes credit for a shark\'s death and has to keep the story going.',
+            hu: 'Egy hal magának tulajdonítja egy cápa halálát, és muszáj tovább vinnie a mesét.' } },
+
+  { medium: 'film', title: 'The Croods',
+    by: 'Kirk DeMicco & Chris Sanders', year: '2013',
+    note: { en: 'A cave family leaves the cave when their valley starts breaking apart.',
+            hu: 'Egy barlangi család elhagyja a barlangot, amikor a völgyük darabokra kezd hullani.' } },
+
+  { medium: 'film', title: 'Bee Movie',
+    by: 'Simon J. Smith & Steve Hickner', year: '2007',
+    note: { en: 'A bee sues the human race for stealing honey.',
+            hu: 'Egy méh beperli az emberiséget mézlopásért.' } },
 
-  { medium: 'film', title: 'Rossz versek', by: 'Gábor Reisz', year: '2018',
-    note: 'A Budapest man in his thirties gets dumped and goes back through his whole life looking for where it went wrong.' },
-
-  { medium: 'film', title: 'VAN valami furcsa és megmagyarázhatatlan', by: 'Gábor Reisz', year: '2014',
-    note: 'Áron quits his job, does nothing for a while, and ends up on a bus to Lisbon.' },
-
-  { medium: 'film', title: 'Se7en', by: 'David Fincher', year: '1995',
-    note: 'Two detectives work a series of murders staged around the seven deadly sins.' },
-
-  { medium: 'film', title: 'Zodiac', by: 'David Fincher', year: '2007',
-    note: 'Two decades of police work and journalism on a serial killer case that never closes.' },
-
-  { medium: 'film', title: 'Prisoners', by: 'Denis Villeneuve', year: '2013',
-    note: 'Two girls go missing and one father decides the police are too slow.' },
-
-  { medium: 'film', title: 'No Country for Old Men', by: 'Joel & Ethan Coen', year: '2007',
-    note: 'A man finds two million dollars in the desert and takes it.' },
-
-  { medium: 'film', title: 'Taxi Driver', by: 'Martin Scorsese', year: '1976',
-    note: 'A New York cab driver working nights decides he\'s the one who has to clean up the city.' },
-
-  { medium: 'film', title: 'Goodfellas', by: 'Martin Scorsese', year: '1990',
-    note: 'Thirty years in the New York mob, from the inside.' },
-
-  { medium: 'film', title: 'The Godfather', by: 'Francis Ford Coppola', year: '1972',
-    note: 'A son who wanted nothing to do with the family business ends up running it. Part II covers the next generation and the father\'s youth.' },
-
-  { medium: 'film', title: 'Killers of the Flower Moon', by: 'Martin Scorsese', year: '2023',
-    note: 'Osage oil money in 1920s Oklahoma, and the white men marrying into it.' },
-
-  { medium: 'film', title: 'Gone Girl', by: 'David Fincher', year: '2014',
-    note: 'A wife disappears on her anniversary and the husband looks guilty.' },
-
-  { medium: 'film', title: 'Shutter Island', by: 'Martin Scorsese', year: '2010',
-    note: 'A US marshal investigates a disappearance at an island asylum.' },
-
-  { medium: 'film', title: 'The Sixth Sense', by: 'M. Night Shyamalan', year: '1999',
-    note: 'A child psychologist takes on a boy who says he sees the dead.' },
-
-  { medium: 'film', title: 'Motherless Brooklyn', by: 'Edward Norton', year: '2019',
-    note: 'A private detective with Tourette\'s investigates his boss\'s murder in 1950s New York.' },
-
-  { medium: 'film', title: 'The Name of the Rose', by: 'Jean-Jacques Annaud', year: '1986',
-    note: 'A Franciscan investigates a series of deaths at a medieval abbey. From Eco\'s novel.' },
-
-  { medium: 'film', title: 'Knives Out', by: 'Rian Johnson', year: '2019',
-    note: 'A crime novelist dies after his birthday party and his family are all suspects.' },
-
-  { medium: 'film', title: 'Fight Club', by: 'David Fincher', year: '1999',
-    note: 'An insomniac office worker starts a basement fight club with a soap salesman.' },
-
-  { medium: 'film', title: 'Joker', by: 'Todd Phillips', year: '2019',
-    note: 'A mentally ill clown-for-hire in a city with no use for him.' },
-
-  { medium: 'film', title: 'American History X', by: 'Tony Kaye', year: '1998',
-    note: 'A neo-Nazi comes out of prison having changed his mind, and finds his younger brother has become him.' },
-
-  { medium: 'film', title: 'There Will Be Blood', by: 'Paul Thomas Anderson', year: '2007',
-    note: 'A California oil prospector and the preacher who won\'t get out of his way.' },
-
-  { medium: 'film', title: 'The Deer Hunter', by: 'Michael Cimino', year: '1978',
-    note: 'Three Pennsylvania steelworkers before, during and after Vietnam. The first hour is a wedding.' },
-
-  { medium: 'film', title: 'Parasite', by: 'Bong Joon-ho', year: '2019',
-    note: 'A poor family talks its way into a rich family\'s house, one job at a time.' },
-
-  { medium: 'film', title: '12 Angry Men', by: 'Sidney Lumet', year: '1957',
-    note: 'One jury room, and one juror who won\'t vote guilty.' },
-
-  { medium: 'film', title: 'The Shawshank Redemption', by: 'Frank Darabont', year: '1994',
-    note: 'Forty years in a Maine prison, and the friendship that gets a banker through them.' },
-
-  { medium: 'film', title: 'The Green Mile', by: 'Frank Darabont', year: '1999',
-    note: 'Death row guards in the thirties and an inmate who can do things nobody can explain.' },
-
-  { medium: 'film', title: 'Gran Torino', by: 'Clint Eastwood', year: '2008',
-    note: 'A widowed Korean War veteran and the Hmong family next door.' },
-
-  { medium: 'film', title: 'The Big Short', by: 'Adam McKay', year: '2015',
-    note: 'The handful of people who saw the 2008 crash coming and bet on it.' },
-
-  { medium: 'film', title: 'Good Will Hunting', by: 'Gus Van Sant', year: '1997',
-    note: 'A janitor at MIT can do the mathematics and won\'t do anything with it.' },
-
-  { medium: 'film', title: 'Dead Poets Society', by: 'Peter Weir', year: '1989',
-    note: 'A new English teacher at a strict boarding school, and what it costs him.' },
-
-  { medium: 'film', title: 'Rocky', by: 'John G. Avildsen', year: '1976',
-    note: 'A club fighter from Philadelphia gets one shot at the heavyweight title.' },
-
-  { medium: 'film', title: 'A River Runs Through It', by: 'Robert Redford', year: '1992',
-    note: 'Two brothers in Montana, and fly fishing as the only language their family has.' },
-
-  { medium: 'film', title: 'Forrest Gump', by: 'Robert Zemeckis', year: '1994',
-    note: 'One man walks through thirty years of American history without quite noticing.' },
-
-  { medium: 'film', title: 'The Curious Case of Benjamin Button', by: 'David Fincher', year: '2008',
-    note: 'A man born old ages backwards through the twentieth century.' },
-
-  { medium: 'film', title: 'The Intouchables', by: 'Olivier Nakache & Éric Toledano', year: '2011',
-    note: 'A rich quadriplegic hires the least qualified carer who applies.' },
-
-  { medium: 'film', title: 'Green Book', by: 'Peter Farrelly', year: '2018',
-    note: 'A black concert pianist tours the segregated South in 1962 with an Italian-American driver.' },
-
-  { medium: 'film', title: 'Slumdog Millionaire', by: 'Danny Boyle', year: '2008',
-    note: 'A Mumbai teenager on the quiz show, with his own life as the answer key.' },
-
-  { medium: 'film', title: 'The Bucket List', by: 'Rob Reiner', year: '2007',
-    note: 'Two terminally ill men leave the hospital with a list.' },
-
-  { medium: 'film', title: 'The Intern', by: 'Nancy Meyers', year: '2015',
-    note: 'A retired executive takes an internship at a fashion startup.' },
-
-  { medium: 'film', title: 'Eternal Sunshine of the Spotless Mind', by: 'Michel Gondry', year: '2004',
-    note: 'A couple pay to have each other erased, and he changes his mind mid-procedure.' },
-
-  { medium: 'film', title: 'The Truman Show', by: 'Peter Weir', year: '1998',
-    note: 'A man works out that his entire life is a broadcast.' },
-
-  { medium: 'film', title: 'Amélie', by: 'Jean-Pierre Jeunet', year: '2001',
-    note: 'A shy Paris waitress quietly arranges other people\'s lives.' },
-
-  { medium: 'film', title: 'Pulp Fiction', by: 'Quentin Tarantino', year: '1994',
-    note: 'Hitmen, a boxer and a briefcase, told out of order.' },
-
-  { medium: 'film', title: 'Inglourious Basterds', by: 'Quentin Tarantino', year: '2009',
-    note: 'A Jewish-American unit hunting Nazis in occupied France, and a cinema owner with her own plan.' },
-
-  { medium: 'film', title: 'Django Unchained', by: 'Quentin Tarantino', year: '2012',
-    note: 'A freed slave and a German bounty hunter ride south to find his wife.' },
-
-  { medium: 'film', title: 'Snatch', by: 'Guy Ritchie', year: '2000',
-    note: 'A stolen diamond, an unlicensed boxer and several London crews colliding.' },
-
-  { medium: 'film', title: 'Lock, Stock and Two Smoking Barrels', by: 'Guy Ritchie', year: '1998',
-    note: 'Four friends owe half a million to a porn baron after a rigged card game.' },
-
-  { medium: 'film', title: 'Léon: The Professional', by: 'Luc Besson', year: '1994',
-    note: 'A hitman ends up looking after the twelve-year-old from down the hall.' },
-
-  { medium: 'film', title: 'Baby Driver', by: 'Edgar Wright', year: '2017',
-    note: 'A getaway driver with tinnitus who does everything to music.' },
-
-  { medium: 'film', title: 'The Grand Budapest Hotel', by: 'Wes Anderson', year: '2014',
-    note: 'A concierge, a lobby boy and a stolen painting in a fictional prewar Europe.' },
-
-  { medium: 'film', title: 'Catch Me If You Can', by: 'Steven Spielberg', year: '2002',
-    note: 'A teenage con man passing as a pilot and a doctor, and the FBI agent chasing him.' },
-
-  { medium: 'film', title: 'The Big Lebowski', by: 'Joel & Ethan Coen', year: '1998',
-    note: 'A man is mistaken for a millionaire with the same name and wants his rug replaced.' },
-
-  { medium: 'film', title: 'Ferris Bueller\'s Day Off', by: 'John Hughes', year: '1986',
-    note: 'A kid skips school and takes Chicago apart for a day.' },
-
-  { medium: 'film', title: 'The Breakfast Club', by: 'John Hughes', year: '1985',
-    note: 'Five kids from different cliques in Saturday detention.' },
-
-  { medium: 'film', title: 'Step Brothers', by: 'Adam McKay', year: '2008',
-    note: 'Two forty-year-olds still living at home become stepbrothers when their parents marry.' },
-
-  { medium: 'film', title: 'Daddy\'s Home 1–2', by: 'Sean Anders', year: '2015–2017',
-    note: 'A stepfather competes with the biological father for the kids. The second adds both grandfathers.' },
-
-  { medium: 'film', title: 'Zoolander', by: 'Ben Stiller', year: '2001',
-    note: 'A male model is brainwashed to assassinate the prime minister of Malaysia.' },
-
-  { medium: 'film', title: 'Starsky & Hutch', by: 'Todd Phillips', year: '2004',
-    note: 'Two mismatched seventies detectives on a cocaine case. Remake of the TV series.' },
-
-  { medium: 'film', title: 'Holmes & Watson', by: 'Etan Cohen', year: '2018',
-    note: 'Ferrell and Reilly as Holmes and Watson.' },
-
-  { medium: 'film', title: 'Austin Powers', by: 'Jay Roach', year: '1997–2002',
-    note: 'A sixties British spy is unfrozen in the nineties. Three films.' },
-
-  { medium: 'film', title: 'Barbie', by: 'Greta Gerwig', year: '2023',
-    note: 'Barbie leaves Barbieland for the real world.' },
-
-  { medium: 'film', title: 'The Dark Knight trilogy', by: 'Christopher Nolan', year: '2005–2012',
-    note: 'Batman from the beginning through to the end.' },
-
-  { medium: 'film', title: 'Inception', by: 'Christopher Nolan', year: '2010',
-    note: 'A crew who steal information from dreams take a job planting an idea instead.' },
-
-  { medium: 'film', title: 'Blade Runner 2049', by: 'Denis Villeneuve', year: '2017',
-    note: 'A replicant working for the LAPD turns up something that shouldn\'t exist.' },
-
-  { medium: 'film', title: 'The Terminator', by: 'James Cameron', year: '1984',
-    note: 'A machine is sent back to kill the mother of a man not yet born.' },
-
-  { medium: 'film', title: 'Die Hard', by: 'John McTiernan', year: '1988',
-    note: 'A New York cop is in the wrong Los Angeles office block on the wrong evening.' },
-
-  { medium: 'film', title: 'Jurassic Park', by: 'Steven Spielberg', year: '1993',
-    note: 'A dinosaur park on an island, on the weekend the power fails.' },
-
-  { medium: 'film', title: 'Back to the Future trilogy', by: 'Robert Zemeckis', year: '1985–1990',
-    note: 'A kid ends up in 1955 and nearly prevents his own existence, then 2015 and 1885.' },
-
-  { medium: 'film', title: 'The Good, the Bad and the Ugly', by: 'Sergio Leone', year: '1966',
-    note: 'Three men race for buried Confederate gold.' },
-
-  { medium: 'film', title: 'Harry Potter', by: 'various', year: '2001–2011',
-    note: 'Eight films over ten years, with the cast growing up on screen.' },
-
-  { medium: 'film', title: 'Spirited Away', by: 'Hayao Miyazaki', year: '2001',
-    note: 'A girl\'s parents turn into pigs and she has to work in a bathhouse for spirits.' },
-
-  { medium: 'film', title: 'Howl\'s Moving Castle', by: 'Hayao Miyazaki', year: '2004',
-    note: 'A girl is cursed into an old woman and moves in with a wizard.' },
-
-  { medium: 'film', title: 'WALL·E', by: 'Andrew Stanton', year: '2008',
-    note: 'The last rubbish-compacting robot on an abandoned Earth. The first forty minutes are near-silent.' },
-
-  { medium: 'film', title: 'Finding Nemo', by: 'Andrew Stanton', year: '2003',
-    note: 'A clownfish crosses the ocean to find his son.' },
-
-  { medium: 'film', title: 'Toy Story 1–3', by: 'Pixar', year: '1995–2010',
-    note: 'Toys that come alive when nobody is looking. The third has the kid leaving for college.' },
-
-  { medium: 'film', title: 'Monsters, Inc.', by: 'Pete Docter', year: '2001',
-    note: 'Scaring children is an energy industry, until a child gets through the door.' },
-
-  { medium: 'film', title: 'The Incredibles', by: 'Brad Bird', year: '2004',
-    note: 'A retired superhero family forced back into work.' },
-
-  { medium: 'film', title: 'Ratatouille', by: 'Brad Bird', year: '2007',
-    note: 'A rat with a palate ends up running a Paris kitchen through a hopeless kitchen boy.' },
-
-  { medium: 'film', title: 'The Iron Giant', by: 'Brad Bird', year: '1999',
-    note: 'A boy finds a giant robot in 1950s Maine and hides it from the government.' },
-
-  { medium: 'film', title: 'A Bug\'s Life', by: 'John Lasseter', year: '1998',
-    note: 'An ant hires circus insects to fight off the grasshoppers.' },
-
-  { medium: 'film', title: 'The Lego Movie', by: 'Phil Lord & Christopher Miller', year: '2014',
-    note: 'An ordinary construction minifigure is mistaken for the chosen one.' },
-
-  { medium: 'film', title: 'Despicable Me', by: 'Pierre Coffin & Chris Renaud', year: '2010',
-    note: 'A supervillain adopts three girls as part of a heist and gets attached.' },
-
-  { medium: 'film', title: 'Shark Tale', by: 'Bibo Bergeron & Vicky Jenson', year: '2004',
-    note: 'A fish takes credit for a shark\'s death and has to keep the story going.' },
-
-  { medium: 'film', title: 'The Croods', by: 'Kirk DeMicco & Chris Sanders', year: '2013',
-    note: 'A cave family leaves the cave when their valley starts breaking apart.' },
-
-  { medium: 'film', title: 'Bee Movie', by: 'Simon J. Smith & Steve Hickner', year: '2007',
-    note: 'A bee sues the human race for stealing honey.' },
 
   /* ---------- SERIES ---------- */
 
-  { medium: 'series', title: 'The Wire', by: 'David Simon', year: '2002–2008',
-    note: 'Baltimore taken apart one institution per season — drugs, docks, city hall, schools, the press.' },
+  { medium: 'series', title: 'The Wire',
+    by: 'David Simon', year: '2002–2008',
+    note: { en: 'Baltimore taken apart one institution per season — drugs, docks, city hall, schools, the press.',
+            hu: 'Baltimore szétszedve, évadonként egy intézmény — drog, kikötő, városháza, iskolák, sajtó.' } },
 
-  { medium: 'series', title: 'The Sopranos', by: 'David Chase', year: '1999–2007',
-    note: 'A New Jersey mob boss starts seeing a psychiatrist.' },
+  { medium: 'series', title: 'The Sopranos',
+    by: 'David Chase', year: '1999–2007',
+    note: { en: 'A New Jersey mob boss starts seeing a psychiatrist.',
+            hu: 'Egy New Jersey-i maffiafőnök pszichiáterhez kezd járni.' } },
 
-  { medium: 'series', title: 'Breaking Bad', by: 'Vince Gilligan', year: '2008–2013',
-    note: 'A chemistry teacher with cancer starts cooking methamphetamine.' },
+  { medium: 'series', title: 'Breaking Bad',
+    by: 'Vince Gilligan', year: '2008–2013',
+    note: { en: 'A chemistry teacher with cancer starts cooking methamphetamine.',
+            hu: 'Egy rákos kémiatanár metamfetamint kezd főzni.' } },
 
-  { medium: 'series', title: 'Better Call Saul', by: 'Vince Gilligan & Peter Gould', year: '2015–2022',
-    note: 'How a struggling lawyer became Breaking Bad\'s Saul Goodman.' },
+  { medium: 'series', title: 'Better Call Saul',
+    by: 'Vince Gilligan & Peter Gould', year: '2015–2022',
+    note: { en: 'How a struggling lawyer became Breaking Bad\'s Saul Goodman.',
+            hu: 'Hogyan lett egy kudarcos ügyvédből a Breaking Bad Saul Goodmanje.' } },
 
-  { medium: 'series', title: 'Succession', by: 'Jesse Armstrong', year: '2018–2023',
-    note: 'Four siblings fight over their father\'s media empire while he refuses to retire.' },
+  { medium: 'series', title: 'Succession',
+    by: 'Jesse Armstrong', year: '2018–2023',
+    note: { en: 'Four siblings fight over their father\'s media empire while he refuses to retire.',
+            hu: 'Négy testvér marakodik az apjuk médiabirodalmán, miközben az öreg nem hajlandó visszavonulni.' } },
 
-  { medium: 'series', title: 'Chernobyl', by: 'Craig Mazin', year: '2019',
-    note: 'Five episodes on the 1986 accident and the response to it.' },
+  { medium: 'series', title: 'Chernobyl',
+    by: 'Craig Mazin', year: '2019',
+    note: { en: 'Five episodes on the 1986 accident and the response to it.',
+            hu: 'Öt rész az 1986-os balesetről és arról, ahogy kezelték.' } },
 
-  { medium: 'series', title: 'True Detective, season one', by: 'Nic Pizzolatto', year: '2014',
-    note: 'Two Louisiana detectives on one case across seventeen years.' },
+  { medium: 'series', title: 'True Detective, season one',
+    by: 'Nic Pizzolatto', year: '2014',
+    note: { en: 'Two Louisiana detectives on one case across seventeen years.',
+            hu: 'Két louisianai nyomozó egyetlen ügyön, tizenhét éven át.' } },
 
-  { medium: 'series', title: 'Fargo, season one', by: 'Noah Hawley', year: '2014',
-    note: 'A small-town insurance salesman meets a drifter who tells him what he wants to hear.' },
+  { medium: 'series', title: 'Fargo, season one',
+    by: 'Noah Hawley', year: '2014',
+    note: { en: 'A small-town insurance salesman meets a drifter who tells him what he wants to hear.',
+            hu: 'Egy kisvárosi biztosítási ügynök találkozik egy jöttmenttel, aki azt mondja neki, amit hallani akar.' } },
 
-  { medium: 'series', title: 'Narcos', by: 'Chris Brancato, Carlo Bernard & Doug Miro', year: '2015–2017',
-    note: 'The Medellín cartel and the DEA agents chasing Escobar. Seasons one and two are the Escobar story.' },
+  { medium: 'series', title: 'Narcos',
+    by: 'Chris Brancato, Carlo Bernard & Doug Miro', year: '2015–2017',
+    note: { en: 'The Medellín cartel and the DEA agents chasing Escobar. Seasons one and two are the Escobar story.',
+            hu: 'A medellíni kartell és a DEA-ügynökök, akik Escobart hajszolják. Az első két évad az Escobar-történet.' } },
 
-  { medium: 'series', title: 'Snowfall', by: 'John Singleton, Eric Amadio & Dave Andron', year: '2017–2023',
-    note: 'The crack epidemic arrives in early-eighties Los Angeles, followed from three sides at once.' },
+  { medium: 'series', title: 'Snowfall',
+    by: 'John Singleton, Eric Amadio & Dave Andron', year: '2017–2023',
+    note: { en: 'The crack epidemic arrives in early-eighties Los Angeles, followed from three sides at once.',
+            hu: 'A crackjárvány megérkezik a nyolcvanas évek eleji Los Angelesbe, három oldalról egyszerre követve.' } },
 
-  { medium: 'series', title: 'Peaky Blinders', by: 'Steven Knight', year: '2013–2022',
-    note: 'A Birmingham crime family works its way up after the First World War.' },
+  { medium: 'series', title: 'Peaky Blinders',
+    by: 'Steven Knight', year: '2013–2022',
+    note: { en: 'A Birmingham crime family works its way up after the First World War.',
+            hu: 'Egy birminghami bűnözőcsalád felfelé kapaszkodik az első világháború után.' } },
 
-  { medium: 'series', title: 'Mr. Robot', by: 'Sam Esmail', year: '2015–2019',
-    note: 'A security engineer with severe mental illness is recruited into a hacking group.' },
+  { medium: 'series', title: 'Mr. Robot',
+    by: 'Sam Esmail', year: '2015–2019',
+    note: { en: 'A security engineer with severe mental illness is recruited into a hacking group.',
+            hu: 'Egy súlyos mentális betegséggel élő biztonsági mérnököt beszerveznek egy hackercsoportba.' } },
 
-  { medium: 'series', title: 'Slow Horses', by: 'Will Smith', year: '2022–',
-    note: 'MI5 agents who screwed up get dumped in a dead-end department under a boss who despises them. From Mick Herron\'s novels.' },
+  { medium: 'series', title: 'Slow Horses',
+    by: 'Will Smith', year: '2022–',
+    note: { en: 'MI5 agents who screwed up get dumped in a dead-end department under a boss who despises them. From Mick Herron\'s novels.',
+            hu: 'Az MI5 bakizó ügynökeit egy zsákutcaosztályra száműzik, egy főnök alá, aki megveti őket. Mick Herron regényeiből.' } },
 
-  { medium: 'series', title: 'Arcane', by: 'Christian Linke & Alex Yee', year: '2021–2024',
-    note: 'Two sisters end up on opposite sides of a city divided by class. Based on League of Legends.' },
+  { medium: 'series', title: 'Arcane',
+    by: 'Christian Linke & Alex Yee', year: '2021–2024',
+    note: { en: 'Two sisters end up on opposite sides of a city divided by class. Based on League of Legends.',
+            hu: 'Két nővér egy osztályok mentén kettészakadt város ellentétes oldalára kerül. A League of Legends alapján.' } },
 
-  { medium: 'series', title: 'The Office (US)', by: 'Greg Daniels', year: '2005–2013',
-    note: 'A documentary crew films a paper company branch in Scranton.' },
+  { medium: 'series', title: 'The Office (US)',
+    by: 'Greg Daniels', year: '2005–2013',
+    note: { en: 'A documentary crew films a paper company branch in Scranton.',
+            hu: 'Egy dokumentumfilmes stáb egy scrantoni papírcég fiókját filmezi.' } },
 
-  { medium: 'series', title: 'Ted Lasso', by: 'Bill Lawrence, Brendan Hunt & Jason Sudeikis', year: '2020–2023',
-    note: 'An American college football coach is hired to manage a Premier League club.' },
+  { medium: 'series', title: 'Ted Lasso',
+    by: 'Bill Lawrence, Brendan Hunt & Jason Sudeikis', year: '2020–2023',
+    note: { en: 'An American college football coach is hired to manage a Premier League club.',
+            hu: 'Egy amerikai egyetemi amerikaifutball-edzőt szerződtetnek egy Premier League-klub élére.' } },
 
-  { medium: 'series', title: 'How I Met Your Mother', by: 'Carter Bays & Craig Thomas', year: '2005–2014',
-    note: 'A man tells his kids the long version of how he met their mother.' },
+  { medium: 'series', title: 'How I Met Your Mother',
+    by: 'Carter Bays & Craig Thomas', year: '2005–2014',
+    note: { en: 'A man tells his kids the long version of how he met their mother.',
+            hu: 'Egy férfi elmeséli a gyerekeinek a hosszú változatát annak, hogyan ismerte meg az anyjukat.' } },
 
-  { medium: 'series', title: 'Friends', by: 'David Crane & Marta Kauffman', year: '1994–2004',
-    note: 'Six friends in Manhattan across ten years.' },
+  { medium: 'series', title: 'Friends',
+    by: 'David Crane & Marta Kauffman', year: '1994–2004',
+    note: { en: 'Six friends in Manhattan across ten years.',
+            hu: 'Hat barát Manhattanben, tíz éven át.' } },
 
-  { medium: 'series', title: 'The Last Man on Earth', by: 'Will Forte', year: '2015–2018',
-    note: 'A virus wipes out humanity and the survivor is insufferable. Cancelled on a cliffhanger.' },
+  { medium: 'series', title: 'The Last Man on Earth',
+    by: 'Will Forte', year: '2015–2018',
+    note: { en: 'A virus wipes out humanity and the survivor is insufferable. Cancelled on a cliffhanger.',
+            hu: 'Egy vírus kiirtja az emberiséget, a túlélő pedig elviselhetetlen. Cliffhangerrel törölték.' } },
 
-  { medium: 'series', title: 'The Simpsons', by: 'Matt Groening', year: '1989–',
-    note: 'A family in Springfield, going since 1989.' },
+  { medium: 'series', title: 'The Simpsons',
+    by: 'Matt Groening', year: '1989–',
+    note: { en: 'A family in Springfield, going since 1989.',
+            hu: 'Egy springfieldi család, 1989 óta megy.' } },
 
-  { medium: 'series', title: 'South Park', by: 'Trey Parker & Matt Stone', year: '1997–',
-    note: 'Four boys in a Colorado town. Episodes are written in the week they air, so it tracks the news.' },
+  { medium: 'series', title: 'South Park',
+    by: 'Trey Parker & Matt Stone', year: '1997–',
+    note: { en: 'Four boys in a Colorado town. Episodes are written in the week they air, so it tracks the news.',
+            hu: 'Négy fiú egy coloradói városban. A részek azon a héten íródnak, amikor adásba kerülnek, így követik a híreket.' } },
 
-  { medium: 'series', title: 'Rick and Morty', by: 'Justin Roiland & Dan Harmon', year: '2013–',
-    note: 'An alcoholic scientist drags his grandson across dimensions.' },
+  { medium: 'series', title: 'Rick and Morty',
+    by: 'Justin Roiland & Dan Harmon', year: '2013–',
+    note: { en: 'An alcoholic scientist drags his grandson across dimensions.',
+            hu: 'Egy alkoholista tudós dimenziókon át hurcolja az unokáját.' } },
 
-  { medium: 'series', title: 'The Boondocks', by: 'Aaron McGruder', year: '2005–2014',
-    note: 'Two black kids from Chicago move to a white suburb with their grandfather.' },
+  { medium: 'series', title: 'The Boondocks',
+    by: 'Aaron McGruder', year: '2005–2014',
+    note: { en: 'Two black kids from Chicago move to a white suburb with their grandfather.',
+            hu: 'Két fekete kölyök Chicagóból a nagyapjukkal fehér külvárosba költözik.' } },
 
-  { medium: 'series', title: 'The Bugs Bunny Show', by: 'Warner Bros.', year: '1960–2000',
-    note: 'The Looney Tunes shorts, repackaged. Chuck Jones directed many of them.' },
+  { medium: 'series', title: 'The Bugs Bunny Show',
+    by: 'Warner Bros.', year: '1960–2000',
+    note: { en: 'The Looney Tunes shorts, repackaged. Chuck Jones directed many of them.',
+            hu: 'A Looney Tunes-rövidfilmek, újracsomagolva. Sokukat Chuck Jones rendezte.' } },
 
-  { medium: 'series', title: 'The Last Dance', by: 'Jason Hehir', year: '2020',
-    note: 'The 1997–98 Chicago Bulls, built around unreleased footage from that season.' },
+  { medium: 'series', title: 'The Last Dance',
+    by: 'Jason Hehir', year: '2020',
+    note: { en: 'The 1997–98 Chicago Bulls, built around unreleased footage from that season.',
+            hu: 'Az 1997–98-as Chicago Bulls, az abban a szezonban készült, addig kiadatlan felvételek köré építve.' } },
 
-  { medium: 'series', title: 'The Grand Tour', by: 'Jeremy Clarkson, Richard Hammond & James May', year: '2016–2024',
-    note: 'The old Top Gear trio. The later series are all long-distance specials.' },
-    
+  { medium: 'series', title: 'The Grand Tour',
+    by: 'Jeremy Clarkson, Richard Hammond & James May', year: '2016–2024',
+    note: { en: 'The old Top Gear trio. The later series are all long-distance specials.',
+            hu: 'A régi Top Gear-trió. A későbbi évadok mind hosszú távú különkiadások.' } },
+
 ];
 
 /* ============================================================
    Rendering — you should not need to touch anything below.
    ============================================================ */
 
-const GROUPS = [
-  { key: 'book',   label: 'Books'  },
-  { key: 'film',   label: 'Films'  },
-  { key: 'series', label: 'Series' },
-];
+const GROUPS = ['book', 'film', 'series'];
+
+/* Group headings and chip labels come out of the dictionary, so they follow
+   whichever language is on. */
+const labelOf = key => I18n.t(key === 'all' ? 'filters.all' : 'group.' + key);
 
 const listEl    = document.getElementById('list');
 const filtersEl = document.getElementById('filters');
@@ -793,6 +1304,10 @@ const searchEl  = document.getElementById('q');
 
 let medium = 'all';
 let query  = '';
+
+/* An entry's note carries both languages; a title, a name or a year is usually
+   one string that is the same either way. */
+const noteOf = item => I18n.pick(item.note);
 
 const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
@@ -806,20 +1321,21 @@ function highlight(text) {
 function matches(item) {
   if (medium !== 'all' && item.medium !== medium) return false;
   if (!query) return true;
-  const hay = (item.title + ' ' + item.by + ' ' + item.note).toLowerCase();
+  const hay = (item.title + ' ' + item.by + ' ' + noteOf(item)).toLowerCase();
   return hay.includes(query.toLowerCase());
 }
 
 function buildFilters() {
   const counts = { all: DATA.length };
-  GROUPS.forEach(g => counts[g.key] = DATA.filter(d => d.medium === g.key).length);
+  GROUPS.forEach(key => counts[key] = DATA.filter(d => d.medium === key).length);
 
-  const opts = [{ key: 'all', label: 'Everything' }, ...GROUPS];
-  filtersEl.innerHTML = opts.map(o =>
-    `<button class="chip" type="button" data-medium="${o.key}" aria-pressed="false">` +
-    `${o.label}<span class="n">${counts[o.key]}</span></button>`
+  filtersEl.innerHTML = ['all', ...GROUPS].map(key =>
+    `<button class="chip" type="button" data-medium="${key}" aria-pressed="false">` +
+    `${esc(labelOf(key))}<span class="n">${counts[key]}</span></button>`
   ).join('');
+}
 
+function bindFilters() {
   filtersEl.addEventListener('click', e => {
     const btn = e.target.closest('.chip');
     if (!btn) return;
@@ -836,12 +1352,11 @@ function render() {
   );
 
   const visible = GROUPS
-    .map(g => ({ ...g, items: DATA.filter(d => d.medium === g.key && matches(d)) }))
+    .map(key => ({ key, items: DATA.filter(d => d.medium === key && matches(d)) }))
     .filter(g => g.items.length);
 
   if (!visible.length) {
-    listEl.innerHTML =
-      `<p class="empty">Nothing matches that. Try a director, an author, or a word from one of the descriptions.</p>`;
+    listEl.innerHTML = `<p class="empty">${esc(I18n.t('list.empty'))}</p>`;
     return;
   }
 
@@ -849,12 +1364,12 @@ function render() {
 
   listEl.innerHTML = visible.map(g => `
     <section class="group${solo}">
-      <h2>${g.label}</h2>
+      <h2>${esc(labelOf(g.key))}</h2>
       ${g.items.map(it => `
         <article class="entry">
           <h3>${highlight(it.title)}</h3>
-          <p class="by">${highlight(it.by)}<br>${esc(it.year)}</p>
-          <p class="note">${highlight(it.note)}</p>
+          <p class="by">${highlight(it.by)}<br>${esc(I18n.pick(it.year))}</p>
+          <p class="note">${highlight(noteOf(it))}</p>
         </article>`).join('')}
     </section>`).join('');
 }
@@ -866,9 +1381,13 @@ function swap(fn) {
   setTimeout(() => { fn(); listEl.classList.remove('swapping'); }, 120);
 }
 
-function readHash() {
+function hashMedium() {
   const h = location.hash.replace('#', '');
-  const next = GROUPS.some(g => g.key === h) ? h : 'all';
+  return GROUPS.includes(h) ? h : 'all';
+}
+
+function readHash() {
+  const next = hashMedium();
   if (next === medium) return;
   medium = next;
   swap(render);
@@ -882,9 +1401,12 @@ searchEl.addEventListener('input', () => {
 
 window.addEventListener('hashchange', readHash);
 
-buildFilters();
-readHash();
-render();
+medium = hashMedium();
+bindFilters();
+
+/* Runs once on load and again on every language switch: the chips and the
+   entries are both language-dependent. */
+I18n.onChange(() => { buildFilters(); render(); });
 </script>
 
 </body>
