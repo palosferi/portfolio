@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Herd Briefing</title>
+<meta name="description" content="Concept demo: a morning herd briefing built on rumen bolus data. Every cow and number is made up.">
+<meta name="author" content="Pálos Ferenc">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#e8ece7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1311" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:"Barlow";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/barlow-400-normal-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Barlow";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/barlow-400-normal-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Barlow";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/barlow-500-normal-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Barlow";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/barlow-500-normal-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Barlow";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/barlow-600-normal-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Barlow";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/barlow-600-normal-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Barlow";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/barlow-700-normal-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Barlow";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/barlow-700-normal-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Barlow Semi Condensed";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/barlowsemicondensed-600-normal-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Barlow Semi Condensed";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/barlowsemicondensed-600-normal-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Barlow Semi Condensed";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/barlowsemicondensed-700-normal-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Barlow Semi Condensed";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/barlowsemicondensed-700-normal-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/ibmplexmono-500-normal-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/ibmplexmono-500-normal-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/ibmplexmono-600-normal-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/ibmplexmono-600-normal-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<style>
+:root{
+  --ground:#e8ece7; --surface:#fbfcfa; --surface-2:#eef2ed; --ink:#17201c; --ink-2:#4b5851; --muted:#77837c;
+  --line:#dce2dc; --axis:#bfc7c0; --accent:#245a6b; --accent-ink:#ffffff; --accent-soft:#d9e7ea;
+  --series-1:#2a78d6; --series-1-soft:#b3cdef; --series-2:#eb6834; --band:rgba(42,120,214,.11);
+  --crit:#d03b3b; --serious:#ec835a; --warn:#fab219; --good:#0ca30c; --good-text:#006300;
+  --crit-soft:#f9e1df; --serious-soft:#fbe7dd; --warn-soft:#fbefd0; --good-soft:#e0f1e0;
+  --tag:#f2cf45; --tag-ink:#2b2410; --normal-fill:#a8d2a9;
+  --shadow:0 1px 2px rgba(23,32,28,.06);
+  --display:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0f1311; --surface:#181d1a; --surface-2:#1f2522; --ink:#e7ede9; --ink-2:#b3bdb7; --muted:#88938d;
+    --line:#29302c; --axis:#3a423d; --accent:#86bccb; --accent-ink:#0f1311; --accent-soft:#1d3137;
+    --series-1:#3987e5; --series-1-soft:#2b4c77; --series-2:#d95926; --band:rgba(57,135,229,.17);
+    --crit-soft:#3b1e1d; --serious-soft:#3a251b; --warn-soft:#352b12; --good-soft:#15301a; --good-text:#0ca30c;
+    --tag:#d8b93c; --tag-ink:#1c190b; --shadow:none; --normal-fill:#2e5733;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0f1311; --surface:#181d1a; --surface-2:#1f2522; --ink:#e7ede9; --ink-2:#b3bdb7; --muted:#88938d;
+  --line:#29302c; --axis:#3a423d; --accent:#86bccb; --accent-ink:#0f1311; --accent-soft:#1d3137;
+  --series-1:#3987e5; --series-1-soft:#2b4c77; --series-2:#d95926; --band:rgba(57,135,229,.17);
+  --crit-soft:#3b1e1d; --serious-soft:#3a251b; --warn-soft:#352b12; --good-soft:#15301a; --good-text:#0ca30c;
+  --tag:#d8b93c; --tag-ink:#1c190b; --shadow:none; --normal-fill:#2e5733;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ground)}
+body{color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+.app{max-width:460px;margin:0 auto;padding-inline:16px;padding-block:14px 110px;display:flex;flex-direction:column;gap:22px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pill{font-size:12px;font-weight:500;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:2px 9px;border-radius:999px}
+.date{font-size:14px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+h1{font-family:var(--display);font-weight:700;font-size:34px;line-height:1.05;margin:2px 0 0;letter-spacing:-.005em;text-wrap:balance}
+h2{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.15;margin:0;text-wrap:balance}
+h3{font-family:var(--display);font-weight:600;font-size:19px;line-height:1.15;margin:0}
+.head{display:flex;flex-direction:column;gap:4px}
+.lede{font-size:17px;line-height:1.5;margin:0;max-width:62ch}
+.lede b{font-weight:600}
+
+.counts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.count{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:2px;box-shadow:var(--shadow)}
+.count:hover{border-color:var(--axis)}
+.count .n{font-family:var(--display);font-weight:700;font-size:26px;line-height:1}
+.count .l{font-size:13px;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+.filtered{font-size:14px;color:var(--ink-2);margin:0}
+
+.section{display:flex;flex-direction:column;gap:10px;scroll-margin-top:12px}
+.section-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.list{display:flex;flex-direction:column;gap:12px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
+.cow-top{display:flex;align-items:center;gap:10px}
+.rank{font-family:var(--display);font-weight:700;font-size:15px;color:var(--muted);width:14px;text-align:center;flex:none}
+.tag{position:relative;flex:none;background:var(--tag);color:var(--tag-ink);font-family:var(--mono);font-weight:600;font-size:16px;min-width:50px;text-align:center;padding:12px 8px 5px;border-radius:12px 12px 7px 7px;line-height:1}
+.tag::before{content:"";position:absolute;top:4px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:var(--surface)}
+.cow-title{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+.cow-title h3{font-size:18px}
+.meta{font-size:13px;color:var(--muted)}
+.chip{flex:none;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;color:var(--ink);white-space:nowrap}
+.chip svg{flex:none}
+.chip.crit{background:var(--crit-soft)} .chip.serious{background:var(--serious-soft)} .chip.warn{background:var(--warn-soft)}
+.chip.breed{background:var(--accent-soft)} .chip.good{background:var(--good-soft)}
+.why{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px;font-size:14px;color:var(--ink-2)}
+.why li::marker{color:var(--muted)}
+.chart{position:relative;width:100%;touch-action:pan-y}
+.chart svg{display:block;overflow:visible}
+.caption{font-size:12px;color:var(--muted);margin-top:-4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.key{display:inline-block;width:14px;height:8px;border-radius:2px;background:var(--band)}
+.keyline{display:inline-block;width:14px;height:2px;border-radius:1px}
+.row-actions{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px}
+.fb-label{font-size:12px;color:var(--muted)}
+.fb{display:flex;gap:6px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:5px 11px;font-size:13px;font-weight:500;cursor:pointer}
+.btn:hover{border-color:var(--axis)}
+.btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.link{background:none;border:0;padding:0;color:var(--accent);font-weight:600;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.logged{font-size:13px;color:var(--good-text);font-weight:500}
+
+.heat-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.window{display:flex;justify-content:space-between;align-items:baseline;background:var(--accent-soft);border-radius:10px;padding:8px 12px;font-size:14px}
+.window b{font-family:var(--display);font-size:18px;font-variant-numeric:tabular-nums}
+
+details.handled{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+details.handled summary{cursor:pointer;font-weight:600;display:flex;justify-content:space-between;gap:8px;list-style:none}
+details.handled summary::-webkit-details-marker{display:none}
+details.handled summary::after{content:"Show";font-weight:600;color:var(--accent);font-size:14px}
+details.handled[open] summary::after{content:"Hide"}
+.hl{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column}
+.hl li{display:grid;grid-template-columns:32px 1fr;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.hl .num{font-family:var(--display);font-weight:700;font-size:18px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.hl small{display:block;color:var(--muted);font-size:13px}
+.foot{font-size:12px;color:var(--muted);text-align:center;margin:0}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.stat .v{font-family:var(--display);font-weight:700;font-size:24px;line-height:1.05}
+.stat .l{font-size:12px;color:var(--ink-2);line-height:1.3}
+.stat .d{font-size:12px;color:var(--muted)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dev{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.dev li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.dev li:first-child{border-top:0;padding-top:0}
+.dev .tag{font-size:13px;min-width:42px;padding:10px 6px 4px}
+.dev small{display:block;color:var(--muted);font-size:13px}
+p{margin:0}
+.body-text{font-size:15px;color:var(--ink-2)}
+.body-text b{color:var(--ink);font-weight:600}
+
+/* Ask */
+.chat{display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;padding:10px 13px;border-radius:16px;font-size:15px;line-height:1.45}
+.msg.bot{background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:5px;align-self:flex-start}
+.msg.me{background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:5px;align-self:flex-end}
+.msg.typing{color:var(--muted)}
+.qs{display:flex;flex-direction:column;gap:8px}
+.q{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px;font-size:14px;font-weight:500;cursor:pointer;display:flex;justify-content:space-between;gap:10px}
+.q::after{content:"Ask";color:var(--accent);font-weight:600}
+.q:disabled{opacity:.5;cursor:default}
+.q:disabled::after{content:"Asked"}
+.note{font-size:13px;color:var(--muted)}
+.msg.bot p{margin:0 0 6px}.msg.bot p:last-child{margin-bottom:0}
+.msg.bot ul{margin:2px 0 6px;padding-left:18px}
+.msg.bot b{font-weight:600}
+.msg .offline{font-size:12px;color:var(--muted);margin-top:6px}
+.msg.err{border-color:var(--serious)}
+.composer{position:sticky;bottom:calc(66px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;align-items:flex-end;background:var(--ground);padding-block:8px 4px}
+#ask-input{flex:1;min-width:0;resize:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:20px;padding:10px 14px;font:inherit;font-size:16px;line-height:1.35;max-height:140px}
+#ask-input::placeholder{color:var(--muted)}
+.send{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;cursor:pointer}
+.send:disabled{opacity:.45;cursor:default}
+
+/* Tabs */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs{max-width:460px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.tab{background:none;border:0;padding:9px 0 10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{color:var(--accent)}
+.tab svg{width:22px;height:22px}
+
+/* Cow sheet */
+.sheet{position:fixed;inset:0;z-index:20;background:var(--ground);overflow-y:auto;padding-top:env(safe-area-inset-top,0px)}
+.sheet-bar{position:sticky;top:0;z-index:2;background:var(--ground);border-bottom:1px solid var(--line)}
+.sheet-bar .in{max-width:460px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+.back{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px 5px 9px;font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.timeline li{display:grid;grid-template-columns:92px 1fr;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.timeline li:first-child{border-top:0;padding-top:0}
+.timeline time{color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px}
+.disclaimer{font-size:12px;color:var(--muted)}
+
+/* SVG chart parts */
+.grid-l{stroke:var(--line);stroke-width:1}
+.axis-l{stroke:var(--axis);stroke-width:1}
+.tick{fill:var(--muted);font-family:var(--body);font-size:11px;font-variant-numeric:tabular-nums}
+.bandr{fill:var(--band)}
+.thr{stroke:var(--crit);stroke-width:1}
+.mark-l{stroke:var(--ink-2);stroke-width:1}
+.ann{fill:var(--ink-2);font-family:var(--body);font-size:11px;font-weight:500}
+.endlbl{fill:var(--ink);font-family:var(--body);font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.cross{stroke:var(--ink-2);stroke-width:1}
+.tip{position:absolute;top:0;pointer-events:none;background:var(--ink);color:var(--surface);border-radius:8px;padding:6px 9px;font-size:12px;line-height:1.35;white-space:nowrap;z-index:3;font-variant-numeric:tabular-nums}
+.tip .r{display:flex;align-items:center;gap:6px}
+.tip i{display:inline-block;width:8px;height:8px;border-radius:50%}
+
+/* All cows */
+.sum-line{font-size:15px;color:var(--ink-2)}
+.sum-line b{color:var(--ink);font-weight:600}
+.statusbar{display:flex;gap:2px;height:14px}
+.statusbar span{min-width:6px}
+.statusbar span:first-child{border-radius:4px 0 0 4px}
+.statusbar span:last-child{border-radius:0 4px 4px 0}
+.status-legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.status-legend button{display:flex;align-items:center;gap:9px;width:100%;background:none;border:0;border-top:1px solid var(--line);padding:8px 0;font-size:14px;cursor:pointer;text-align:left}
+.status-legend li:first-child button{border-top:0}
+.status-legend b{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:600}
+.status-legend .go{color:var(--accent);font-size:13px;font-weight:600;width:34px;text-align:right}
+.sw{width:10px;height:10px;border-radius:2px;flex:none}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.seg button[aria-checked="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.14)}
+#cow-search{flex:1;min-width:120px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font:inherit;font-size:14px;color:var(--ink)}
+#cow-search::placeholder{color:var(--muted)}
+.sortnote{font-size:14px;color:var(--ink-2)}
+.sortnote b{color:var(--ink);font-weight:600}
+.grp{display:flex;flex-direction:column;gap:8px;scroll-margin-top:12px}
+.grp-list{display:flex;flex-direction:column;gap:18px}
+.grp-h{display:flex;align-items:center;gap:8px;font-size:17px}
+.grp-h .meta{font-family:var(--body);font-size:14px}
+.rows{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.cowrow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:9px 12px;border:0;border-top:1px solid var(--line);background:none;text-align:left;cursor:pointer;width:100%}
+.cowrow:first-child{border-top:0}
+.cowrow:hover{background:var(--surface-2)}
+.cowrow .tag{font-size:13px;min-width:44px;padding:10px 6px 4px}
+.cowrow .tag::before{background:inherit;filter:brightness(.55)}
+.cr-t{display:flex;flex-direction:column;min-width:0}
+.cr-r{font-weight:600;font-size:14px;line-height:1.3}
+.cr-r.normal{font-weight:400;color:var(--ink-2)}
+.chip.dev{background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line)}
+.today-all{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;text-align:left;width:100%}
+.today-all:hover{border-color:var(--axis)}
+.today-all span:last-child{color:var(--accent);font-weight:600;font-size:14px;white-space:nowrap}
+
+@media (min-width:520px){ .heat-grid{grid-template-columns:1fr 1fr} }
+@media (prefers-reduced-motion:no-preference){ .card,.count,.q,.btn{transition:border-color .15s} }
+</style>
+</head>
+<body>
+<div id="views">
+  <!-- TODAY -->
+  <main class="app" id="v-today">
+    <header class="head">
+      <div class="topline">
+        <span class="eyebrow">Demo farm · 142 cows</span>
+        <span class="pill">Concept · made-up data</span>
+      </div>
+      <div class="date" id="clock"></div>
+      <h1 id="greeting">Good morning.</h1>
+    </header>
+
+    <p class="lede" id="briefing"></p>
+
+    <div class="counts">
+      <button class="count" data-jump="s-check"><span class="n">3</span><span class="l">to check</span></button>
+      <button class="count" data-jump="s-heat"><span class="n">2</span><span class="l">in heat</span></button>
+      <button class="count" data-jump="s-herd"><span class="n">1</span><span class="l">herd issue</span></button>
+    </div>
+    <p class="filtered">14 alerts came in over the last 12 hours. 9 were normal and are <button class="link" data-jump="s-handled">listed at the bottom</button>.</p>
+
+    <button class="today-all" data-tab-go="cows"><span><b>All 142 cows</b>, problems first</span><span>Open list</span></button>
+
+    <section class="section" id="s-check">
+      <div class="section-h"><h2>Check these first</h2><span class="eyebrow">In order</span></div>
+      <div class="list" id="check-list"></div>
+    </section>
+
+    <section class="section" id="s-heat">
+      <div class="section-h"><h2>In heat</h2><span class="eyebrow">Breeding</span></div>
+      <div class="heat-grid" id="heat-list"></div>
+    </section>
+
+    <section class="section" id="s-herd">
+      <div class="section-h"><h2>Herd</h2></div>
+      <div class="card" id="today-herd"></div>
+    </section>
+
+    <section class="section" id="s-handled">
+      <details class="handled">
+        <summary>9 alerts handled for you</summary>
+        <ul class="hl">
+          <li><span class="num">6</span><span>Short temperature drops after drinking<small>Cold water cools the rumen for 1–2 hours. Normal.</small></span></li>
+          <li><span class="num">2</span><span>Activity spikes at morning feed-out<small>Whole pen moved at once. Normal.</small></span></li>
+          <li><span class="num">1</span><span>Fever alert on 76<small>Already on the antibiotic course you logged. Temperature is falling as expected (40.3 → 39.7 °C).</small></span></li>
+        </ul>
+      </details>
+    </section>
+
+    <p class="foot">Concept demo by <a href="/" style="color:inherit">Pálos Ferenc</a>. Every cow and number on this page is made up.</p>
+  </main>
+
+  <!-- COWS -->
+  <main class="app" id="v-cows" hidden>
+    <header class="head">
+      <div class="topline"><span class="eyebrow">Demo farm · 142 cows</span><span class="pill">Concept · made-up data</span></div>
+      <h1>All cows</h1>
+    </header>
+    <section class="card" aria-labelledby="sum-h">
+      <h3 id="sum-h">Herd right now</h3>
+      <p class="sum-line" id="sum-line"></p>
+      <div class="statusbar" id="statusbar" role="img"></div>
+      <ul class="status-legend" id="status-legend"></ul>
+    </section>
+    <div class="controls">
+      <div class="seg" role="radiogroup" aria-label="Sort cows">
+        <button role="radio" aria-checked="true" data-sort="attention">Problems first</button>
+        <button role="radio" aria-checked="false" data-sort="tag">Tag order</button>
+      </div>
+      <input id="cow-search" type="search" inputmode="numeric" autocomplete="off" placeholder="Find a tag" aria-label="Find a cow by tag number">
+    </div>
+    <p class="sortnote" id="sortnote"></p>
+    <div id="cow-list"></div>
+    <p class="foot">Concept demo by <a href="/" style="color:inherit">Pálos Ferenc</a>. Every cow and number on this page is made up.</p>
+  </main>
+
+  <!-- HERD -->
+  <main class="app" id="v-herd" hidden>
+    <header class="head">
+      <div class="topline"><span class="eyebrow">Demo farm · 142 cows</span><span class="pill">Concept · made-up data</span></div>
+      <h1>Herd</h1>
+    </header>
+
+    <div class="stats">
+      <div class="stat"><span class="v">139<span style="font-size:15px;color:var(--muted)">/142</span></span><span class="l">boluses reporting</span></div>
+      <div class="stat"><span class="v">88%</span><span class="l">Pen B rumen activity</span><span class="d">100% last week</span></div>
+      <div class="stat"><span class="v" id="stat-checks">14</span><span class="l">checks you logged this month</span></div>
+    </div>
+
+    <section class="section">
+      <div class="card">
+        <div class="cow-top"><div class="cow-title"><h3>Pen B is drinking less</h3><span class="meta" data-penb-meta></span></div><span class="chip serious">${ICON.serious}Herd issue</span></div>
+        <p class="body-text" id="penb-text"></p>
+        <div class="legend"><span><i class="keyline" style="background:var(--series-2)"></i>Pen B</span><span><i class="keyline" style="background:var(--series-1)"></i>Other pens</span></div>
+        <div class="chart" id="c-water"></div>
+        <div class="caption">Drinks per cow per hour, last 24 hours</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="card">
+        <div class="cow-top"><div class="cow-title"><h3>Pen B rumen activity is down</h3><span class="meta" id="ration-meta"></span></div><span class="chip warn">${ICON.warn}Watch</span></div>
+        <p class="body-text">Pen B's average rumen activity fell from <b>100% to 88%</b> of normal in four days. <b>7 cows</b> are below 80%, 287 among them. Their temperatures are normal, so this looks like the ration rather than illness. Worth a call with your nutritionist.</p>
+        <div class="chart" id="c-act"></div>
+        <div class="caption">Pen B average rumen activity, % of normal, daily</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="card">
+        <div class="cow-top"><div class="cow-title"><h3>Boluses</h3><span class="meta">139 of 142 reporting normally</span></div></div>
+        <ul class="dev">
+          <li><span class="tag">308</span><span>Silent for 19 hours<small>Last heard at the Pen C water trough, where the gateway signal is weakest. Probably out of range, not dead.</small></span></li>
+          <li><span class="tag">455</span><span>Silent for 16 hours<small>Also in the Pen C corner. Moving gateway 3 about 10 m east would likely cover both.</small></span></li>
+          <li><span class="tag">64</span><span>Battery voltage falling faster than normal<small>Expect it to stop within about 3 weeks. Plan a replacement.</small></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="foot">Concept demo by <a href="/" style="color:inherit">Pálos Ferenc</a>. Every cow and number on this page is made up.</p>
+  </main>
+
+  <!-- ASK -->
+  <main class="app" id="v-ask" hidden>
+    <header class="head">
+      <div class="topline"><span class="eyebrow">Demo farm · 142 cows</span><span class="pill">Concept · made-up data</span></div>
+      <h1>Ask your herd</h1>
+      <p class="note" id="ask-note">Tap a question to see how the assistant answers. In this demo the answers are pre-written; the real version would answer any question about the herd, in any language.</p>
+    </header>
+    <div class="chat" id="chat" aria-live="polite">
+      <div class="msg bot" id="ask-intro">Ask me about any cow, a pen, or the last 24 hours. Try one of these:</div>
+    </div>
+    <div class="qs" id="qs"></div>
+    <form class="composer" id="composer" autocomplete="off" hidden>
+      <textarea id="ask-input" rows="1" maxlength="1500" placeholder="Ask about the herd…" aria-label="Your question"></textarea>
+      <button type="submit" class="send" id="ask-send" aria-label="Send"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4M4.5 9.5 10 4l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </form>
+  </main>
+</div>
+
+<!-- COW SHEET -->
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+  <div class="sheet-bar"><div class="in">
+    <button class="back" id="sheet-back"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Back</button>
+    <span class="eyebrow" id="sheet-crumb"></span>
+  </div></div>
+  <div class="app" id="sheet-body" style="padding-bottom:40px"></div>
+</div>
+
+<nav class="tabbar" aria-label="Sections">
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="today" aria-selected="true">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18M6 18a6 6 0 0 1 12 0M12 5v3M5.2 9.2l2 2M18.8 9.2l-2 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Today</button>
+    <button class="tab" role="tab" data-tab="cows" aria-selected="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="4.5" cy="6" r="1.5" fill="currentColor"/><circle cx="4.5" cy="12" r="1.5" fill="currentColor"/><circle cx="4.5" cy="18" r="1.5" fill="currentColor"/></svg>Cows</button>
+    <button class="tab" role="tab" data-tab="herd" aria-selected="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V10l9-6 9 6v10M3 20h18M9 20v-6h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>Herd</button>
+    <button class="tab" role="tab" data-tab="ask" aria-selected="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Ask</button>
+  </div>
+</nav>
+
+<script>
+/* ---------- icons (status always ships with a label) ---------- */
+const ICON = {
+  crit:`<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="5" fill="var(--crit)"/></svg>`,
+  serious:`<svg width="11" height="10" viewBox="0 0 11 10" aria-hidden="true"><path d="M5.5 0 11 10H0z" fill="var(--serious)"/></svg>`,
+  warn:`<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" rx="1.5" fill="var(--warn)"/></svg>`,
+  breed:`<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0 10 5 5 10 0 5z" fill="var(--accent)"/></svg>`,
+  dev:`<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="3.5" fill="none" stroke="var(--muted)" stroke-width="2"/></svg>`,
+  good:`<svg width="11" height="10" viewBox="0 0 11 10" aria-hidden="true"><path d="M1 5.2 4 8.2 10 1.8" fill="none" stroke="var(--good)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+};
+document.querySelectorAll('.chip').forEach(c=>{ c.innerHTML = c.innerHTML.replace(/\$\{ICON\.(\w+)\}/, (_,k)=>ICON[k]); });
+
+/* ---------- time + formatting ---------- */
+/* The demo follows the viewer's clock: all data is anchored to the current hour. */
+const REAL0 = new Date();
+const NOW = new Date(REAL0.getFullYear(),REAL0.getMonth(),REAL0.getDate(),REAL0.getHours()).getTime();
+const H = 3600e3, DAYMS = 24*H;
+const DAY=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const pad=n=>String(n).padStart(2,'0');
+const fTime=ms=>{const d=new Date(ms);return pad(d.getHours())+':00'};
+const fDay=ms=>{const d=new Date(ms);return `${DAY[d.getDay()]} ${d.getDate()} ${MON[d.getMonth()]}`};
+const fDayTime=ms=>`${fDay(ms)}, ${fTime(ms)}`;
+const fShortDay=ms=>{const d=new Date(ms);return `${d.getDate()} ${MON[d.getMonth()]}`};
+const DAYFULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],MONFULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const ago=h=>NOW-h*H;
+const dayOff=d=>{const x=new Date(NOW);x.setHours(0,0,0,0);x.setDate(x.getDate()+d);return x.getTime()};
+const fHM=ms=>{const d=new Date(ms);return pad(d.getHours())+':'+pad(d.getMinutes())};
+const fDM=ms=>{const d=new Date(ms);return `${d.getDate()} ${MON[d.getMonth()]}`};
+const fDMY=ms=>{const d=new Date(ms);return `${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear()}`};
+const fWD=ms=>DAYFULL[new Date(ms).getDay()];
+const fLong=ms=>{const d=new Date(ms);return `${DAYFULL[d.getDay()]} ${d.getDate()} ${MONFULL[d.getMonth()]}`};
+
+/* ---------- synthetic data ---------- */
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gauss(r){let u=0,v=0;while(!u)u=r();while(!v)v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+function hourly(hours,seed,fn){const r=rng(seed);let n=0;const out=[];for(let hb=hours-1;hb>=0;hb--){const x=NOW-hb*H;n=0.6*n+gauss(r);out.push({x,y:fn(new Date(x).getHours(),hb,n,r)})}return out}
+const circ=(a,b)=>{const d=Math.abs(a-b)%24;return Math.min(d,24-d)};
+const bump=(h,c,w)=>Math.exp(-(circ(h,c)**2)/(2*w*w));
+const daily=vals=>vals.map((y,i)=>({x:dayOff(i-vals.length),y}));
+
+const temp412 = hourly(24*14,11,(h,hb,n)=>39.35+0.1*Math.sin(2*Math.PI*(h-10)/24)+0.035*n+(hb<60?0.85*(60-hb)/60:0));
+const temp530 = hourly(24*14,23,(h,hb,n)=>39.25+0.1*Math.sin(2*Math.PI*(h-10)/24)+0.035*n+(hb<14?-0.45*Math.min(1,(14-hb)/6):0));
+const rum287h = hourly(24*3,37,(h,hb,n)=>100+22*bump(h,8,1.6)+22*bump(h,19,1.6)+4*n+(hb<40?-34*Math.min(1,(40-hb)/10):0));
+const act = (seed,onset)=>hourly(24*3,seed,(h,hb,n)=>Math.max(20,100+40*bump(h,6.5,1.4)+40*bump(h,17.5,1.4)+7*n+(hb<=onset?170*Math.min(1,(onset-hb+1)/2):0)));
+const act118 = act(41,4), act203 = act(53,5);
+const ONSET118=ago(5)+10*60e3, ONSET203=ago(6)+40*60e3;           // heat onsets, matching the activity curves
+const winStart=on=>Math.floor((on+12*H)/H)*H;                      // inseminate ~12 h after onset
+const win=on=>`${fHM(winStart(on))}–${fHM(winStart(on)+6*H)}`;
+const PENB_SINCE=fHM(ago(6));
+const water412 = daily([86,89,84,90,87,91,88,86,89,87,85,74,66,58]);
+const rum287  = daily([101,98,103,97,100,99,102,96,100,98,101,97,82,66]);
+const herdAct = daily([100,101,99,100,101,100,99,100,101,98,95,92,90,88]);
+const penOthers = hourly(24,61,(h,hb,n)=>Math.max(0.05,0.35+0.5*bump(h,7,1.5)+0.45*bump(h,18,1.5)+(h>=8&&h<=20?0.25:0)+0.04*n));
+const penB = hourly(24,67,(h,hb,n)=>{const v=Math.max(0.05,0.35+0.5*bump(h,7,1.5)+0.45*bump(h,18,1.5)+(h>=8&&h<=20?0.25:0)+0.05*n);return hb<=6?v*0.25:v});
+
+const last=a=>a[a.length-1];
+const tail=(a,n)=>a.slice(-n);
+const avg=a=>a.reduce((s,p)=>s+p.y,0)/a.length;
+const hoursAboveTail=(a,lim)=>{let c=0;for(let i=a.length-1;i>=0&&a[i].y>lim;i--)c++;return c};
+const act287now = Math.round(last(rum287h).y);
+const hot412 = hoursAboveTail(temp412,39.6);
+const penBavg = avg(tail(penB,7)), othAvg = avg(tail(penOthers,7));
+
+/* ---------- charts ---------- */
+function niceTicks(min,max,count){const step0=(max-min)/count;const mag=Math.pow(10,Math.floor(Math.log10(step0)));const e=step0/mag;const step=(e>=7.5?10:e>=3.5?5:e>=1.5?2:1)*mag;const t=[];for(let v=Math.ceil(min/step)*step;v<=max+1e-9;v+=step)t.push(+v.toFixed(6));return t}
+function dayTicks(x0,x1,every){const out=[];const d=new Date(x0);d.setHours(0,0,0,0);let t=d.getTime()+DAYMS;let i=0;while(t<=x1){if(i%every===0)out.push({x:t,label:DAY[new Date(t).getDay()]+' '+new Date(t).getDate()});t+=DAYMS;i++}return out}
+function hourTicks(x0,x1,every){const out=[];for(let t=Math.ceil(x0/H)*H;t<=x1;t+=H){if(new Date(t).getHours()%every===0)out.push({x:t,label:fTime(t)})}return out}
+function tipHTML(title,rows){return `<div style="font-weight:600;margin-bottom:2px">${title}</div>`+rows.map(r=>`<div class="r"><i style="background:${r.c}"></i>${r.n?r.n+' ':''}<b>${r.v}</b></div>`).join('')}
+
+function lineChart(host,o){
+  const W=host.clientWidth; if(!W) return;
+  const Ht=o.height||(o.spark?58:176);
+  const m=o.spark?{l:2,r:o.mr||56,t:8,b:8}:{l:40,r:o.mr||56,t:16,b:24};
+  const all=o.series.flatMap(s=>s.points);
+  const x0=Math.min(...all.map(p=>p.x)), x1=Math.max(...all.map(p=>p.x));
+  const ys=all.map(p=>p.y); if(o.band)ys.push(...o.band); if(o.threshold)ys.push(o.threshold.y);
+  let y0=Math.min(...ys), y1=Math.max(...ys); const pd=(y1-y0)*0.14||0.5; y0-=pd; y1+=pd;
+  if(o.yFloor!=null)y0=Math.max(o.yFloor,y0);
+  const sx=x=>m.l+(x-x0)/(x1-x0)*(W-m.l-m.r), sy=y=>m.t+(1-(y-y0)/(y1-y0))*(Ht-m.t-m.b);
+  let s=`<svg viewBox="0 0 ${W} ${Ht}" width="${W}" height="${Ht}" role="img" aria-label="${o.label}">`;
+  if(o.band) s+=`<rect class="bandr" x="${m.l}" y="${sy(o.band[1])}" width="${W-m.l-m.r}" height="${sy(o.band[0])-sy(o.band[1])}"/>`;
+  if(!o.spark){
+    niceTicks(y0,y1,3).forEach(t=>{if(t<y0||t>y1)return;s+=`<line class="grid-l" x1="${m.l}" x2="${W-m.r}" y1="${sy(t)}" y2="${sy(t)}"/><text class="tick" x="${m.l-6}" y="${sy(t)+4}" text-anchor="end">${o.yFmt(t)}</text>`});
+    s+=`<line class="axis-l" x1="${m.l}" x2="${W-m.r}" y1="${Ht-m.b}" y2="${Ht-m.b}"/>`;
+    o.xTicks(x0,x1).forEach(t=>{const X=sx(t.x);if(X<m.l+14||X>W-m.r-14)return;s+=`<line class="axis-l" x1="${X}" x2="${X}" y1="${Ht-m.b}" y2="${Ht-m.b+4}"/><text class="tick" x="${X}" y="${Ht-6}" text-anchor="middle">${t.label}</text>`});
+  }
+  if(o.threshold){const Y=sy(o.threshold.y);s+=`<line class="thr" x1="${m.l}" x2="${W-m.r}" y1="${Y}" y2="${Y}"/>`;if(!o.spark)s+=`<text class="ann" x="${W-m.r-2}" y="${Y-5}" text-anchor="end">${o.threshold.label}</text>`}
+  if(o.marker){const X=sx(o.marker.x);s+=`<line class="mark-l" x1="${X}" x2="${X}" y1="${m.t-4}" y2="${Ht-m.b}"/><text class="ann" x="${X+5}" y="${m.t+6}">${o.marker.label}</text>`}
+  o.series.forEach(se=>{const d=se.points.map((p,i)=>(i?'L':'M')+sx(p.x).toFixed(1)+','+sy(p.y).toFixed(1)).join('');s+=`<path d="${d}" fill="none" stroke="${se.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`});
+  o.series.forEach(se=>{const p=last(se.points);const X=sx(p.x),Y=sy(p.y);s+=`<circle cx="${X}" cy="${Y}" r="4" fill="${se.color}" stroke="var(--surface)" stroke-width="2"/><text class="endlbl" x="${X+9}" y="${Y+4}">${se.endName?se.endName+' ':''}${o.yFmt(p.y,true)}</text>`});
+  s+=`<g class="hover" visibility="hidden"><line class="cross" y1="${m.t}" y2="${Ht-m.b}"/>${o.series.map(se=>`<circle r="4" fill="${se.color}" stroke="var(--surface)" stroke-width="2"/>`).join('')}</g>`;
+  s+=`<rect x="${m.l}" y="0" width="${W-m.l-m.r}" height="${Ht}" fill="transparent" class="hit"/></svg><div class="tip" hidden></div>`;
+  host.innerHTML=s;
+  const svg=host.querySelector('svg'),g=svg.querySelector('.hover'),tip=host.querySelector('.tip');
+  const pts=o.series[0].points;
+  const show=e=>{const r=svg.getBoundingClientRect();const px=e.clientX-r.left;const xv=x0+(px-m.l)/(W-m.l-m.r)*(x1-x0);let i=0,best=1e18;pts.forEach((p,k)=>{const d=Math.abs(p.x-xv);if(d<best){best=d;i=k}});
+    const X=sx(pts[i].x);g.setAttribute('visibility','visible');const ln=g.querySelector('line');ln.setAttribute('x1',X);ln.setAttribute('x2',X);
+    g.querySelectorAll('circle').forEach((c,k)=>{const p=o.series[k].points[i];c.setAttribute('cx',X);c.setAttribute('cy',sy(p.y))});
+    tip.innerHTML=tipHTML(o.xFmt(pts[i].x),o.series.map(se=>({c:se.color,n:se.name,v:o.yFmt(se.points[i].y,true)})));tip.hidden=false;
+    const tw=tip.offsetWidth;let L=X+12;if(L+tw>W)L=X-12-tw;tip.style.left=Math.max(0,L)+'px';};
+  const hide=()=>{g.setAttribute('visibility','hidden');tip.hidden=true};
+  if(!o.spark){svg.addEventListener('pointermove',show);svg.addEventListener('pointerdown',show);svg.addEventListener('pointerleave',hide)}
+}
+
+function barChart(host,o){
+  const W=host.clientWidth; if(!W) return;
+  const Ht=o.height||150, m={l:40,r:12,t:18,b:24};
+  const n=o.points.length, ymax=Math.max(...o.points.map(p=>p.y),o.ref?o.ref.y:0)*1.15;
+  const sy=y=>m.t+(1-y/ymax)*(Ht-m.t-m.b), base=Ht-m.b, slot=(W-m.l-m.r)/n, bw=Math.min(24,slot-4);
+  let s=`<svg viewBox="0 0 ${W} ${Ht}" width="${W}" height="${Ht}" role="img" aria-label="${o.label}">`;
+  niceTicks(0,ymax,3).forEach(t=>{if(t>ymax)return;s+=`<line class="grid-l" x1="${m.l}" x2="${W-m.r}" y1="${sy(t)}" y2="${sy(t)}"/><text class="tick" x="${m.l-6}" y="${sy(t)+4}" text-anchor="end">${o.yFmt(t)}</text>`});
+  o.points.forEach((p,i)=>{const x=m.l+i*slot+(slot-bw)/2,y=sy(p.y),r=Math.min(4,base-y);const hot=i>=n-o.emph;
+    s+=`<path d="M${x},${base}V${y+r}Q${x},${y} ${x+r},${y}H${x+bw-r}Q${x+bw},${y} ${x+bw},${y+r}V${base}Z" fill="${hot?'var(--series-1)':'var(--series-1-soft)'}"/>`;
+    if(i%3===1||i===n-1)s+=`<text class="tick" x="${x+bw/2}" y="${Ht-6}" text-anchor="middle">${new Date(p.x).getDate()}</text>`;});
+  const lp=last(o.points),lx=m.l+(n-1)*slot+slot/2;s+=`<text class="endlbl" x="${lx}" y="${sy(lp.y)-6}" text-anchor="middle">${o.yFmt(lp.y,true)}</text>`;
+  s+=`<line class="axis-l" x1="${m.l}" x2="${W-m.r}" y1="${base}" y2="${base}"/>`;
+  if(o.ref){const Y=sy(o.ref.y);s+=`<line class="mark-l" x1="${m.l}" x2="${W-m.r}" y1="${Y}" y2="${Y}"/><text class="ann" x="${m.l+4}" y="${Y-5}">${o.ref.label}</text>`}
+  o.points.forEach((p,i)=>{s+=`<rect data-i="${i}" x="${m.l+i*slot}" y="${m.t}" width="${slot}" height="${base-m.t}" fill="transparent"/>`});
+  s+=`</svg><div class="tip" hidden></div>`;host.innerHTML=s;
+  const tip=host.querySelector('.tip');
+  host.querySelectorAll('rect[data-i]').forEach(r=>{const i=+r.dataset.i,p=o.points[i];const on=()=>{tip.innerHTML=tipHTML(fDay(p.x),[{c:'var(--series-1)',v:o.yFmt(p.y,true)}]);tip.hidden=false;const X=m.l+i*slot+slot/2,tw=tip.offsetWidth;let L=X+10;if(L+tw>W)L=X-10-tw;tip.style.left=Math.max(0,L)+'px'};r.addEventListener('pointerenter',on);r.addEventListener('pointerdown',on);r.addEventListener('pointerleave',()=>tip.hidden=true)});
+}
+
+const tempFmt=(v,u)=>v.toFixed(1)+(u?' °C':'°');
+const actFmt=(v,u)=>Math.round(v)+(u?'%':'');
+const S1='var(--series-1)', S2='var(--series-2)';
+
+/* ---------- cows ---------- */
+const COWS={
+  412:{tag:'412',title:'Fever building',sev:'crit',sevLabel:'Check first',meta:'Lactation 3 · 12 days in milk · Pen A',
+    why:[`Rumen temperature ${last(temp412).y.toFixed(1)} °C, above her normal range for ${hot412} hours`,'Drank 58 L yesterday, a third less than her usual 88 L','12 days after calving, when uterine infection and ketosis are most common'],
+    spark:{series:[{points:tail(temp412,168),color:S1}],band:[39.1,39.6],yFmt:tempFmt,label:'Rumen temperature, 7 days'},
+    sparkCap:'<i class="key"></i>Her normal range · rumen temperature, 7 days',
+    summary:'Her temperature has climbed steadily for about three days while her drinking dropped. The combination, this soon after calving, is the pattern the model ranks highest.',
+    charts:[
+      {kind:'line',title:'Rumen temperature, 14 days',cap:'<i class="key"></i>Her normal range (39.1–39.6 °C), learned from her last 60 days. Drinking dips removed.',o:{series:[{points:temp412,color:S1,name:''}],band:[39.1,39.6],yFmt:tempFmt,xFmt:fDayTime,xTicks:(a,b)=>dayTicks(a,b,3),label:'Rumen temperature for cow 412, 14 days'}},
+      {kind:'bar',title:'Water intake per day',cap:'Estimated from drinking events the bolus detects.',o:{points:water412,ref:{y:88,label:'her usual 88 L'},emph:3,yFmt:(v,u)=>Math.round(v)+(u?' L':''),label:'Daily water intake for cow 412'}}],
+    checks:['Rectal temperature','Uterine discharge and smell','Ketones in milk or blood','Appetite and cud chewing'],
+    history:[[fDMY(dayOff(-12)),'Calved, lactation 3. No problems logged.'],[fDMY(dayOff(-374)),'Same pattern 10 days after calving. You logged: metritis, treated.'],[fDMY(dayOff(-384)),'Calved, lactation 2.']]},
+  287:{tag:'287',title:'Rumen activity dropping',sev:'serious',sevLabel:'Check today',meta:'Lactation 2 · 96 days in milk · Pen B',
+    why:[`Rumen activity at ${act287now}% of her normal, low for two days`,'Moving about 30% less than usual','Often a sign she is eating less: a digestive upset or sore feet'],
+    spark:{series:[{points:rum287h,color:S1}],band:[85,115],yFmt:actFmt,label:'Rumen activity, 3 days'},
+    sparkCap:'<i class="key"></i>Her normal range · rumen activity, 3 days',
+    summary:'Her rumen contractions have been weaker for two days and she is moving less than usual. The bolus cannot say why, but a cow that eats less shows exactly this. She is also one of the Pen B cows affected by the ration change.',
+    charts:[
+      {kind:'line',title:'Rumen activity, 3 days',cap:'<i class="key"></i>Her normal range. Percent of her own average; the daily bumps follow feeding.',o:{series:[{points:rum287h,color:S1,name:''}],band:[85,115],yFmt:actFmt,yFloor:0,xFmt:fDayTime,xTicks:(a,b)=>dayTicks(a,b,1),label:'Rumen activity for cow 287, 3 days'}},
+      {kind:'bar',title:'Rumen activity per day',cap:'Percent of her own normal.',o:{points:rum287,ref:{y:100,label:'her normal'},emph:2,yFmt:actFmt,label:'Daily rumen activity for cow 287'}}],
+    checks:['Eating and cud chewing','Manure consistency','Feet and how she walks'],
+    history:[[fDMY(dayOff(-5)),'Ration changed for Pen B.'],[fDMY(dayOff(-96)),'Calved, lactation 2.']]},
+  530:{tag:'530',title:'Calving likely within 24 hours',sev:'warn',sevLabel:'Calving soon',meta:`Lactation 2 · due ${fDM(dayOff(2))} · Pen D`,
+    why:['Temperature dropped 0.4 °C in the last 14 hours, a common sign 12–24 hours before calving','Due in two days based on her insemination date','Last calving was unassisted'],
+    spark:{series:[{points:tail(temp530,168),color:S1}],band:[39.0,39.5],yFmt:tempFmt,label:'Rumen temperature, 7 days'},
+    sparkCap:'<i class="key"></i>Her normal range · rumen temperature, 7 days',
+    summary:'Her temperature has been below her normal range for the last 14 hours. In most cows this drop comes 12 to 24 hours before calving.',
+    charts:[{kind:'line',title:'Rumen temperature, 14 days',cap:'<i class="key"></i>Her normal range (39.0–39.5 °C). Drinking dips removed.',o:{series:[{points:temp530,color:S1,name:''}],band:[39.0,39.5],yFmt:tempFmt,xFmt:fDayTime,xTicks:(a,b)=>dayTicks(a,b,3),label:'Rumen temperature for cow 530, 14 days'}}],
+    checks:['Move to the calving pen if she is not there yet','Look in every 2–3 hours from midday'],
+    history:[[fDMY(dayOff(-281)),`Inseminated. Pregnancy confirmed ${fDM(dayOff(-241))}.`],[fDMY(dayOff(-363)),'Calved, lactation 1. Unassisted.']]},
+  118:{tag:'118',title:`In heat since ${fHM(ONSET118)}`,sev:'breed',sevLabel:'Breeding',meta:'Lactation 2 · 78 days in milk · Pen A',window:win(ONSET118),
+    why:[`Activity ${(last(act118).y/100).toFixed(1)}× her normal`,'First heat since calving that the bolus picked up clearly'],
+    spark:{series:[{points:act118,color:S1}],yFmt:actFmt,yFloor:0,label:'Activity, 3 days'},sparkCap:'Activity, % of her normal, 3 days',
+    summary:`A clear heat. Her activity jumped at ${fHM(ONSET118)} and is still high, which puts the best insemination time about 12 hours after onset.`,
+    charts:[{kind:'line',title:'Activity, 3 days',cap:'Percent of her normal. The two daily bumps are feeding times.',o:{series:[{points:act118,color:S1,name:''}],yFmt:actFmt,yFloor:0,xFmt:fDayTime,xTicks:(a,b)=>dayTicks(a,b,1),label:'Activity for cow 118, 3 days'}}],
+    checks:[`Inseminate between ${win(ONSET118).replace('–',' and ')}`],history:[[fDMY(dayOff(-78)),'Calved, lactation 2.']]},
+  203:{tag:'203',title:`In heat since ${fHM(ONSET203)}`,sev:'breed',sevLabel:'Breeding',meta:'Lactation 1 · 64 days in milk · Pen C',window:win(ONSET203),
+    why:[`Activity ${(last(act203).y/100).toFixed(1)}× her normal`,'Second heat detected since calving'],
+    spark:{series:[{points:act203,color:S1}],yFmt:actFmt,yFloor:0,label:'Activity, 3 days'},sparkCap:'Activity, % of her normal, 3 days',
+    summary:`Activity rose sharply at ${fHM(ONSET203)}. The best insemination time is about 12 hours after onset.`,
+    charts:[{kind:'line',title:'Activity, 3 days',cap:'Percent of her normal. The two daily bumps are feeding times.',o:{series:[{points:act203,color:S1,name:''}],yFmt:actFmt,yFloor:0,xFmt:fDayTime,xTicks:(a,b)=>dayTicks(a,b,1),label:'Activity for cow 203, 3 days'}}],
+    checks:[`Inseminate between ${win(ONSET203).replace('–',' and ')}`],history:[[fDMY(dayOff(-64)),'Calved, lactation 1 (first calf).']]}
+};
+
+
+/* ---------- whole herd (142 cows) ---------- */
+const GROUPS=[
+  {k:'check',label:'Check today',icon:'crit',fill:'var(--crit)'},
+  {k:'heat',label:'In heat',icon:'breed',fill:'var(--accent)'},
+  {k:'watch',label:'Watch',icon:'warn',fill:'var(--warn)'},
+  {k:'device',label:'Bolus problem',icon:'dev',fill:'var(--muted)'},
+  {k:'normal',label:'Normal',icon:'good',fill:'var(--normal-fill)'}];
+const HERD=[];
+[[412,'check'],[287,'check'],[530,'check'],[118,'heat'],[203,'heat']].forEach(([t,g],i)=>{const c=COWS[t];HERD.push({tag:t,g,rank:i,reason:c.title,meta:c.meta,chip:c.sev,chipLabel:c.sevLabel,featured:true})});
+const W=(tag,reason,meta,extra)=>HERD.push({tag,g:'watch',rank:HERD.length,reason,meta,chip:'warn',chipLabel:'Watch',...extra});
+W(76,'On treatment, temperature falling','Lactation 4 · 33 days in milk · Pen A',{kind:'treat'});
+W(211,`Due to calve ${fWD(dayOff(3))} ${fDM(dayOff(3))}`,'Lactation 3 · dry · Dry cow pen',{kind:'due',due:fLong(dayOff(3))});
+[[144,72],[318,74],[239,76],[377,77],[262,79],[301,79]].forEach(([t,p])=>W(t,`Rumen activity ${p}% of normal`,`Lactation ${1+(t%3)} · ${60+t%90} days in milk · Pen B`,{kind:'rum',pct:p}));
+W(349,`Due to calve ${fWD(dayOff(5))} ${fDM(dayOff(5))}`,'Lactation 2 · dry · Dry cow pen',{kind:'due',due:fLong(dayOff(5))});
+const D=(tag,reason,meta,extra)=>HERD.push({tag,g:'device',rank:HERD.length,reason,meta,chip:'dev',chipLabel:'Bolus',...extra});
+D(308,'Bolus silent for 19 hours','Lactation 2 · 141 days in milk · Pen C',{kind:'silent',silent:19});
+D(455,'Bolus silent for 16 hours','Lactation 1 · 88 days in milk · Pen C',{kind:'silent',silent:16});
+D(64,'Bolus battery draining fast','Lactation 5 · 210 days in milk · Pen D',{kind:'battery'});
+(function(){const r=rng(99),used=new Set(HERD.map(c=>c.tag)),pens=['A','C','D','A','C','D','Dry'];let k=0;
+  while(HERD.length<142){const t=1+Math.floor(r()*599);if(used.has(t))continue;used.add(t);const l=1+Math.floor(r()*4);
+    const pen=k<15?'B':pens[k%pens.length];k++;
+    const meta=pen==='Dry'?`Lactation ${l} · dry · due in ${8+Math.floor(r()*50)} days`:`Lactation ${l} · ${14+Math.floor(r()*280)} days in milk · Pen ${pen}`;
+    HERD.push({tag:t,g:'normal',reason:'No concerns',meta,chip:'good',chipLabel:'Normal'})}})();
+const byTag=[...HERD].sort((a,b)=>a.tag-b.tag);
+
+function genericCow(tag){
+  const c=HERD.find(x=>x.tag==tag);if(!c)return null;
+  const base=39.2+(tag%5)*0.06, band=[+(base-0.25).toFixed(2),+(base+0.25).toFixed(2)], r0=tag*13+5;
+  const normTemp=(hours)=>hourly(hours,r0,(h,hb,n)=>base+0.1*Math.sin(2*Math.PI*(h-10)/24)+0.035*n);
+  const bandTxt=`${band[0].toFixed(1)}–${band[1].toFixed(1)} °C`;
+  const tempChart=(pts,title,cap)=>({kind:'line',title:title||'Rumen temperature, 14 days',cap:cap||`<i class="key"></i>Her normal range (${bandTxt}). Drinking dips removed.`,o:{series:[{points:pts,color:S1,name:''}],band,yFmt:tempFmt,xFmt:fDayTime,xTicks:(a,b)=>dayTicks(a,b,3),label:`Rumen temperature for cow ${tag}`}});
+  const o={tag:String(tag),title:c.reason,sev:c.chip,sevLabel:c.chipLabel,meta:c.meta,checks:[],history:[],fb:false};
+  if(c.kind==='treat'){
+    const pts=hourly(24*14,r0,(h,hb,n)=>base+0.1*Math.sin(2*Math.PI*(h-10)/24)+0.035*n+(hb<80&&hb>=44?1.0*Math.min(1,(80-hb)/10):hb<44?1.0*Math.exp(-(44-hb)/60):0));
+    Object.assign(o,{summary:`She developed a fever on ${fWD(ago(80))} and you started antibiotics on ${fWD(ago(44))}. Her temperature is coming down as expected, so the system stays quiet about her unless it rises again.`,charts:[tempChart(pts)],checks:['Finish the course and observe the milk withdrawal period'],history:[[fDMY(ago(44)),'You logged: mastitis, treatment started.'],[fDMY(dayOff(-33)),'Calved, lactation 4.']]});
+  } else if(c.kind==='due'){
+    Object.assign(o,{summary:`Due ${c.due}. Her temperature has not dropped yet, so calving is probably more than a day away. You'll get a message when it drops.`,charts:[tempChart(normTemp(24*14))]});
+  } else if(c.kind==='rum'){
+    const pts=hourly(24*3,r0,(h,hb,n)=>100+22*bump(h,8,1.6)+22*bump(h,19,1.6)+4*n+(hb<60?-(100-c.pct)*Math.min(1,(60-hb)/24):0));
+    Object.assign(o,{summary:`Her rumen activity has settled at about ${c.pct}% of her normal since the ration change on ${fWD(dayOff(-5))}. She is one of 7 cows in Pen B showing this, and her temperature and drinking are normal. The fix is more likely the ration than this cow on her own.`,
+      charts:[{kind:'line',title:'Rumen activity, 3 days',cap:'<i class="key"></i>Her normal range. Percent of her own average.',o:{series:[{points:pts,color:S1,name:''}],band:[85,115],yFmt:actFmt,yFloor:0,xFmt:fDayTime,xTicks:(a,b)=>dayTicks(a,b,1),label:`Rumen activity for cow ${tag}`}}]});
+  } else if(c.kind==='silent'){
+    const pts=normTemp(24*7).filter(p=>p.x<=NOW-c.silent*H);
+    Object.assign(o,{summary:`No readings since ${fDayTime(last(pts).x)}. Her last readings were normal. She was last heard near the Pen C water trough, where the gateway signal is weakest, so the bolus is most likely fine and out of range.`,
+      charts:[tempChart(pts,'Rumen temperature, last 7 days',`<i class="key"></i>Her normal range. The line stops at the last reading.`)],checks:['Check that gateway 3 is powered and online','Move her past the Pen C gateway and see if readings resume']});
+    o.charts[0].o.xTicks=(a,b)=>dayTicks(a,b,1);
+  } else if(c.kind==='battery'){
+    const v=daily([3.05,3.05,3.04,3.04,3.03,3.02,3.01,2.99,2.97,2.95,2.93,2.90,2.88,2.85]);
+    Object.assign(o,{summary:'Her bolus still reports normally, but its battery voltage has been falling faster than other boluses of the same age for about a week. At this rate it will stop in about three weeks.',
+      charts:[{kind:'line',title:'Bolus battery voltage, 14 days',cap:'Daily average.',o:{series:[{points:v,color:S1,name:''}],yFmt:(x,u)=>x.toFixed(2)+(u?' V':''),xFmt:fDay,xTicks:(a,b)=>dayTicks(a,b,3),label:`Bolus battery voltage for cow ${tag}`}},tempChart(normTemp(24*14))],checks:['Plan a replacement bolus within the next two weeks']});
+  } else {
+    Object.assign(o,{summary:'Nothing unusual in the last 14 days. Temperature, drinking and activity are all within her own normal range.',charts:[tempChart(normTemp(24*14))]});
+  }
+  return o;
+}
+
+let sortMode='attention', query='';
+const cowList=document.getElementById('cow-list');
+function rowHTML(c,chip=true){return `<button class="cowrow" data-open="${c.tag}"><span class="tag">${c.tag}</span><span class="cr-t"><span class="cr-r${c.g==='normal'?' normal':''}">${c.reason}</span><span class="meta">${c.meta}</span></span>${c.g==='normal'||!chip?'':`<span class="chip ${c.chip}">${ICON[c.chip]}${c.chipLabel}</span>`}</button>`}
+function renderCows(){
+  const rows=HERD.filter(c=>!query||String(c.tag).includes(query));
+  let html='';
+  if(!rows.length) html=`<p class="note">No cow has a tag containing ${query.replace(/[^0-9]/g,'')}.</p>`;
+  else if(sortMode==='tag') html=`<div class="rows">${byTag.filter(c=>rows.includes(c)).map(c=>rowHTML(c)).join('')}</div>`;
+  else html='<div class="grp-list">'+GROUPS.map(g=>{const rs=rows.filter(c=>c.g===g.k).sort((a,b)=>(a.rank??a.tag)-(b.rank??b.tag));if(!rs.length)return '';
+    return `<section class="grp" id="grp-${g.k}"><h3 class="grp-h">${ICON[g.icon]}${g.label}<span class="meta">${rs.length}</span></h3><div class="rows">${rs.map(c=>rowHTML(c,g.k==='check')).join('')}</div></section>`}).join('')+'</div>';
+  cowList.innerHTML=html;
+  const pos=HERD.filter(c=>c.g==='check').map(c=>byTag.indexOf(c)+1).sort((a,b)=>a-b);
+  document.getElementById('sortnote').innerHTML=sortMode==='tag'
+    ? `In tag order, the 3 cows to check today are rows <b>${pos.slice(0,-1).join(', ')} and ${last(pos)}</b> of 142. You would have to scroll the whole herd to find them.`
+    : `The <b>5 cows that need you today</b> are at the top. The 125 normal cows are at the bottom.`;
+}
+function renderSummary(){
+  const counts=GROUPS.map(g=>({...g,n:HERD.filter(c=>c.g===g.k).length}));
+  const n=k=>counts.find(c=>c.k===k).n;
+  document.getElementById('sum-line').innerHTML=`<b>${n('normal')} of 142 cows look normal.</b> ${n('check')+n('heat')} need you today, ${n('watch')} are worth watching and ${n('device')} boluses need attention.`;
+  const bar=document.getElementById('statusbar');
+  bar.setAttribute('aria-label',counts.map(c=>`${c.label} ${c.n}`).join(', '));
+  bar.innerHTML=counts.map(c=>`<span style="flex:${c.n} 0 0;background:${c.fill}" title="${c.label}: ${c.n}"></span>`).join('');
+  document.getElementById('status-legend').innerHTML=counts.map(c=>`<li><button data-grp="${c.k}"><span class="sw" style="background:${c.fill}"></span><span>${c.label}</span><b>${c.n}</b><span class="go">Show</span></button></li>`).join('');
+}
+renderSummary();renderCows();
+document.querySelector('.seg').addEventListener('click',e=>{const b=e.target.closest('[data-sort]');if(!b)return;sortMode=b.dataset.sort;
+  document.querySelectorAll('.seg [data-sort]').forEach(x=>x.setAttribute('aria-checked',x===b));renderCows()});
+document.getElementById('cow-search').addEventListener('input',e=>{query=e.target.value.trim();renderCows()});
+document.getElementById('status-legend').addEventListener('click',e=>{const b=e.target.closest('[data-grp]');if(!b)return;
+  if(sortMode!=='attention'){sortMode='attention';document.querySelectorAll('.seg [data-sort]').forEach(x=>x.setAttribute('aria-checked',x.dataset.sort==='attention'))}
+  query='';document.getElementById('cow-search').value='';renderCows();
+  const el=document.getElementById('grp-'+b.dataset.grp);if(el)el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})});
+
+/* ---------- feedback (per viewer only) ---------- */
+let FB={}; try{FB=JSON.parse(localStorage.getItem('hb-fb')||'{}')}catch(e){}
+const saveFB=()=>{try{localStorage.setItem('hb-fb',JSON.stringify(FB))}catch(e){}};
+const FB_OPTS=[['sick','Was sick'],['fine','Was fine'],['treated','Treated']];
+function fbHTML(id){return `<div class="row-actions"><button class="link" data-open="${id}">Open ${id}</button><div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end"><span class="fb-label">After you check her</span><div class="fb" data-fb="${id}">${FB_OPTS.map(([k,l])=>`<button class="btn" data-v="${k}" aria-pressed="${FB[id]===k}">${l}</button>`).join('')}</div><span class="logged" data-logged="${id}">${FB[id]?loggedText(id):''}</span></div></div>`}
+function loggedText(id){return `Logged. ${id}'s model learns from this.`}
+
+/* ---------- render: Today ---------- */
+const partOfDay=d=>{const h=d.getHours();return h<4?'night':h<12?'morning':h<18?'afternoon':'evening'};
+function briefingHTML(){const p=partOfDay(REAL0);
+  const opener=p==='morning'?'Mostly a quiet night.':p==='afternoon'?'A quiet day so far.':'Mostly a quiet day.';
+  return `${opener} <b>Check 412 first</b>: her temperature has climbed for three days and she is drinking less, 12 days after calving. <b>287</b>'s rumen activity has been low for two days. <b>530</b> will probably calve within a day. <b>118 and 203</b> are in heat; their best insemination windows open at ${fHM(winStart(ONSET203))} and ${fHM(winStart(ONSET118))}. <b>Pen B</b> has barely drunk since ${PENB_SINCE}, so check the trough before the cows.`}
+document.getElementById('briefing').innerHTML=briefingHTML();
+function updateClock(){const now=new Date(),slot=new Date(now);slot.setMinutes(now.getMinutes()<30?0:30,0,0);
+  document.getElementById('greeting').textContent={night:'Hello.',morning:'Good morning.',afternoon:'Good afternoon.',evening:'Good evening.'}[partOfDay(now)];
+  document.getElementById('clock').textContent=`${fLong(now)} · updated ${fHM(slot)}`}
+updateClock();setInterval(updateClock,60e3);
+
+function cowCard(id,rank){const c=COWS[id];return `<article class="card">
+  <div class="cow-top">${rank?`<span class="rank">${rank}</span>`:''}<span class="tag">${c.tag}</span><div class="cow-title"><h3>${c.title}</h3><span class="meta">${c.meta}</span></div><span class="chip ${c.sev}">${ICON[c.sev]}${c.sevLabel}</span></div>
+  <ul class="why">${c.why.map(w=>`<li>${w}</li>`).join('')}</ul>
+  ${c.window?`<div class="window"><span>Best insemination window</span><b>${c.window}</b></div>`:''}
+  <div class="chart" data-spark="${id}"></div><div class="caption">${c.sparkCap}</div>
+  ${c.window?`<div class="row-actions"><button class="link" data-open="${id}">Open ${id}</button></div>`:fbHTML(id)}
+</article>`}
+document.getElementById('check-list').innerHTML=[412,287,530].map((id,i)=>cowCard(id,i+1)).join('');
+document.getElementById('heat-list').innerHTML=[118,203].map(id=>cowCard(id)).join('');
+const penbTxt=`All 22 cows dropped at the same moment, to <b>${penBavg.toFixed(2)} drinks per cow per hour</b> against <b>${othAvg.toFixed(2)}</b> in the other pens. Their temperatures are normal. That points to the trough or the water supply, not illness.`;
+document.getElementById('today-herd').innerHTML=`<div class="cow-top"><div class="cow-title"><h3>Pen B is drinking less</h3><span class="meta" data-penb-meta></span></div><span class="chip serious">${ICON.serious}Herd issue</span></div><p class="body-text">${penbTxt}</p><div class="row-actions"><button class="link" data-tab-go="herd">See it on the Herd tab</button></div>`;
+document.getElementById('penb-text').innerHTML=penbTxt;
+document.querySelectorAll('[data-penb-meta]').forEach(x=>x.textContent=`22 cows · since ${PENB_SINCE}`);
+document.getElementById('ration-meta').textContent=`Since the ration change on ${fWD(dayOff(-5))} ${fDM(dayOff(-5))}`;
+
+function renderToday(){document.querySelectorAll('[data-spark]').forEach(h=>{const c=COWS[h.dataset.spark];lineChart(h,{...c.spark,spark:true})})}
+function renderHerd(){
+  lineChart(document.getElementById('c-water'),{series:[{points:penOthers,color:S1,name:'Other pens',endName:'Others'},{points:penB,color:S2,name:'Pen B',endName:'Pen B'}],mr:92,yFmt:(v)=>v.toFixed(1),yFloor:0,xFmt:fDayTime,xTicks:(a,b)=>hourTicks(a,b,6),label:'Drinks per cow per hour, Pen B against other pens'});
+  lineChart(document.getElementById('c-act'),{series:[{points:herdAct,color:S1,name:''}],marker:{x:dayOff(-5),label:'Ration change'},yFmt:actFmt,xFmt:fDay,xTicks:(a,b)=>dayTicks(a,b,3),label:'Pen B average rumen activity, 14 days'});
+}
+
+/* ---------- cow sheet ---------- */
+const sheet=document.getElementById('sheet'),sheetBody=document.getElementById('sheet-body');let openCow=null,openObj=null,lastFocus=null;
+function renderSheetCharts(){if(!openObj)return;openObj.charts.forEach((ch,i)=>{const h=document.getElementById('sc-'+i);ch.kind==='line'?lineChart(h,ch.o):barChart(h,ch.o)})}
+function openSheet(id){const c=COWS[id]||genericCow(+id);if(!c)return;openCow=id;openObj=c;lastFocus=document.activeElement;
+  document.getElementById('sheet-crumb').textContent='Cow '+id;
+  sheetBody.innerHTML=`<header class="head"><div class="cow-top"><span class="tag" style="font-size:20px;min-width:60px">${c.tag}</span><div class="cow-title"><h1 id="sheet-title" style="font-size:28px">${c.title}</h1><span class="meta">${c.meta}</span></div></div></header>
+  <div><span class="chip ${c.sev}">${ICON[c.sev]}${c.sevLabel}</span></div>
+  <p class="lede" style="font-size:16px">${c.summary}</p>
+  ${c.charts.map((ch,i)=>`<section class="card"><h3>${ch.title}</h3><div class="chart" id="sc-${i}"></div><div class="caption">${ch.cap}</div></section>`).join('')}
+  ${c.checks.length?`<section class="card"><h3>Suggested checks</h3><ul class="why">${c.checks.map(x=>`<li>${x}</li>`).join('')}</ul><p class="disclaimer">A prompt to look, not a diagnosis. Your vet decides treatment.</p>${c.window||c.fb===false?'':fbHTML(id).replace(/<button class="link"[^>]*>[^<]*<\/button>/,'<span></span>')}</section>`:''}
+  ${c.history.length?`<section class="card"><h3>Her history</h3><ul class="timeline">${c.history.map(([d,t])=>`<li><time>${d}</time><span>${t}</span></li>`).join('')}</ul></section>`:''}`;
+  sheet.hidden=false;document.body.style.overflow='hidden';sheet.scrollTop=0;renderSheetCharts();document.getElementById('sheet-back').focus();}
+function closeSheet(){sheet.hidden=true;openCow=null;openObj=null;document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
+document.getElementById('sheet-back').addEventListener('click',closeSheet);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sheet.hidden)closeSheet()});
+
+/* ---------- tabs ---------- */
+let current='today';
+function showTab(t){current=t;['today','cows','herd','ask'].forEach(k=>document.getElementById('v-'+k).hidden=k!==t);
+  document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));window.scrollTo(0,0);
+  if(t==='today')renderToday();if(t==='herd')renderHerd();}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+
+/* ---------- delegated clicks ---------- */
+document.addEventListener('click',e=>{
+  const open=e.target.closest('[data-open]');if(open){openSheet(open.dataset.open);return}
+  const go=e.target.closest('[data-tab-go]');if(go){showTab(go.dataset.tabGo);return}
+  const j=e.target.closest('[data-jump]');if(j){const el=document.getElementById(j.dataset.jump);const d=el.querySelector('details');if(d)d.open=true;el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});return}
+  const b=e.target.closest('.fb .btn');if(b){const id=b.parentElement.dataset.fb,v=b.dataset.v;FB[id]=FB[id]===v?undefined:v;if(!FB[id])delete FB[id];saveFB();
+    document.querySelectorAll(`[data-fb="${id}"] .btn`).forEach(x=>x.setAttribute('aria-pressed',FB[id]===x.dataset.v));
+    document.querySelectorAll(`[data-logged="${id}"]`).forEach(x=>x.textContent=FB[id]?loggedText(id):'');
+    document.getElementById('stat-checks').textContent=14+Object.keys(FB).length;}
+});
+document.getElementById('stat-checks').textContent=14+Object.keys(FB).length;
+
+/* ---------- ask ---------- */
+const strip=x=>String(x).replace(/<[^>]+>/g,'');
+const dailyAvg=(s,d)=>Array.from({length:d},(_,i)=>{const seg=s.slice(s.length-(d-i)*24,s.length-(d-i-1)*24);return (seg.reduce((a,p)=>a+p.y,0)/seg.length).toFixed(1)}).join(', ');
+function herdContext(){
+  const L=[],t412=last(temp412).y.toFixed(1),y412=temp412[temp412.length-25].y.toFixed(1);
+  L.push(`Current date and time: ${fLong(Date.now())}, ${fHM(Date.now())}. Data last updated ${fHM(NOW)}.`,
+    'Farm: Demo farm, 142 dairy cows in pens A, B, C, D and a dry cow pen. All data is made up for a demo.',
+    'Sensors: every cow has a rumen bolus with a temperature sensor and an accelerometer. From these the system derives rumen temperature, drinking events and estimated water intake (the rumen cools when a cow drinks), rumen activity (contractions), body activity, heat detection and the temperature drop before calving. There is no pH, milk yield, weight or feed intake data.',
+    '', "TODAY'S BRIEFING: "+strip(briefingHTML()), '', 'COWS FLAGGED TODAY:');
+  [412,287,530,118,203].forEach(id=>{const c=COWS[id];L.push(`- Cow ${id} [${c.sevLabel}] ${strip(c.title)}. ${c.meta}.`,`  Signals: ${c.why.map(strip).join('; ')}.`,`  Summary: ${strip(c.summary)}`,
+    c.window?`  Best insemination window: ${c.window}.`:false,`  Suggested checks: ${c.checks.join('; ')}.`,`  History: ${c.history.map(([d,x])=>d+': '+x).join(' | ')}`)});
+  L.push('','KEY READINGS:',
+    `- 412 rumen temperature, daily average for the last 7 days (oldest first): ${dailyAvg(temp412,7)} °C. Her normal range is 39.1–39.6 °C. Now ${t412} °C; 24 hours ago ${y412} °C.`,
+    `- 412 water intake, litres per day for the last 14 days (oldest first): ${water412.map(p=>p.y).join(', ')}. Her usual is 88 L.`,
+    `- 287 rumen activity, % of her normal, last 14 days: ${rum287.map(p=>p.y).join(', ')}. Now ${act287now}%.`,
+    `- 530 rumen temperature now ${last(temp530).y.toFixed(1)} °C (normal 39.0–39.5 °C), below normal for 14 hours. Due ${fLong(dayOff(2))}.`,
+    `- 118 activity now ${Math.round(last(act118).y)}% of normal, heat started ${fHM(ONSET118)}. 203 activity now ${Math.round(last(act203).y)}%, heat started ${fHM(ONSET203)}.`,
+    '','HERD-LEVEL:',
+    `- Pen B (22 cows) drinking: ${penBavg.toFixed(2)} drinks per cow per hour since ${PENB_SINCE}, against ${othAvg.toFixed(2)} in the other pens. All 22 dropped at the same time and their temperatures are normal, which points to a trough or water supply fault.`,
+    `- Pen B rumen activity after the ration change on ${fLong(dayOff(-5))}, daily average % of normal for the last 14 days: ${herdAct.map(p=>p.y).join(', ')}. 7 cows are below 80%: 287, 144, 318, 239, 377, 262, 301.`,
+    '- Boluses: 139 of 142 reporting. 308 silent for 19 hours and 455 silent for 16 hours; both were last heard near the Pen C water trough, where gateway 3 coverage is weakest, so they are probably out of range. 64: battery voltage falling fast (2.85 V, was 3.05 V two weeks ago), expected to stop in about 3 weeks.',
+    `- Alerts in the last 12 hours: 14 raw alerts, 9 filtered as normal: 6 temperature drops after drinking, 2 activity spikes at morning feed-out, 1 fever alert on 76 (on antibiotics since ${fWD(ago(44))}, temperature falling from 40.3 to 39.7 °C).`,
+    `- Checks the farmer logged this month: ${14+Object.keys(FB).length}.`,
+    '','ALL COWS (tag | status | note | details):');
+  byTag.forEach(c=>L.push(`${c.tag} | ${GROUPS.find(g=>g.k===c.g).label} | ${c.reason} | ${c.meta}`));
+  return L.filter(x=>x!==false).join('\n');
+}
+const SAMPLES=[
+  ['How is 412 compared with yesterday?',`Worse. Her rumen temperature is **${last(temp412).y.toFixed(1)} °C**, up from ${temp412[temp412.length-25].y.toFixed(1)} °C at this time yesterday, and she drank about 58 L yesterday against her usual 88 L. She is 12 days after calving, when uterine infection and ketosis are most common. Check her first.`],
+  ['What is going on in Pen B?',`Two separate things:\n- **Water:** since ${PENB_SINCE} all 22 cows are drinking ${penBavg.toFixed(2)} times per hour against ${othAvg.toFixed(2)} in the other pens. They all dropped at the same moment and their temperatures are normal, so check the trough and the supply first.\n- **Feed:** since the ration change on ${fWD(dayOff(-5))}, the pen's rumen activity fell from 100% to 88% of normal, and 7 cows are below 80%. Worth a call with your nutritionist.`],
+  ['Which cows should I inseminate today?',`Two are in heat:\n- **203**, best window **${win(ONSET203)}** (heat started ${fHM(ONSET203)})\n- **118**, best window **${win(ONSET118)}** (heat started ${fHM(ONSET118)})\nBoth show a clear activity peak, about 2.5 times their normal.`],
+  ['Which cows calve this week?',`Three:\n- **530** most likely within a day; her temperature has been below normal for 14 hours.\n- **211** is due ${fLong(dayOff(3))}.\n- **349** is due ${fLong(dayOff(5))}.\n211 and 349 are still in the dry cow pen.`],
+  ['Why did you skip the alert on 76?',`76 has been on the antibiotic course you logged since ${fWD(ago(44))}. Her temperature is falling as expected (40.3 → 39.7 °C), so a fever alert would tell you nothing new. I'll flag her again if it rises.`],
+  ['Is anything wrong with the boluses?',`139 of 142 are reporting normally.\n- **308** and **455** have been silent for 19 and 16 hours. Both were last heard near the Pen C water trough, where gateway 3 reaches worst, so they are probably out of range rather than broken.\n- **64**'s battery is draining faster than normal. Plan a replacement within about two weeks.`],
+  ['How much milk did 412 give yesterday?',`I can't tell you that: the bolus measures rumen temperature and movement, not milk. What I can see is that she drank about 58 L yesterday instead of her usual 88 L, and cows that drink less usually give less milk too. Your milking system's records would have the exact figure.`],
+  ['Melyik tehenet nézzem meg először?',`A **412**-est. A bendőhőmérséklete három napja emelkedik, most ${last(temp412).y.toFixed(1)} °C, és tegnap csak kb. 58 litert ivott a szokásos 88 helyett. 12 napja ellett, ilyenkor gyakori a méhgyulladás és a ketózis. Érdemes megmérni a végbélhőjét és megnézni a folyását.`]
+];
+// Standing instructions for live answers; the herd data rides along as the page's data.
+const rules=()=>`You are the herd assistant inside a dairy farm app. A farmer asks questions on their phone, often in the barn. Answer from the herd data below and from your knowledge of dairy cattle health, reproduction, nutrition and management.
+
+How to answer:
+- Keep it short: usually two to five sentences, or a few bullets. Give the answer first, then the figures that support it.
+- Refer to cows by tag number and quote the actual figures from the data.
+- If the data does not contain what the question needs, say so plainly and say what the data does show. Never invent readings, cows, dates or events.
+- The bolus measures rumen temperature and movement only. There is no pH, milk yield, weight or feed intake data. Conditions such as ketosis, metritis or mastitis can only be suspected from these signals.
+- Suggest what to check and when to call the vet. Do not state a diagnosis as certain and do not recommend drugs or doses.
+- Reply in the language the farmer writes in.
+- Plain text. Short "- " bullet lists and **bold** for a tag number or key figure are fine. No headings or tables.
+- If a question has nothing to do with the herd, cattle or farming, say in one sentence that you can only help with the herd.
+- This is a demo with a made-up herd. If asked whether the data is real, say so.
+
+<herd_data>
+${herdContext()}
+</herd_data>`;
+
+const chat=document.getElementById('chat'),qs=document.getElementById('qs'),composer=document.getElementById('composer'),askInput=document.getElementById('ask-input'),askSend=document.getElementById('ask-send');
+const esc=x=>x.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function md(text){let out='',list=false;
+  for(const raw of esc(text).split('\n')){const l=raw.trim();
+    if(/^[-•*] /.test(l)){if(!list){out+='<ul>';list=true}out+=`<li>${l.slice(2)}</li>`;continue}
+    if(list){out+='</ul>';list=false}if(l)out+=`<p>${l}</p>`}
+  if(list)out+='</ul>';return out.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}
+function addMsg(cls,html){chat.insertAdjacentHTML('beforeend',`<div class="msg ${cls}">${html}</div>`);const el=chat.lastElementChild;el.scrollIntoView({block:'nearest'});return el}
+qs.innerHTML=SAMPLES.map(([q],i)=>`<button class="q" data-q="${i}">${q}</button>`).join('');
+
+// Live answers exist only where the page runs inside claude.ai (the viewer's own Claude plan answers).
+// Everywhere else, including the personal website, the saved answers above are the whole feature.
+let live=null,turns=[],busy=false;
+function goLive(sample){live=sample;composer.hidden=false;
+  document.getElementById('ask-note').textContent='Ask anything about the herd, in any language. Claude answers live from this demo herd\'s data, on your own Claude plan.';
+  document.getElementById('ask-intro').textContent='Ask me about any cow, a pen, or the last 24 hours. Type a question or try one of these:'}
+function goSaved(){live=null;composer.hidden=true;
+  document.getElementById('ask-note').textContent='Tap a question to see how the assistant answers. Live answers are switched off here, so these are pre-written.'}
+if(window.claude&&typeof window.claude.use==='function')window.claude.use('sample').then(s=>{if(s)goLive(s)}).catch(()=>{});
+
+function setBusy(b){busy=b;askSend.disabled=b;qs.querySelectorAll('.q').forEach(x=>{if(!x.dataset.asked)x.disabled=b})}
+function savedAnswer(bot,q,note){const sample=SAMPLES.find(([sq])=>sq===q);
+  if(sample){bot.innerHTML=md(sample[1])+(note?`<p class="offline">${note}</p>`:'');return true}return false}
+async function ask(q){
+  q=q.trim();if(busy||!q)return;setBusy(true);
+  addMsg('me',esc(q));const bot=addMsg('bot typing','Looking at the herd data…');
+  try{
+    if(!live){await new Promise(r=>setTimeout(r,matchMedia('(prefers-reduced-motion: reduce)').matches?0:600));bot.classList.remove('typing');savedAnswer(bot,q);return}
+    turns.push({role:'user',content:q});
+    try{
+      const {text,truncated}=await live([{role:'user',content:rules()},...turns.slice(-10)],{modelTier:'quick',cache:false,
+        onText:({text})=>{bot.classList.remove('typing');bot.innerHTML=md(text)}});
+      bot.classList.remove('typing');bot.innerHTML=md(text)+(truncated?'<p class="offline">Cut short. Ask for less at a time.</p>':'');
+      turns.push({role:'assistant',content:text});
+    }catch(e){
+      turns.pop();bot.classList.remove('typing');
+      const code=e&&e.code;
+      if(['not_granted','sampling_disabled','not_declared','capability_disabled','capability_removed'].includes(code)){goSaved();
+        if(!savedAnswer(bot,q,'Pre-written answer: live answers are not allowed for this page.'))bot.innerHTML='<p>Live answers are switched off for this page. Tap one of the questions above to see a pre-written answer.</p>'}
+      else if(e&&e.text)bot.innerHTML=md(e.text)+'<p class="offline">The answer was interrupted. Ask again to retry.</p>';
+      else if(code==='rate_limited'){if(!savedAnswer(bot,q,'Pre-written answer: your Claude usage limit was reached.'))bot.innerHTML='<p>Your Claude usage limit was reached. Try again later.</p>'}
+      else if(!savedAnswer(bot,q,'Pre-written answer: the live answer failed.')){bot.classList.add('err');bot.innerHTML='<p>Claude could not answer just now. Try again in a moment.</p>'}
+    }
+  }finally{setBusy(false);bot.scrollIntoView({block:'nearest'})}
+}
+qs.addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b||b.disabled)return;b.dataset.asked='1';b.disabled=true;ask(SAMPLES[+b.dataset.q][0])});
+composer.addEventListener('submit',e=>{e.preventDefault();const q=askInput.value;if(!q.trim()||busy||!live)return;askInput.value='';askInput.style.height='';ask(q)});
+askInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();composer.requestSubmit()}});
+askInput.addEventListener('input',()=>{askInput.style.height='';askInput.style.height=Math.min(askInput.scrollHeight,140)+'px'});
+
+/* ---------- boot ---------- */
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{if(current==='today')renderToday();if(current==='herd')renderHerd();renderSheetCharts()},120)});
+const hash=(location.hash||'').slice(1);
+showTab(['today','cows','herd','ask'].includes(hash)?hash:'today');
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(current==='today')renderToday()});
+</script>
+</body>
+</html>
